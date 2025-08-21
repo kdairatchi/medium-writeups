@@ -196,6 +196,12 @@ jobs:
           go vet ./...
           echo "✅ Code analysis passed"
 
+      - name: 🧪 Run unit tests
+        run: |
+          echo "🧪 Running tests..."
+          go test ./...
+          echo "✅ Tests passed"
+
   # Job 4: Main aggregation job with enhanced rate limiting
   aggregate:
     name: 📰 Aggregate Posts
@@ -633,22 +639,28 @@ jobs:
           go mod download
           echo "✅ Dependencies ready"
       
-      - name: 🧪 Build application
-        run: |
-          echo "🔨 Building application..."
-          go build -v -o aggregator ./main.go
-          echo "✅ Build successful"
-          
-          # Test if the binary works
-          echo "🧪 Testing binary..."
-          ./aggregator --help 2>/dev/null || echo "ℹ️ Binary created (help flag not implemented)"
-          echo "✅ Binary test completed"
-      
-      - name: 🔍 Run code analysis
-        run: |
-          echo "🔍 Running go vet..."
-          go vet ./...
-          echo "✅ Code analysis passed"
+        - name: 🧪 Build application
+          run: |
+            echo "🔨 Building application..."
+            go build -v -o aggregator ./main.go
+            echo "✅ Build successful"
+
+            # Test if the binary works
+            echo "🧪 Testing binary..."
+            ./aggregator --help 2>/dev/null || echo "ℹ️ Binary created (help flag not implemented)"
+            echo "✅ Binary test completed"
+
+        - name: 🔍 Run code analysis
+          run: |
+            echo "🔍 Running go vet..."
+            go vet ./...
+            echo "✅ Code analysis passed"
+
+        - name: 🧪 Run unit tests
+          run: |
+            echo "🧪 Running tests..."
+            go test ./...
+            echo "✅ Tests passed"
 
   # Job 4: Main aggregation job with enhanced rate limiting
   aggregate:
