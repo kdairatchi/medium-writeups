@@ -716,7 +716,7 @@ async function cacheUrls(urls) {
     await Promise.all(
         urls.map(url => 
             cache.add(url).catch(err => 
-                console.warn(`Failed to cache ${url}:`, err.message)
+                console.warn('Failed to cache %s: %s', url, err.message)
             )
         )
     );
