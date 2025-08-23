@@ -8,6 +8,7 @@ on:
     paths:
       - 'main.go'
       - 'index.html'
+      - 'README.md'
       - 'src/**'
       - '.github/workflows/static.yml'
 
