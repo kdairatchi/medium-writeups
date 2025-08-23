@@ -1,12 +1,413 @@
 /**
- * Modern Cybersecurity Dashboard Application
- * Built with Alpine.js for reactive UI and Chart.js for analytics
+ * ABOUTME: Modern Cybersecurity Dashboard Application with full CVE integration
+ * ABOUTME: Built with Alpine.js for reactive UI, Chart.js for analytics, and NVD API integration
  */
 
-import { DataCache } from './cache.js';
+import { DataCache, HybridCache } from './cache.js';
 import { Analytics } from './analytics.js';
 import { Utils } from './utils.js';
 import { initPerformanceMonitoring, CodeSplitter } from './performance.js';
+
+/**
+ * CVE API Integration Service
+ */
+class CVEService {
+    constructor() {
+        this.baseUrl = 'https://services.nvd.nist.gov/rest/json/cves/2.0/';
+        this.cache = new HybridCache({ memorySize: 100, memoryTTL: 300000, diskTTL: 3600000 });
+        this.rateLimiter = new RateLimiter(5, 30000); // 5 requests per 30 seconds
+        this.apiKey = null; // Optional API key for higher rate limits
+    }
+
+    /**
+     * Search CVEs with filters
+     */
+    async searchCVEs(options = {}) {
+        const {
+            cveId,
+            keywordSearch,
+            pubStartDate,
+            pubEndDate,
+            lastModStartDate,
+            lastModEndDate,
+            cvssV3Severity,
+            resultsPerPage = 20,
+            startIndex = 0
+        } = options;
+
+        const cacheKey = `cve_search_${JSON.stringify(options)}`;
+        const cached = await this.cache.get(cacheKey);
+        if (cached) return cached;
+
+        await this.rateLimiter.waitForPermission();
+
+        const params = new URLSearchParams();
+        if (cveId) params.append('cveId', cveId);
+        if (keywordSearch) params.append('keywordSearch', keywordSearch);
+        if (pubStartDate) params.append('pubStartDate', pubStartDate);
+        if (pubEndDate) params.append('pubEndDate', pubEndDate);
+        if (lastModStartDate) params.append('lastModStartDate', lastModStartDate);
+        if (lastModEndDate) params.append('lastModEndDate', lastModEndDate);
+        if (cvssV3Severity) params.append('cvssV3Severity', cvssV3Severity);
+        params.append('resultsPerPage', resultsPerPage);
+        params.append('startIndex', startIndex);
+
+        try {
+            const headers = { 'Accept': 'application/json' };
+            if (this.apiKey) headers['apiKey'] = this.apiKey;
+
+            const response = await fetch(`${this.baseUrl}?${params}`, { headers });
+            
+            if (!response.ok) {
+                throw new Error(`CVE API error: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            await this.cache.set(cacheKey, data);
+            return data;
+        } catch (error) {
+            console.error('CVE API request failed:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Get specific CVE details
+     */
+    async getCVE(cveId) {
+        return this.searchCVEs({ cveId });
+    }
+
+    /**
+     * Get recent CVEs
+     */
+    async getRecentCVEs(days = 7, severity = null) {
+        const endDate = new Date();
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - days);
+
+        const options = {
+            pubStartDate: startDate.toISOString().split('T')[0] + 'T00:00:000',
+            pubEndDate: endDate.toISOString().split('T')[0] + 'T23:59:999',
+            resultsPerPage: 50
+        };
+
+        if (severity) options.cvssV3Severity = severity;
+
+        return this.searchCVEs(options);
+    }
+
+    /**
+     * Get CVE of the day (highest CVSS score published today)
+     */
+    async getCVEOfTheDay() {
+        const today = new Date();
+        const todayStr = today.toISOString().split('T')[0];
+        
+        const cacheKey = `cve_of_the_day_${todayStr}`;
+        const cached = await this.cache.get(cacheKey);
+        if (cached) return cached;
+
+        try {
+            const response = await this.searchCVEs({
+                pubStartDate: todayStr + 'T00:00:000',
+                pubEndDate: todayStr + 'T23:59:999',
+                resultsPerPage: 20
+            });
+
+            if (response.vulnerabilities?.length > 0) {
+                // Find CVE with highest CVSS score
+                const cveOfTheDay = response.vulnerabilities
+                    .map(v => v.cve)
+                    .filter(cve => cve.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore)
+                    .sort((a, b) => {
+                        const scoreA = a.metrics.cvssMetricV31[0].cvssData.baseScore;
+                        const scoreB = b.metrics.cvssMetricV31[0].cvssData.baseScore;
+                        return scoreB - scoreA;
+                    })[0];
+
+                if (cveOfTheDay) {
+                    await this.cache.set(cacheKey, cveOfTheDay);
+                    return cveOfTheDay;
+                }
+            }
+
+            // Fallback to recent high-severity CVE
+            const fallback = await this.getRecentCVEs(3, 'HIGH');
+            const cve = fallback.vulnerabilities?.[0]?.cve;
+            if (cve) {
+                await this.cache.set(cacheKey, cve);
+                return cve;
+            }
+        } catch (error) {
+            console.error('Failed to get CVE of the day:', error);
+        }
+
+        return null;
+    }
+
+    /**
+     * Format CVE for display
+     */
+    formatCVE(cve) {
+        const metrics = cve.metrics?.cvssMetricV31?.[0] || cve.metrics?.cvssMetricV30?.[0] || cve.metrics?.cvssMetricV2?.[0];
+        const cvssData = metrics?.cvssData;
+        
+        return {
+            id: cve.id,
+            description: cve.descriptions?.find(d => d.lang === 'en')?.value || 'No description available',
+            publishedDate: cve.published,
+            lastModified: cve.lastModified,
+            cvssScore: cvssData?.baseScore || 0,
+            cvssVector: cvssData?.vectorString || '',
+            severity: this.getSeverityLevel(cvssData?.baseScore || 0),
+            references: cve.references?.slice(0, 5) || [],
+            weaknesses: cve.weaknesses?.map(w => w.description?.[0]?.value).filter(Boolean) || [],
+            configurations: this.extractConfigurations(cve.configurations)
+        };
+    }
+
+    getSeverityLevel(score) {
+        if (score >= 9.0) return 'CRITICAL';
+        if (score >= 7.0) return 'HIGH';
+        if (score >= 4.0) return 'MEDIUM';
+        if (score > 0) return 'LOW';
+        return 'NONE';
+    }
+
+    extractConfigurations(configurations) {
+        if (!configurations?.nodes) return [];
+        
+        const products = [];
+        configurations.nodes.forEach(node => {
+            node.cpeMatch?.forEach(match => {
+                if (match.criteria) {
+                    const parts = match.criteria.split(':');
+                    if (parts.length >= 5) {
+                        products.push(`${parts[3]} ${parts[4]}`);
+                    }
+                }
+            });
+        });
+        
+        return [...new Set(products)].slice(0, 10);
+    }
+}
+
+/**
+ * Rate Limiter for API calls
+ */
+class RateLimiter {
+    constructor(maxRequests, windowMs) {
+        this.maxRequests = maxRequests;
+        this.windowMs = windowMs;
+        this.requests = [];
+    }
+
+    async waitForPermission() {
+        const now = Date.now();
+        this.requests = this.requests.filter(time => now - time < this.windowMs);
+
+        if (this.requests.length >= this.maxRequests) {
+            const oldestRequest = Math.min(...this.requests);
+            const waitTime = this.windowMs - (now - oldestRequest);
+            
+            if (waitTime > 0) {
+                console.log(`Rate limit hit, waiting ${waitTime}ms`);
+                await new Promise(resolve => setTimeout(resolve, waitTime));
+                return this.waitForPermission();
+            }
+        }
+
+        this.requests.push(now);
+    }
+}
+
+/**
+ * Threat Intelligence Service
+ */
+class ThreatIntelService {
+    constructor() {
+        this.cache = new HybridCache();
+        this.sources = [
+            {
+                name: 'CISA Alerts',
+                url: 'https://www.cisa.gov/news-events/cybersecurity-advisories',
+                parser: 'cisa'
+            },
+            {
+                name: 'US-CERT',
+                url: 'https://www.cisa.gov/news-events/alerts',
+                parser: 'uscert'
+            }
+        ];
+    }
+
+    async getThreatIntelligence() {
+        const cacheKey = 'threat_intel';
+        const cached = await this.cache.get(cacheKey);
+        if (cached) return cached;
+
+        try {
+            // Mock threat intelligence data (in production, would fetch from real sources)
+            const threats = [
+                {
+                    id: 'TI-001',
+                    title: 'New Ransomware Campaign Targeting Healthcare',
+                    severity: 'HIGH',
+                    source: 'CISA',
+                    published: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+                    description: 'Advanced persistent threat actors are using new encryption methods.',
+                    indicators: ['192.168.1.100', 'malicious-domain.com', 'SHA256:abc123...'],
+                    mitigations: ['Update antivirus signatures', 'Block suspicious IPs', 'Enable MFA']
+                },
+                {
+                    id: 'TI-002', 
+                    title: 'Zero-Day Exploit in Popular Web Framework',
+                    severity: 'CRITICAL',
+                    source: 'US-CERT',
+                    published: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+                    description: 'Remote code execution vulnerability affects millions of websites.',
+                    indicators: ['CVE-2024-12345', 'exploit-kit.exe'],
+                    mitigations: ['Apply patches immediately', 'Monitor web traffic', 'WAF rules']
+                },
+                {
+                    id: 'TI-003',
+                    title: 'Phishing Campaign Mimicking Banking Services',
+                    severity: 'MEDIUM',
+                    source: 'Security Vendor',
+                    published: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
+                    description: 'Sophisticated phishing emails targeting financial institutions.',
+                    indicators: ['phishing-site.net', 'fake-bank-login.com'],
+                    mitigations: ['User awareness training', 'Email filtering', 'URL reputation']
+                }
+            ];
+
+            await this.cache.set(cacheKey, threats);
+            return threats;
+        } catch (error) {
+            console.error('Failed to fetch threat intelligence:', error);
+            return [];
+        }
+    }
+}
+
+/**
+ * Social Sharing Service
+ */
+class SocialService {
+    static shareToTwitter(title, url) {
+        const text = encodeURIComponent(`Check out: ${title}`);
+        const shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}&hashtags=cybersecurity,infosec`;
+        window.open(shareUrl, '_blank', 'width=550,height=420');
+    }
+
+    static shareToLinkedIn(title, url) {
+        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank', 'width=550,height=420');
+    }
+
+    static shareToReddit(title, url) {
+        const shareUrl = `https://reddit.com/submit?title=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+        window.open(shareUrl, '_blank', 'width=550,height=420');
+    }
+
+    static copyToClipboard(text) {
+        if (navigator.clipboard) {
+            return navigator.clipboard.writeText(text);
+        } else {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            return Promise.resolve();
+        }
+    }
+}
+
+/**
+ * Bookmark/Favorites Service
+ */
+class BookmarkService {
+    constructor() {
+        this.storageKey = 'cybersec_bookmarks';
+    }
+
+    getBookmarks() {
+        return Utils.storage.get(this.storageKey, []);
+    }
+
+    addBookmark(post) {
+        const bookmarks = this.getBookmarks();
+        const existing = bookmarks.find(b => b.guid === post.guid);
+        
+        if (!existing) {
+            bookmarks.unshift({
+                ...post,
+                bookmarkedAt: new Date().toISOString()
+            });
+            Utils.storage.set(this.storageKey, bookmarks);
+            return true;
+        }
+        return false;
+    }
+
+    removeBookmark(guid) {
+        const bookmarks = this.getBookmarks();
+        const filtered = bookmarks.filter(b => b.guid !== guid);
+        Utils.storage.set(this.storageKey, filtered);
+        return bookmarks.length !== filtered.length;
+    }
+
+    isBookmarked(guid) {
+        const bookmarks = this.getBookmarks();
+        return bookmarks.some(b => b.guid === guid);
+    }
+
+    clearBookmarks() {
+        Utils.storage.set(this.storageKey, []);
+    }
+}
+
+/**
+ * Data Export Service
+ */
+class ExportService {
+    static exportToCSV(data, filename = 'cybersec_data.csv') {
+        const headers = ['Title', 'Category', 'Published', 'Author', 'CVEs', 'Link'];
+        const rows = data.map(post => [
+            `"${post.title}"`,
+            post.sourceCategory || '',
+            post.publishedTime,
+            post.author || '',
+            (post.cveIds || []).join(';'),
+            post.link
+        ]);
+        
+        const csv = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+        this.downloadFile(csv, filename, 'text/csv');
+    }
+
+    static exportToJSON(data, filename = 'cybersec_data.json') {
+        const json = JSON.stringify(data, null, 2);
+        this.downloadFile(json, filename, 'application/json');
+    }
+
+    static downloadFile(content, filename, mimeType) {
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+}
 
 // Global dashboard application
 function dashboardApp() {
@@ -52,6 +453,26 @@ function dashboardApp() {
         categoryChart: null,
         timelineChart: null,
 
+        // Services
+        cveService: new CVEService(),
+        threatIntelService: new ThreatIntelService(),
+        bookmarkService: new BookmarkService(),
+
+        // Additional UI state
+        showCVEModal: false,
+        currentCVE: null,
+        showBookmarks: false,
+        showExportModal: false,
+        threatIntel: [],
+        cveOfTheDay: null,
+        newsTicker: [],
+        keyboardNavIndex: -1,
+        notifications: [],
+
+        // Export options
+        exportFormat: 'json',
+        exportData: 'filtered',
+
         // Color palette for categories
         categoryColors: {
             'Core Security': '#FF6B6B',
@@ -82,8 +503,18 @@ function dashboardApp() {
             // Initialize scroll tracking
             this.initScrollTracking();
             
+            // Initialize keyboard navigation
+            this.initKeyboardNavigation();
+            
             // Load data with performance tracking
             await this.loadData();
+            
+            // Load threat intelligence and CVE data
+            await this.loadThreatIntelligence();
+            await this.loadCVEOfTheDay();
+            
+            // Initialize news ticker
+            this.initNewsTicker();
             
             Utils.performance.mark('app-init-end');
             const initTime = Utils.performance.measure('app-init', 'app-init-start', 'app-init-end');
@@ -101,6 +532,9 @@ function dashboardApp() {
             // Initialize analytics
             this.initAnalytics();
             
+            // Show welcome notification
+            this.showNotification('Dashboard loaded successfully!', 'success');
+            
             console.log('✅ Dashboard initialized successfully');
         },
 
@@ -110,9 +544,139 @@ function dashboardApp() {
         },
 
         initScrollTracking() {
-            window.addEventListener('scroll', () => {
+            window.addEventListener('scroll', Utils.throttle(() => {
                 this.showScrollTop = window.pageYOffset > 300;
+            }, 100));
+        },
+
+        initKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                // Global keyboard shortcuts
+                if (e.ctrlKey || e.metaKey) {
+                    switch (e.key) {
+                        case 'k':
+                            e.preventDefault();
+                            document.querySelector('[data-search-input]')?.focus();
+                            break;
+                        case 'b':
+                            e.preventDefault();
+                            this.showBookmarks = !this.showBookmarks;
+                            break;
+                        case 'd':
+                            e.preventDefault();
+                            this.toggleTheme();
+                            break;
+                        case 'e':
+                            e.preventDefault();
+                            this.showExportModal = true;
+                            break;
+                    }
+                }
+                
+                // Escape key handling
+                if (e.key === 'Escape') {
+                    this.showCVEModal = false;
+                    this.showSettings = false;
+                    this.showBookmarks = false;
+                    this.showExportModal = false;
+                }
+                
+                // Arrow navigation for posts
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    this.navigatePosts(e.key === 'ArrowDown' ? 1 : -1);
+                }
+                
+                // Enter to open highlighted post
+                if (e.key === 'Enter' && this.keyboardNavIndex >= 0) {
+                    const posts = document.querySelectorAll('[data-post-link]');
+                    if (posts[this.keyboardNavIndex]) {
+                        posts[this.keyboardNavIndex].click();
+                    }
+                }
             });
+        },
+        
+        navigatePosts(direction) {
+            const posts = document.querySelectorAll('[data-post-link]');
+            if (posts.length === 0) return;
+            
+            // Remove previous highlight
+            posts.forEach(post => post.classList.remove('keyboard-highlight'));
+            
+            // Update index
+            this.keyboardNavIndex += direction;
+            
+            // Wrap around
+            if (this.keyboardNavIndex >= posts.length) this.keyboardNavIndex = 0;
+            if (this.keyboardNavIndex < 0) this.keyboardNavIndex = posts.length - 1;
+            
+            // Highlight current post
+            const currentPost = posts[this.keyboardNavIndex];
+            currentPost.classList.add('keyboard-highlight');
+            currentPost.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+
+        async loadThreatIntelligence() {
+            try {
+                this.threatIntel = await this.threatIntelService.getThreatIntelligence();
+            } catch (error) {
+                console.error('Failed to load threat intelligence:', error);
+                this.showNotification('Failed to load threat intelligence', 'error');
+            }
+        },
+
+        async loadCVEOfTheDay() {
+            try {
+                this.cveOfTheDay = await this.cveService.getCVEOfTheDay();
+            } catch (error) {
+                console.error('Failed to load CVE of the day:', error);
+            }
+        },
+
+        initNewsTicker() {
+            // Combine threat intel and recent posts for news ticker
+            this.newsTicker = [
+                ...this.threatIntel.map(threat => ({
+                    type: 'threat',
+                    text: `🚨 ${threat.title}`,
+                    severity: threat.severity,
+                    timestamp: threat.published
+                })),
+                ...this.allPosts.filter(p => p.isNew).slice(0, 5).map(post => ({
+                    type: 'post',
+                    text: `📰 ${post.title}`,
+                    severity: 'INFO',
+                    timestamp: post.publishedTime
+                }))
+            ].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            // Start ticker animation
+            this.startNewsTicker();
+        },
+
+        startNewsTicker() {
+            if (this.newsTicker.length === 0) return;
+            
+            let currentIndex = 0;
+            const tickerElement = document.querySelector('[data-news-ticker]');
+            
+            if (!tickerElement) return;
+            
+            const updateTicker = () => {
+                if (this.newsTicker.length > 0) {
+                    const item = this.newsTicker[currentIndex % this.newsTicker.length];
+                    tickerElement.innerHTML = `
+                        <span class="ticker-item ${item.severity.toLowerCase()}">
+                            ${item.text}
+                        </span>
+                    `;
+                    currentIndex++;
+                }
+            };
+            
+            updateTicker();
+            setInterval(updateTicker, 5000); // Change every 5 seconds
         },
 
         async loadData() {
@@ -466,6 +1030,143 @@ function dashboardApp() {
             this.filterPosts();
         },
 
+        // CVE Management
+        async searchCVE(cveId) {
+            if (!cveId.trim()) return;
+            
+            try {
+                this.isLoading = true;
+                const response = await this.cveService.getCVE(cveId.trim());
+                
+                if (response.vulnerabilities?.length > 0) {
+                    this.currentCVE = this.cveService.formatCVE(response.vulnerabilities[0].cve);
+                    this.showCVEModal = true;
+                } else {
+                    this.showNotification(`CVE ${cveId} not found`, 'warning');
+                }
+            } catch (error) {
+                console.error('CVE search failed:', error);
+                this.showNotification('CVE search failed', 'error');
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async showCVEDetails(cveId) {
+            await this.searchCVE(cveId);
+        },
+
+        // Bookmark Management
+        toggleBookmark(post) {
+            const wasBookmarked = this.bookmarkService.isBookmarked(post.guid);
+            
+            if (wasBookmarked) {
+                this.bookmarkService.removeBookmark(post.guid);
+                this.showNotification('Bookmark removed', 'info');
+            } else {
+                this.bookmarkService.addBookmark(post);
+                this.showNotification('Post bookmarked', 'success');
+            }
+        },
+
+        isBookmarked(guid) {
+            return this.bookmarkService.isBookmarked(guid);
+        },
+
+        getBookmarks() {
+            return this.bookmarkService.getBookmarks();
+        },
+
+        clearAllBookmarks() {
+            this.bookmarkService.clearBookmarks();
+            this.showNotification('All bookmarks cleared', 'info');
+        },
+
+        // Social Sharing
+        sharePost(post, platform) {
+            const url = post.link;
+            const title = post.title;
+            
+            switch (platform) {
+                case 'twitter':
+                    SocialService.shareToTwitter(title, url);
+                    break;
+                case 'linkedin':
+                    SocialService.shareToLinkedIn(title, url);
+                    break;
+                case 'reddit':
+                    SocialService.shareToReddit(title, url);
+                    break;
+                case 'copy':
+                    SocialService.copyToClipboard(url)
+                        .then(() => this.showNotification('Link copied to clipboard', 'success'))
+                        .catch(() => this.showNotification('Failed to copy link', 'error'));
+                    break;
+            }
+        },
+
+        // Data Export
+        exportData() {
+            const data = this.exportData === 'all' ? this.allPosts : this.filteredPosts;
+            const timestamp = new Date().toISOString().split('T')[0];
+            const filename = `cybersec_posts_${timestamp}`;
+            
+            if (this.exportFormat === 'csv') {
+                ExportService.exportToCSV(data, `${filename}.csv`);
+            } else {
+                ExportService.exportToJSON(data, `${filename}.json`);
+            }
+            
+            this.showExportModal = false;
+            this.showNotification(`Data exported as ${this.exportFormat.toUpperCase()}`, 'success');
+        },
+
+        // Notification System
+        showNotification(message, type = 'info', duration = 3000) {
+            const notification = {
+                id: Utils.generateId('notification'),
+                message,
+                type,
+                timestamp: Date.now()
+            };
+            
+            this.notifications.unshift(notification);
+            
+            // Auto-remove after duration
+            setTimeout(() => {
+                this.removeNotification(notification.id);
+            }, duration);
+            
+            // Limit to 5 notifications
+            if (this.notifications.length > 5) {
+                this.notifications = this.notifications.slice(0, 5);
+            }
+        },
+
+        removeNotification(id) {
+            this.notifications = this.notifications.filter(n => n.id !== id);
+        },
+
+        // Real-time Data Refresh
+        async refreshData() {
+            try {
+                this.isLoading = true;
+                await this.loadData();
+                await this.loadThreatIntelligence();
+                this.showNotification('Data refreshed successfully', 'success');
+            } catch (error) {
+                this.showNotification('Failed to refresh data', 'error');
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        // Enhanced Error Handling
+        handleError(error, context = '') {
+            Utils.error.log(error, context);
+            this.showNotification(`Error: ${error.message}`, 'error');
+        },
+
         // Theme management
         toggleTheme() {
             this.setTheme(this.darkMode ? 'light' : 'dark');
@@ -529,6 +1230,44 @@ function dashboardApp() {
 
         scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        // Enhanced UI helpers
+        getPostCardClasses(post) {
+            let classes = 'glass rounded-lg overflow-hidden hover-lift';
+            classes += ` ${this.getPriorityClass(post.priority)}`;
+            if (this.isBookmarked(post.guid)) classes += ' bookmarked';
+            return classes;
+        },
+
+        getSeverityColor(severity) {
+            const colors = {
+                'CRITICAL': '#dc2626',
+                'HIGH': '#ea580c', 
+                'MEDIUM': '#d97706',
+                'LOW': '#65a30d',
+                'NONE': '#6b7280'
+            };
+            return colors[severity] || colors.NONE;
+        },
+
+        formatCVSSScore(score) {
+            if (!score) return 'N/A';
+            return `${score.toFixed(1)}`;
+        },
+
+        // Accessibility helpers
+        announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            
+            document.body.appendChild(announcement);
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
         },
 
         // Analytics
@@ -652,6 +1391,14 @@ function dashboardApp() {
                                 color: this.darkMode ? '#374151' : '#e5e7eb'
                             }
                         }
+                    },
+                    onHover: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const day = days[index];
+                            const count = counts[index];
+                            this.announceToScreenReader(`${day}: ${count} posts`);
+                        }
                     }
                 }
             });
@@ -663,4 +1410,4 @@ function dashboardApp() {
 window.dashboardApp = dashboardApp;
 
 // Export for module use
-export { dashboardApp };
+export { dashboardApp, CVEService, ThreatIntelService, SocialService, BookmarkService, ExportService };

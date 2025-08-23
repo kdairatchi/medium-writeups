@@ -1,0 +1,402 @@
+name: 🧪 Code Quality & Linting
+
+on:
+  # Run on all code changes
+  push:
+    branches: [main]
+    paths:
+      - '**/*.go'
+      - 'go.mod'
+      - 'go.sum'
+  
+  pull_request:
+    branches: [main]
+    paths:
+      - '**/*.go'
+      - 'go.mod'
+      - 'go.sum'
+  
+  # Manual quality check trigger
+  workflow_dispatch:
+    inputs:
+      quality_level:
+        description: 'Quality check level'
+        required: false
+        default: 'standard'
+        type: choice
+        options:
+          - quick
+          - standard
+          - comprehensive
+
+permissions:
+  contents: read
+  security-events: write
+  pull-requests: write
+
+env:
+  GO_VERSION: '1.23.4'
+
+jobs:
+  # Main code quality analysis
+  code-quality:
+    name: 🔍 Code Quality Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: 📋 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better analysis
+      
+      - name: 🔧 Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+      
+      - name: 📦 Initialize Go environment
+        run: |
+          echo "📦 Setting up Go environment..."
+          if [ ! -f "go.mod" ]; then
+            go mod init medium-writeups-aggregator
+          fi
+          go mod tidy
+          go mod download
+          echo "✅ Go environment ready"
+      
+      - name: 🎨 Check code formatting
+        id: formatting
+        run: |
+          echo "🎨 Checking Go code formatting..."
+          
+          # Check if code is properly formatted
+          UNFORMATTED=$(gofmt -l . | grep -v vendor || true)
+          
+          if [ -n "$UNFORMATTED" ]; then
+            echo "❌ The following files need formatting:"
+            echo "$UNFORMATTED"
+            echo "format_issues=true" >> $GITHUB_OUTPUT
+            
+            # Show the differences
+            echo "## 🎨 Code Formatting Issues" > formatting-report.md
+            echo "" >> formatting-report.md
+            echo "The following files need to be formatted with \`go fmt\`:" >> formatting-report.md
+            echo "" >> formatting-report.md
+            echo '```' >> formatting-report.md
+            echo "$UNFORMATTED" >> formatting-report.md
+            echo '```' >> formatting-report.md
+            echo "" >> formatting-report.md
+            echo "Run \`go fmt ./...\` to fix these issues." >> formatting-report.md
+          else
+            echo "✅ All Go code is properly formatted"
+            echo "format_issues=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: 🔍 Run go vet
+        id: vet
+        run: |
+          echo "🔍 Running go vet..."
+          
+          if go vet ./... > vet-results.txt 2>&1; then
+            echo "✅ go vet passed - no issues found"
+            echo "vet_issues=false" >> $GITHUB_OUTPUT
+          else
+            echo "❌ go vet found issues:"
+            cat vet-results.txt
+            echo "vet_issues=true" >> $GITHUB_OUTPUT
+            
+            # Create vet report
+            echo "## 🔍 Go Vet Issues" > vet-report.md
+            echo "" >> vet-report.md
+            echo '```' >> vet-report.md
+            cat vet-results.txt >> vet-report.md
+            echo '```' >> vet-report.md
+          fi
+      
+      - name: 📊 Run staticcheck
+        id: staticcheck
+        run: |
+          echo "📊 Running staticcheck for enhanced analysis..."
+          
+          # Install staticcheck
+          go install honnef.co/go/tools/cmd/staticcheck@latest
+          
+          if staticcheck ./... > staticcheck-results.txt 2>&1; then
+            echo "✅ staticcheck passed - no issues found"
+            echo "staticcheck_issues=false" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ staticcheck found issues:"
+            cat staticcheck-results.txt
+            echo "staticcheck_issues=true" >> $GITHUB_OUTPUT
+            
+            # Create staticcheck report
+            echo "## 📊 Staticcheck Issues" > staticcheck-report.md
+            echo "" >> staticcheck-report.md
+            echo '```' >> staticcheck-report.md
+            cat staticcheck-results.txt >> staticcheck-report.md
+            echo '```' >> staticcheck-report.md
+          fi
+      
+      - name: 🏗️ Build verification
+        id: build
+        run: |
+          echo "🏗️ Verifying build..."
+          
+          if go build -v ./... > build-results.txt 2>&1; then
+            echo "✅ Build successful"
+            echo "build_success=true" >> $GITHUB_OUTPUT
+            
+            # Get binary info
+            go build -o cybersec-aggregator ./main.go
+            ls -lh cybersec-aggregator
+          else
+            echo "❌ Build failed:"
+            cat build-results.txt
+            echo "build_success=false" >> $GITHUB_OUTPUT
+            
+            # Create build failure report
+            echo "## 🏗️ Build Issues" > build-report.md
+            echo "" >> build-report.md
+            echo '```' >> build-report.md
+            cat build-results.txt >> build-report.md
+            echo '```' >> build-report.md
+          fi
+      
+      - name: 🧪 Run tests (if present)
+        id: tests
+        run: |
+          echo "🧪 Running tests..."
+          
+          if [ -n "$(find . -name "*_test.go")" ]; then
+            if go test -v ./... > test-results.txt 2>&1; then
+              echo "✅ All tests passed"
+              echo "test_success=true" >> $GITHUB_OUTPUT
+            else
+              echo "❌ Tests failed:"
+              cat test-results.txt
+              echo "test_success=false" >> $GITHUB_OUTPUT
+              
+              # Create test failure report
+              echo "## 🧪 Test Issues" > test-report.md
+              echo "" >> test-report.md
+              echo '```' >> test-report.md
+              cat test-results.txt >> test-report.md
+              echo '```' >> test-report.md
+            fi
+          else
+            echo "ℹ️ No test files found"
+            echo "test_success=true" >> $GITHUB_OUTPUT
+            echo "## 🧪 Tests" > test-report.md
+            echo "No test files found in this repository." >> test-report.md
+          fi
+      
+      - name: 🔬 Comprehensive analysis
+        if: github.event.inputs.quality_level == 'comprehensive'
+        run: |
+          echo "🔬 Running comprehensive code analysis..."
+          
+          # Install additional tools
+          go install golang.org/x/tools/cmd/goimports@latest
+          go install github.com/mgechev/revive@latest
+          
+          # Check imports
+          echo "📦 Checking imports..."
+          goimports -l . > imports-check.txt || true
+          if [ -s imports-check.txt ]; then
+            echo "⚠️ Import issues found"
+            cat imports-check.txt
+          else
+            echo "✅ Imports are properly organized"
+          fi
+          
+          # Run revive linter
+          echo "🔍 Running revive linter..."
+          revive -config <(echo 'ignoreGeneratedHeader = false
+          severity = "warning"
+          confidence = 0.8
+          errorCode = 0
+          warningCode = 0
+          
+          [rule.blank-imports]
+          [rule.context-as-argument]
+          [rule.context-keys-type]
+          [rule.dot-imports]
+          [rule.error-return]
+          [rule.error-strings]
+          [rule.error-naming]
+          [rule.exported]
+          [rule.if-return]
+          [rule.increment-decrement]
+          [rule.var-naming]
+          [rule.var-declaration]
+          [rule.package-comments]
+          [rule.range]
+          [rule.receiver-naming]
+          [rule.time-naming]
+          [rule.unexported-return]
+          [rule.indent-error-flow]
+          [rule.errorf]') ./... > revive-results.txt 2>&1 || true
+          
+          if [ -s revive-results.txt ]; then
+            echo "⚠️ Revive found style issues:"
+            cat revive-results.txt
+          else
+            echo "✅ Revive found no style issues"
+          fi
+      
+      - name: 📊 Generate quality report
+        if: always()
+        run: |
+          echo "📊 Generating code quality report..."
+          
+          # Calculate overall quality score
+          ISSUES=0
+          [ "${{ steps.formatting.outputs.format_issues }}" = "true" ] && ISSUES=$((ISSUES + 1))
+          [ "${{ steps.vet.outputs.vet_issues }}" = "true" ] && ISSUES=$((ISSUES + 1))
+          [ "${{ steps.staticcheck.outputs.staticcheck_issues }}" = "true" ] && ISSUES=$((ISSUES + 1))
+          [ "${{ steps.build.outputs.build_success }}" = "false" ] && ISSUES=$((ISSUES + 2))
+          [ "${{ steps.tests.outputs.test_success }}" = "false" ] && ISSUES=$((ISSUES + 1))
+          
+          TOTAL_CHECKS=6
+          QUALITY_SCORE=$((100 * (TOTAL_CHECKS - ISSUES) / TOTAL_CHECKS))
+          
+          cat > QUALITY_REPORT.md << EOF
+          # 🧪 Code Quality Report
+          
+          **Date**: $(date -u)
+          **Quality Level**: ${{ github.event.inputs.quality_level || 'standard' }}
+          **Overall Score**: $QUALITY_SCORE/100
+          
+          ## 📊 Quality Checks Summary
+          
+          | Check | Status | Issues |
+          |-------|--------|---------|
+          | Code Formatting | ${{ steps.formatting.outputs.format_issues == 'true' && '❌ Failed' || '✅ Passed' }} | ${{ steps.formatting.outputs.format_issues == 'true' && 'Formatting required' || 'None' }} |
+          | Go Vet | ${{ steps.vet.outputs.vet_issues == 'true' && '❌ Failed' || '✅ Passed' }} | ${{ steps.vet.outputs.vet_issues == 'true' && 'Issues found' || 'None' }} |
+          | Staticcheck | ${{ steps.staticcheck.outputs.staticcheck_issues == 'true' && '⚠️ Issues' || '✅ Passed' }} | ${{ steps.staticcheck.outputs.staticcheck_issues == 'true' && 'Issues found' || 'None' }} |
+          | Build Verification | ${{ steps.build.outputs.build_success == 'false' && '❌ Failed' || '✅ Passed' }} | ${{ steps.build.outputs.build_success == 'false' && 'Build errors' || 'None' }} |
+          | Tests | ${{ steps.tests.outputs.test_success == 'false' && '❌ Failed' || '✅ Passed' }} | ${{ steps.tests.outputs.test_success == 'false' && 'Test failures' || 'None' }} |
+          
+          ## 🎯 Quality Standards
+          
+          - **Formatting**: All Go code must be formatted with \`go fmt\` ✅
+          - **Static Analysis**: Pass \`go vet\` checks ✅
+          - **Code Quality**: Pass \`staticcheck\` analysis ✅
+          - **Build**: Code must compile without errors ✅
+          - **Tests**: All tests must pass ✅
+          
+          ## 📈 Recommendations
+          
+          $([ "${{ steps.formatting.outputs.format_issues }}" = "true" ] && echo "- 🎨 Run \`go fmt ./...\` to fix formatting issues")
+          $([ "${{ steps.vet.outputs.vet_issues }}" = "true" ] && echo "- 🔍 Address issues found by \`go vet\`")
+          $([ "${{ steps.staticcheck.outputs.staticcheck_issues }}" = "true" ] && echo "- 📊 Review and fix staticcheck suggestions")
+          $([ "${{ steps.build.outputs.build_success }}" = "false" ] && echo "- 🏗️ Fix compilation errors")
+          $([ "${{ steps.tests.outputs.test_success }}" = "false" ] && echo "- 🧪 Fix failing tests")
+          
+          $([ $QUALITY_SCORE -eq 100 ] && echo "🎉 **Excellent!** All quality checks passed." || echo "💡 **Improvement Needed**: Address the issues above to improve code quality.")
+          
+          ## 🛡️ Security Notes
+          
+          - Code is automatically scanned for common Go security issues
+          - RSS feed processing includes input validation
+          - No external dependencies minimize attack surface
+          - Regular security scans via dedicated workflow
+          
+          ---
+          *Generated by code quality workflow*
+          EOF
+          
+          echo "Quality score: $QUALITY_SCORE/100"
+      
+      - name: 📤 Comment on PR (if applicable)
+        if: github.event_name == 'pull_request' && (steps.formatting.outputs.format_issues == 'true' || steps.vet.outputs.vet_issues == 'true' || steps.staticcheck.outputs.staticcheck_issues == 'true' || steps.build.outputs.build_success == 'false' || steps.tests.outputs.test_success == 'false')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let comment = '## 🧪 Code Quality Analysis Results\n\n';
+            
+            // Check for issues and add to comment
+            if ('${{ steps.formatting.outputs.format_issues }}' === 'true' && fs.existsSync('formatting-report.md')) {
+              comment += fs.readFileSync('formatting-report.md', 'utf8') + '\n\n';
+            }
+            
+            if ('${{ steps.vet.outputs.vet_issues }}' === 'true' && fs.existsSync('vet-report.md')) {
+              comment += fs.readFileSync('vet-report.md', 'utf8') + '\n\n';
+            }
+            
+            if ('${{ steps.staticcheck.outputs.staticcheck_issues }}' === 'true' && fs.existsSync('staticcheck-report.md')) {
+              comment += fs.readFileSync('staticcheck-report.md', 'utf8') + '\n\n';
+            }
+            
+            if ('${{ steps.build.outputs.build_success }}' === 'false' && fs.existsSync('build-report.md')) {
+              comment += fs.readFileSync('build-report.md', 'utf8') + '\n\n';
+            }
+            
+            if ('${{ steps.tests.outputs.test_success }}' === 'false' && fs.existsSync('test-report.md')) {
+              comment += fs.readFileSync('test-report.md', 'utf8') + '\n\n';
+            }
+            
+            comment += '---\n*Automated code quality check*';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+      
+      - name: 📤 Upload quality artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-quality-results
+          path: |
+            QUALITY_REPORT.md
+            *-report.md
+            *-results.txt
+          retention-days: 30
+      
+      - name: 📋 Generate workflow summary
+        if: always()
+        run: |
+          # Calculate overall status
+          ISSUES=0
+          [ "${{ steps.formatting.outputs.format_issues }}" = "true" ] && ISSUES=$((ISSUES + 1))
+          [ "${{ steps.vet.outputs.vet_issues }}" = "true" ] && ISSUES=$((ISSUES + 1))
+          [ "${{ steps.staticcheck.outputs.staticcheck_issues }}" = "true" ] && ISSUES=$((ISSUES + 1))
+          [ "${{ steps.build.outputs.build_success }}" = "false" ] && ISSUES=$((ISSUES + 2))
+          [ "${{ steps.tests.outputs.test_success }}" = "false" ] && ISSUES=$((ISSUES + 1))
+          
+          TOTAL_CHECKS=6
+          QUALITY_SCORE=$((100 * (TOTAL_CHECKS - ISSUES) / TOTAL_CHECKS))
+          
+          echo "# 🧪 Code Quality Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 Overall Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **Quality Score**: $QUALITY_SCORE/100" >> $GITHUB_STEP_SUMMARY
+          echo "- **Issues Found**: $ISSUES" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## ✅ Quality Checks" >> $GITHUB_STEP_SUMMARY
+          echo "- **Formatting**: ${{ steps.formatting.outputs.format_issues == 'true' && '❌ Issues found' || '✅ Passed' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Go Vet**: ${{ steps.vet.outputs.vet_issues == 'true' && '❌ Issues found' || '✅ Passed' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Staticcheck**: ${{ steps.staticcheck.outputs.staticcheck_issues == 'true' && '⚠️ Issues found' || '✅ Passed' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build**: ${{ steps.build.outputs.build_success == 'false' && '❌ Failed' || '✅ Passed' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tests**: ${{ steps.tests.outputs.test_success == 'false' && '❌ Failed' || '✅ Passed' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ $QUALITY_SCORE -eq 100 ]; then
+            echo "🎉 **All quality checks passed!**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "💡 **Review the quality report artifact for improvement suggestions**" >> $GITHUB_STEP_SUMMARY
+          fi
+      
+      - name: 🚨 Fail workflow if critical issues found
+        if: steps.build.outputs.build_success == 'false' || steps.tests.outputs.test_success == 'false'
+        run: |
+          echo "❌ Critical quality issues found - failing workflow"
+          echo "Build success: ${{ steps.build.outputs.build_success }}"
+          echo "Test success: ${{ steps.tests.outputs.test_success }}"
+          exit 1

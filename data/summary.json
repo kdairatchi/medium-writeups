@@ -1,118 +1,1059 @@
 {
-  "totalPosts": 10,
-  "newPosts": 2,
-  "todayPosts": 10,
-  "thisWeekPosts": 10,
+  "totalPosts": 41,
+  "newPosts": 41,
+  "todayPosts": 36,
+  "thisWeekPosts": 41,
   "categories": [
     {
-      "name": "Web Security",
-      "total": 3,
-      "new": 0,
-      "today": 3,
-      "color": "#96CEB4"
-    },
-    {
-      "name": "Bug Bounty",
-      "total": 2,
-      "new": 0,
-      "today": 2,
-      "color": "#4ECDC4"
-    },
-    {
-      "name": "Crypto & Privacy",
-      "total": 1,
-      "new": 1,
-      "today": 1,
-      "color": "#E17055"
-    },
-    {
-      "name": "AI/ML Security",
-      "total": 1,
-      "new": 1,
-      "today": 1,
-      "color": "#FF6B9D"
-    },
-    {
-      "name": "Compliance & Governance",
-      "total": 1,
-      "new": 0,
-      "today": 1,
-      "color": "#FD79A8"
-    },
-    {
-      "name": "Tools & OSINT",
-      "total": 1,
-      "new": 0,
-      "today": 1,
-      "color": "#74B9FF"
-    },
-    {
-      "name": "Malware & Threats",
-      "total": 1,
-      "new": 0,
-      "today": 1,
-      "color": "#FD79A8"
-    },
-    {
-      "name": "Vuln Research",
-      "total": 1,
-      "new": 0,
-      "today": 1,
-      "color": "#6C5CE7"
+      "Name": "Core Security",
+      "TotalPosts": 41,
+      "NewPosts": 41,
+      "TodayPosts": 36,
+      "Color": "#FF6B6B",
+      "trendDirection": "",
+      "threatLevel": "low",
+      "popularityScore": 2155.999999999998
     }
   ],
   "trendingTopics": [
     {
-      "name": "web-security",
-      "count": 4
+      "Name": "cybersecurity",
+      "Count": 26,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "bug-bounty",
-      "count": 3
+      "Name": "security",
+      "Count": 14,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "xss",
-      "count": 2
+      "Name": "information-security",
+      "Count": 11,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "vulnerability-disclosure",
-      "count": 2
+      "Name": "infosec",
+      "Count": 10,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "encryption",
-      "count": 1
+      "Name": "hacking",
+      "Count": 6,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "ai-security",
-      "count": 1
+      "Name": "bug-bounty",
+      "Count": 5,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "compliance",
-      "count": 1
+      "Name": "artificial-intelligence",
+      "Count": 4,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "osint",
-      "count": 1
+      "Name": "devops",
+      "Count": 3,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "zero-day",
-      "count": 1
+      "Name": "crypto-scam-recovery",
+      "Count": 3,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     },
     {
-      "name": "sql-injection",
-      "count": 1
+      "Name": "ai",
+      "Count": 3,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "networking",
+      "Count": 3,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "blockchain",
+      "Count": 3,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cryptocurrency",
+      "Count": 3,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "llm",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "information-technology",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "red-team",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ethical-hacking",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "penetration-testing",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ctf",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "technology",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "trending",
+      "Count": 2,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "data-engineering",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "vibe-coding",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "indexer",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "darkweb",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "localhost",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cyberspace",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "virtual-assistant",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "web-security",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cybercrime",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "sharepoint",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "software",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "apple",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "incident-response",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cctv",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "africa",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "linux",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cyber-security-analyst",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "mcps",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "security-operation-center",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "work",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "drosera",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "crytocurrency",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "memo",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "social-media",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "learning",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "wazuh",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "in-toto",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "mitre-attack",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "docker",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ddos",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "prompt-engineering",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "hacker",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "openai",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "site-reliability-engineer",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "block-chain-technology",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "software-supply-chain",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "witness",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cloud-security",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "loopback",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ransomware",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "solanas",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ransomware-attack",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "scam",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "polyglot",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "securityblueteam",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ransomware-protection",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "business",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "surveillance",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ctf-writeup",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "nlp",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "threat-hunting",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "network-security",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cybersecurity-journey",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "owasp",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "money",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "ios",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cyber-security-awareness",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "drosera-network",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "deception",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "internet",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "united-states",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cyber-kill-chain",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cyber-threat-intelligence",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "access-control",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "web-development",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "naturallanguageprocessing",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "technews",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "windows",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "trust",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "nmap",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "solana-indexer",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "flipper-zero",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "iphone",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "web3",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cybersecurity-awareness",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cve",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "cloud-computing",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "iot",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "attestation",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "threat-intelligence",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "apt37",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
+    },
+    {
+      "Name": "social-engineering",
+      "Count": 1,
+      "growthRate": 0,
+      "trendScore": 0,
+      "lastMentioned": "0001-01-01T00:00:00Z"
     }
   ],
-  "recentCVEs": [
-    "CVE-2024-44207",
-    "CVE-2024-8765"
+  "securityTrends": [
+    {
+      "topic": "apt",
+      "mentions": 3,
+      "trendScore": 55.2,
+      "severity": "medium",
+      "category": "threat-intelligence",
+      "firstAppearance": "2025-08-23T16:28:30Z",
+      "peakMentions": 3
+    },
+    {
+      "topic": "ransomware",
+      "mentions": 1,
+      "trendScore": 54.6,
+      "severity": "medium",
+      "category": "threat-intelligence",
+      "firstAppearance": "2025-08-23T19:52:52Z",
+      "peakMentions": 1
+    },
+    {
+      "topic": "botnet",
+      "mentions": 1,
+      "trendScore": 54.6,
+      "severity": "medium",
+      "category": "threat-intelligence",
+      "firstAppearance": "2025-08-22T21:31:39Z",
+      "peakMentions": 1
+    },
+    {
+      "topic": "cybercrime",
+      "mentions": 1,
+      "trendScore": 54,
+      "severity": "medium",
+      "category": "threat-intelligence",
+      "firstAppearance": "2025-08-23T19:52:51Z",
+      "peakMentions": 1
+    },
+    {
+      "topic": "supply-chain",
+      "mentions": 1,
+      "trendScore": 44.6,
+      "severity": "medium",
+      "category": "threat-intelligence",
+      "firstAppearance": "2025-08-22T16:36:50Z",
+      "peakMentions": 1
+    }
   ],
-  "stats": {
-    "totalFeeds": 245,
-    "successfulFeeds": 198,
-    "successRate": 80.8,
-    "rateLimited": 12,
-    "processingTime": "2m15s"
+  "threatIntelligence": {
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "infosecwriteups.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.18034-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183763-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "UlPWAz0aeysYIvlTccOysw.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.175449-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183746-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "OC6t-K8ovpOnAK2EuXUNXQ.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181216-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183761-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "6Z3hIu-KUEyZIaLZPaCG2Q.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181269-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183747-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "Coingainars.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178105-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183748-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "aws.plainenglish.io",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.18078-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183764-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "xrxD8cYJTIvpo64JhQhHAA.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178942-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183769-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "Insuredlifeinvest.Ltd",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.175381-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183748-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "u3UleaI8Rab5MDjbtQyiMg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.175983-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183759-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "wMEU82HwXVePi6PbYjIIRw.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178526-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183763-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "wGdglRWIUh8Yu8Cs5iHscA.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.180343-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183763-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "aWAP1EYGNHJ0D6-mqmUiAg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178603-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183765-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "hmpg2F7BOgZMlgTUBQ8U2A.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.176842-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183765-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "OnIk1vweDPqsE9DKWivQ8g.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178466-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183766-04:00"
+      },
+      {
+        "type": "ipv4",
+        "value": "127.0.0.1",
+        "confidence": 0.7,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177144-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183758-04:00"
+      },
+      {
+        "type": "ipv4",
+        "value": "127.0.0.0",
+        "confidence": 0.7,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177146-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183758-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "HvPAUYBCdz4ruYYM53Ow-A.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.179753-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183768-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "d-2BR2Io5nqCjBwMC6L9Vg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181816-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183746-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "r.dosumu",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.17684-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183765-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "rys2eEPRRss0TqT6S25EYQ.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177257-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183766-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "qKAb7TBsoCHCIjlgSBO4Vg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182992-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183758-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "AzZ9aKREOlrlva5TggJN2Q.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182435-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183746-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "v08SCZOe0yVzEYl2.jpg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181236-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183747-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "realsec.io",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178164-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183764-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "karim.mokhtar.career",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.179613-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183768-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "aSrgqoLmyZfUEuIVDkySqQ.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182684-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183747-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "LeB5U7grD3EKpP8rQw.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182618-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183766-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "eHPHgGqQtappgJ-SPsRaaA.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.180644-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183772-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "Ustradin.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.17967-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183747-04:00"
+      },
+      {
+        "type": "domain",
+        "value": "94aH4uJ5xd07sJWylQOkjA.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182692-04:00",
+        "lastSeen": "2025-08-23T16:21:08.183756-04:00"
+      }
+    ],
+    "ttps": [],
+    "vulnerabilities": [],
+    "threatLevel": "low",
+    "confidence": 0.7999999999999999,
+    "lastUpdated": "2025-08-23T16:21:08.183775-04:00"
   },
-  "lastUpdated": "Thu, 22 Aug 2024"
+  "stats": {
+    "apiCallsMade": 0,
+    "averageResponseTime": "0s",
+    "cvesProcessed": 0,
+    "processingTime": "3.466641285s",
+    "rateLimited": 0,
+    "successRate": 100,
+    "successfulFeeds": 5,
+    "threatIntelHits": 36,
+    "totalFeeds": 5
+  },
+  "lastUpdated": "Sat, 23 Aug 2025",
+  "highSeverityCVEs": 0,
+  "totalIOCs": 36,
+  "averageQualityScore": 41.58536585365854,
+  "threatLevel": "low",
+  "feedHealthStats": {
+    "degraded": 0,
+    "healthy": 5,
+    "unhealthy": 0,
+    "unknown": 0
+  }
 }

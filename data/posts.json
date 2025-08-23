@@ -1,162 +1,1486 @@
 [
   {
-    "guid": "https://medium.com/p/556e4bd59893",
-    "title": "Symmetric Key Performance Analysis in Modern Encryption",
-    "link": "https://medium.com/p/556e4bd59893",
-    "description": "A comprehensive analysis of symmetric key performance across different encryption algorithms and their impact on cybersecurity implementations.",
-    "publishedTime": "2024-08-21T11:29:00Z",
-    "author": "Security Researcher",
-    "categories": ["encryption", "cryptography", "performance"],
-    "sourceCategory": "Crypto & Privacy",
+    "guid": "https://medium.com/p/1cfc05b87eb2",
+    "title": "The Invisible Shield: Rethinking Cloud Security in 2025",
+    "link": "https://medium.com/p/1cfc05b87eb2",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eWhen you save a file on your laptop, you know where it lives\u0026#x200A;\u0026#x2014;\u0026#x200A;buried somewhere in your \u0026#x201C;Documents\u0026#x201D; folder. But when you save the same\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@vedantiverma03/the-invisible-shield-rethinking-cloud-security-in-2025-1cfc05b87eb2?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T16:28:30Z",
+    "author": "",
+    "categories": [
+      "security",
+      "cloud-security",
+      "trending",
+      "cybersecurity",
+      "cloud-computing"
+    ],
+    "sourceCategory": "Core Security",
     "priority": 1,
-    "ageHours": 2.5,
+    "ageHours": 3.877273235277778,
     "isNew": true,
     "isToday": true,
     "isThisWeek": true,
-    "cveIds": []
+    "securityCategories": [
+      "cloud-security",
+      "threat-intel",
+      "web-security"
+    ],
+    "threatIntelTags": [
+      "apt"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 55.2,
+    "qualityScore": 51
   },
   {
-    "guid": "https://medium.com/p/6c2d6f00cc57",
-    "title": "Who's Really in Control? The Hidden Risk of AI Agent Hijacking",
-    "link": "https://medium.com/p/6c2d6f00cc57",
-    "description": "Exploring the emerging threat landscape of AI agent hijacking and its implications for enterprise security infrastructure.",
-    "publishedTime": "2024-08-21T11:23:00Z",
-    "author": "AI Security Expert",
-    "categories": ["ai-security", "agent-hijacking", "enterprise-security"],
-    "sourceCategory": "AI/ML Security",
+    "guid": "https://medium.com/p/e005dcaf21a7",
+    "title": "Mastering Nmap (Part 2): Advanced Scans \u0026 Firewall Evasion for Bug Bounty Hunters",
+    "link": "https://medium.com/p/e005dcaf21a7",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@appsecvenue/mastering-nmap-part-2-advanced-scans-firewall-evasion-for-bug-bounty-hunters-e005dcaf21a7?source=rss------cybersecurity-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1024/1*d-2BR2Io5nqCjBwMC6L9Vg.png\" width=\"1024\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eIf Part 1 showed you how to knock on the front door with basic host discovery and port scans, Part 2 is where we learn how to sneak past\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@appsecvenue/mastering-nmap-part-2-advanced-scans-firewall-evasion-for-bug-bounty-hunters-e005dcaf21a7?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:51:16Z",
+    "author": "",
+    "categories": [
+      "nmap",
+      "ethical-hacking",
+      "bug-bounty",
+      "cybersecurity",
+      "network-security"
+    ],
+    "sourceCategory": "Core Security",
     "priority": 1,
-    "ageHours": 2.6,
+    "ageHours": 0.4978287925,
     "isNew": true,
     "isToday": true,
     "isThisWeek": true,
-    "cveIds": []
+    "securityCategories": [
+      "web-security",
+      "vulnerability",
+      "network-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "d-2BR2Io5nqCjBwMC6L9Vg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181816-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 54.8,
+    "qualityScore": 49
   },
   {
-    "guid": "https://medium.com/p/4f5deeb164fd",
-    "title": "Compliance ≠ Security: Why Passing an Audit Doesn't Mean You're Safe",
-    "link": "https://medium.com/p/4f5deeb164fd",
-    "description": "Critical analysis of the gap between compliance requirements and actual security posture in modern organizations.",
-    "publishedTime": "2024-08-21T11:13:00Z",
-    "author": "Compliance Expert",
-    "categories": ["compliance", "security-audit", "governance"],
-    "sourceCategory": "Compliance & Governance",
-    "priority": 2,
-    "ageHours": 2.8,
-    "isNew": false,
-    "isToday": true,
-    "isThisWeek": true,
-    "cveIds": []
-  },
-  {
-    "guid": "https://medium.com/p/bef7dc68787b",
-    "title": "XSS Prevention in React.js: Best Practices & Code",
-    "link": "https://medium.com/p/bef7dc68787b",
-    "description": "Comprehensive guide to preventing Cross-Site Scripting vulnerabilities in React applications with practical code examples.",
-    "publishedTime": "2024-08-21T10:55:00Z",
-    "author": "Frontend Security Dev",
-    "categories": ["xss", "react", "web-security", "frontend"],
-    "sourceCategory": "Web Security",
-    "priority": 2,
-    "ageHours": 3.1,
-    "isNew": false,
-    "isToday": true,
-    "isThisWeek": true,
-    "cveIds": []
-  },
-  {
-    "guid": "https://medium.com/p/20ec7426a89c",
-    "title": "WAFFLED: How Hackers Bypass Web Application Firewalls with Parsing Tricks",
-    "link": "https://medium.com/p/20ec7426a89c",
-    "description": "Deep dive into WAF bypass techniques using parsing discrepancies and implementation flaws in popular security solutions.",
-    "publishedTime": "2024-08-21T10:32:00Z",
-    "author": "Bug Bounty Hunter",
-    "categories": ["waf-bypass", "parsing", "web-security"],
-    "sourceCategory": "Web Security",
+    "guid": "https://medium.com/p/561415f4c32f",
+    "title": "Ransomware Attacks: When Your Data Gets Held Hostage",
+    "link": "https://medium.com/p/561415f4c32f",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@Epafi/ransomware-attacks-when-your-data-gets-held-hostage-561415f4c32f?source=rss------cybersecurity-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/735/1*UlPWAz0aeysYIvlTccOysw.jpeg\" width=\"735\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003e\u0026#x201C;All your data has been encrypted. Pay 500 in Bitcoin or lose them forever.\u0026#x201D;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@Epafi/ransomware-attacks-when-your-data-gets-held-hostage-561415f4c32f?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:52:52Z",
+    "author": "",
+    "categories": [
+      "ransomware-attack",
+      "cybersecurity-awareness",
+      "ransomware-protection",
+      "ransomware",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
     "priority": 1,
-    "ageHours": 3.5,
-    "isNew": false,
+    "ageHours": 0.47116212611111113,
+    "isNew": true,
     "isToday": true,
     "isThisWeek": true,
-    "cveIds": []
+    "securityCategories": [
+      "malware",
+      "web-security"
+    ],
+    "threatIntelTags": [
+      "ransomware"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "UlPWAz0aeysYIvlTccOysw.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.175449-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 54.6,
+    "qualityScore": 48
   },
   {
-    "guid": "https://medium.com/p/a81f154d51d5",
-    "title": "Dork Like a Demon: FOFA Edition for Hackers & Bug Bounty Hunters",
-    "link": "https://medium.com/p/a81f154d51d5",
-    "description": "Advanced FOFA dorking techniques for reconnaissance and vulnerability discovery in bug bounty programs.",
-    "publishedTime": "2024-08-21T10:04:00Z",
-    "author": "OSINT Specialist",
-    "categories": ["fofa", "dorking", "osint", "reconnaissance"],
-    "sourceCategory": "Tools & OSINT",
-    "priority": 3,
-    "ageHours": 4.0,
-    "isNew": false,
-    "isToday": true,
-    "isThisWeek": true,
-    "cveIds": []
-  },
-  {
-    "guid": "https://medium.com/p/de6b9efc5301",
-    "title": "Zero-Day Apple Vulnerability Under Attack",
-    "link": "https://medium.com/p/de6b9efc5301",
-    "description": "Breaking news on actively exploited zero-day vulnerability affecting Apple devices and recommended mitigation strategies.",
-    "publishedTime": "2024-08-21T10:07:00Z",
-    "author": "Threat Intelligence",
-    "categories": ["zero-day", "apple", "mobile-security"],
-    "sourceCategory": "Malware & Threats",
+    "guid": "https://medium.com/p/4ecb2d2f3f69",
+    "title": "Indexing on Solana: A Complete Guide to Deposits, Withdrawals, Memos, and Security",
+    "link": "https://medium.com/p/4ecb2d2f3f69",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@praptii/indexing-on-solana-a-complete-guide-to-deposits-withdrawals-memos-and-security-4ecb2d2f3f69?source=rss------security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/2002/1*AzZ9aKREOlrlva5TggJN2Q.png\" width=\"2002\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eBuilding payment infrastructure on Solana requires understanding how to properly index blockchain data for centralized applications\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@praptii/indexing-on-solana-a-complete-guide-to-deposits-withdrawals-memos-and-security-4ecb2d2f3f69?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T17:14:31Z",
+    "author": "",
+    "categories": [
+      "indexer",
+      "solanas",
+      "security",
+      "solana-indexer",
+      "memo"
+    ],
+    "sourceCategory": "Core Security",
     "priority": 1,
-    "ageHours": 3.9,
-    "isNew": false,
+    "ageHours": 3.1103287927777776,
+    "isNew": true,
     "isToday": true,
     "isThisWeek": true,
-    "cveIds": ["CVE-2024-44207"]
+    "securityCategories": [
+      "web-security",
+      "threat-intel"
+    ],
+    "threatIntelTags": [
+      "apt"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "AzZ9aKREOlrlva5TggJN2Q.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182435-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 54.6,
+    "qualityScore": 48
   },
   {
-    "guid": "https://medium.com/p/4bf325a51f31",
-    "title": "Buried Treasures in Backups: How .bak Files Handed Me the Keys to Production",
-    "link": "https://medium.com/p/4bf325a51f31",
-    "description": "Bug bounty writeup demonstrating how exposed backup files led to complete production environment compromise.",
-    "publishedTime": "2024-08-21T08:08:00Z",
-    "author": "Bug Bounty Hunter",
-    "categories": ["bug-bounty", "backup-files", "information-disclosure"],
-    "sourceCategory": "Bug Bounty",
-    "priority": 2,
-    "ageHours": 5.9,
-    "isNew": false,
-    "isToday": true,
-    "isThisWeek": true,
-    "cveIds": []
-  },
-  {
-    "guid": "https://medium.com/p/e7407f715fc9",
-    "title": "How I Found My First Critical Vulnerability",
-    "link": "https://medium.com/p/e7407f715fc9",
-    "description": "Personal journey and methodology behind discovering a critical security vulnerability in a major web application.",
-    "publishedTime": "2024-08-21T05:06:00Z",
-    "author": "Junior Bug Hunter",
-    "categories": ["bug-bounty", "critical-vulnerability", "writeup"],
-    "sourceCategory": "Bug Bounty",
-    "priority": 3,
-    "ageHours": 8.9,
-    "isNew": false,
-    "isToday": true,
-    "isThisWeek": true,
-    "cveIds": []
-  },
-  {
-    "guid": "https://medium.com/p/486398908b9e",
-    "title": "Critical SQL Injection in Kingsoft Endpoint Security V9 — Patch Now",
-    "link": "https://medium.com/p/486398908b9e",
-    "description": "Disclosure of critical SQL injection vulnerability in Kingsoft Endpoint Security V9 with proof of concept and remediation steps.",
-    "publishedTime": "2024-08-21T03:17:00Z",
-    "author": "Security Researcher",
-    "categories": ["sql-injection", "endpoint-security", "vulnerability-disclosure"],
-    "sourceCategory": "Vuln Research",
+    "guid": "https://medium.com/p/debbe4d2c2d7",
+    "title": "When Spooky Fonts Turn Deadly: Exploiting Server-Side Template Injection for Remote Code Execution",
+    "link": "https://medium.com/p/debbe4d2c2d7",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eWhen Fantasy Meets Reality: Unmasking a Web Security Challenge Disguised as a Magical Quest\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@yeraldinmueses/when-spooky-fonts-turn-deadly-exploiting-server-side-template-injection-for-remote-code-execution-debbe4d2c2d7?source=rss------infosec-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-22T21:31:39Z",
+    "author": "",
+    "categories": [
+      "infosec",
+      "web-security",
+      "web-development",
+      "ctf",
+      "penetration-testing"
+    ],
+    "sourceCategory": "Core Security",
     "priority": 1,
-    "ageHours": 10.8,
-    "isNew": false,
+    "ageHours": 22.8247732375,
+    "isNew": true,
+    "isToday": false,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security",
+      "vulnerability"
+    ],
+    "threatIntelTags": [
+      "botnet"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 54.6,
+    "qualityScore": 48
+  },
+  {
+    "guid": "https://medium.com/p/91a42960208f",
+    "title": "Polyglot Files in Cybersecurity: A Double-Edged Sword",
+    "link": "https://medium.com/p/91a42960208f",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@samyakgoel5/polyglot-files-in-cybersecurity-a-double-edged-sword-91a42960208f?source=rss------cyber_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/724/1*6Z3hIu-KUEyZIaLZPaCG2Q.png\" width=\"724\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eIn cybersecurity, adversaries are always looking for new ways to bypass defenses, confuse analysts, and exploit how systems interpret data\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@samyakgoel5/polyglot-files-in-cybersecurity-a-double-edged-sword-91a42960208f?source=rss------cyber_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:08:40Z",
+    "author": "",
+    "categories": [
+      "threat-hunting",
+      "polyglot",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 1.2078287930555556,
+    "isNew": true,
     "isToday": true,
     "isThisWeek": true,
-    "cveIds": ["CVE-2024-8765"]
+    "securityCategories": [
+      "vulnerability",
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "affectedSoftware": [
+      "Edge"
+    ],
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "6Z3hIu-KUEyZIaLZPaCG2Q.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181269-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 54.2,
+    "qualityScore": 46
+  },
+  {
+    "guid": "https://medium.com/p/40456a788437",
+    "title": "The Weirdest Social Media Scams Trending Right Now 2025 — Insider Tips",
+    "link": "https://medium.com/p/40456a788437",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@dutttarush9360/the-weirdest-social-media-scams-trending-right-now-2025-insider-tips-40456a788437?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1200/0*v08SCZOe0yVzEYl2.jpg\" width=\"1200\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eBy\u0026#xA0;: Tarush Sharma\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@dutttarush9360/the-weirdest-social-media-scams-trending-right-now-2025-insider-tips-40456a788437?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T11:22:43Z",
+    "author": "",
+    "categories": [
+      "social-media",
+      "trending",
+      "cybersecurity",
+      "information-security",
+      "scam"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 8.973662126944445,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "network-security",
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "v08SCZOe0yVzEYl2.jpg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181236-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 54.2,
+    "qualityScore": 46
+  },
+  {
+    "guid": "https://medium.com/p/552d2a243950",
+    "title": "CVE-2025–53770 EXPLAINED: ToolShell RCE + Live SOC Analysis (Letsdefend SOC342)",
+    "link": "https://medium.com/p/552d2a243950",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://motasemhamdan.medium.com/cve-2025-53770-explained-toolshell-rce-live-soc-analysis-letsdefend-soc342-552d2a243950?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1280/1*aSrgqoLmyZfUEuIVDkySqQ.png\" width=\"1280\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eIntroduction\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://motasemhamdan.medium.com/cve-2025-53770-explained-toolshell-rce-live-soc-analysis-letsdefend-soc342-552d2a243950?source=rss------infosec-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T10:30:01Z",
+    "author": "",
+    "categories": [
+      "cve",
+      "hacking",
+      "cybersecurity",
+      "infosec",
+      "sharepoint"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 9.851995460555555,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security",
+      "vulnerability"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "aSrgqoLmyZfUEuIVDkySqQ.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182684-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 54.2,
+    "qualityScore": 46
+  },
+  {
+    "guid": "https://medium.com/p/8ff59a7d245c",
+    "title": "Wrong Variable Name Leads To RCE | CVE-2025–52130",
+    "link": "https://medium.com/p/8ff59a7d245c",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@The_Hiker/wrong-variable-name-leads-to-rce-cve-2025-52130-8ff59a7d245c?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1906/0*W8GLqhp6ncia9Q7x\" width=\"1906\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eBack in May this year I spent some time going through PHP applications on Github , with a single goal in mind \u0026#x2014; to find my first CVE.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@The_Hiker/wrong-variable-name-leads-to-rce-cve-2025-52130-8ff59a7d245c?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T09:25:12Z",
+    "author": "",
+    "categories": [
+      "bug-bounty",
+      "hacking",
+      "ethical-hacking",
+      "security",
+      "information-security"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 10.932273238333334,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security",
+      "vulnerability"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 54.2,
+    "qualityScore": 46
+  },
+  {
+    "guid": "https://medium.com/p/6aeae3bc7a50",
+    "title": "Ustradin.com Crypto Scam: How I Lost Funds to a Fake AI Trading Platform",
+    "link": "https://medium.com/p/6aeae3bc7a50",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eMy personal story of falling for an AI trading fraud and the recovery steps that helped me get part of my money back.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@futremokni/ustradin-com-crypto-scam-how-i-lost-funds-to-a-fake-ai-trading-platform-6aeae3bc7a50?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:52:51Z",
+    "author": "",
+    "categories": [
+      "blockchain",
+      "cryptocurrency",
+      "artificial-intelligence",
+      "crypto-scam-recovery",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.471439905,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "threatIntelTags": [
+      "cybercrime"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "Ustradin.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.17967-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 54,
+    "qualityScore": 45
+  },
+  {
+    "guid": "https://medium.com/p/89cb1b8fec75",
+    "title": "Insuredlifeinvest.Ltd Crypto Scam: How I Nearly Lost Everything",
+    "link": "https://medium.com/p/89cb1b8fec75",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eA first-hand account of a fake AI trading scheme and the experts who helped me recover stolen crypto.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@futremokni/insuredlifeinvest-ltd-crypto-scam-how-i-nearly-lost-everything-89cb1b8fec75?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T20:06:48Z",
+    "author": "",
+    "categories": [
+      "cybersecurity",
+      "artificial-intelligence",
+      "crypto-scam-recovery",
+      "blockchain",
+      "cryptocurrency"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.238939905,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "Insuredlifeinvest.Ltd",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.175381-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/cfd580b98842",
+    "title": "Coingainars.com Scam Exposed: The Truth About This Fake Crypto Platform",
+    "link": "https://medium.com/p/cfd580b98842",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eHow Coingainars lured investors with false promises and how I recovered some of my stolen crypto.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@futremokni/coingainars-com-scam-exposed-the-truth-about-this-fake-crypto-platform-cfd580b98842?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:59:11Z",
+    "author": "",
+    "categories": [
+      "cybersecurity",
+      "crypto-scam-recovery",
+      "cryptocurrency",
+      "blockchain",
+      "artificial-intelligence"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.3658843497222222,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "Coingainars.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178105-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/ff38d08af0c3",
+    "title": "Hacking My Way Out: From Midnight Bundles in Ghana to the Dark Web",
+    "link": "https://medium.com/p/ff38d08af0c3",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@cybernerddd/hacking-my-way-out-from-midnight-bundles-in-ghana-to-the-dark-web-ff38d08af0c3?source=rss------cybersecurity-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1024/1*94aH4uJ5xd07sJWylQOkjA.png\" width=\"1024\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eThe Movie that sparked it all\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@cybernerddd/hacking-my-way-out-from-midnight-bundles-in-ghana-to-the-dark-web-ff38d08af0c3?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:53:19Z",
+    "author": "",
+    "categories": [
+      "africa",
+      "darkweb",
+      "hacking",
+      "learning",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.4636621275,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "94aH4uJ5xd07sJWylQOkjA.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182692-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/7857537dd84f",
+    "title": "127.0.0.1 Isn’t Just Localhost: The Secret Network Inside Your Computer",
+    "link": "https://medium.com/p/7857537dd84f",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@dayakumar06588/127-0-0-1-isnt-just-localhost-the-secret-network-inside-your-computer-7857537dd84f?source=rss------cybersecurity-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/2600/0*ID1ftAWbiOZK9f8L\" width=\"6016\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eThink 127.0.0.1 is just for localhost? Think again. Discover the hidden power of the entire 127.0.0.0/8 loopback block for development\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@dayakumar06588/127-0-0-1-isnt-just-localhost-the-secret-network-inside-your-computer-7857537dd84f?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:37:31Z",
+    "author": "",
+    "categories": [
+      "localhost",
+      "devops",
+      "cybersecurity",
+      "loopback",
+      "networking"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.7269954608333333,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "ipv4",
+        "value": "127.0.0.1",
+        "confidence": 0.7,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177144-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "ipv4",
+        "value": "127.0.0.1",
+        "confidence": 0.7,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177145-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "ipv4",
+        "value": "127.0.0.0",
+        "confidence": 0.7,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177146-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/9fb760b1be96",
+    "title": "Enforcing Security Best Practices with Linux Permissions",
+    "link": "https://medium.com/p/9fb760b1be96",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eBy Dany Christel | Aspiring SOC Analyst | Former QA \u0026amp; Test Engineer\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@christel093/enforcing-security-best-practices-with-linux-permissions-9fb760b1be96?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:31:32Z",
+    "author": "",
+    "categories": [
+      "information-technology",
+      "securityblueteam",
+      "access-control",
+      "linux",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.8267176833333333,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "affectedSoftware": [
+      "Linux"
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/24ed38e168e7",
+    "title": "You Don’t Need a PhD in SQL to Use Your Own Telemetry",
+    "link": "https://medium.com/p/24ed38e168e7",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@umesh31/you-dont-need-a-phd-in-sql-to-use-your-own-telemetry-24ed38e168e7?source=rss------cybersecurity-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1536/0*Xucelfxx-Dniwvel\" width=\"1536\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eHow we built a tool-augmented, schema-aware NL\u0026#x2192;SQL system that cuts through 3,000 tables of schema fog.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@umesh31/you-dont-need-a-phd-in-sql-to-use-your-own-telemetry-24ed38e168e7?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:24:49Z",
+    "author": "",
+    "categories": [
+      "naturallanguageprocessing",
+      "data-engineering",
+      "llm",
+      "prompt-engineering",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.9386621277777778,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/c1178631c832",
+    "title": "A Smarter Lock for a Smarter World: The Mobile-First Revolution in Access Control",
+    "link": "https://medium.com/p/c1178631c832",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eThe old way of doing things is about to get a major upgrade. For years, businesses have relied on outdated, insecure, and inefficient\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@dgriggsde/a-smarter-lock-for-a-smarter-world-the-mobile-first-revolution-in-access-control-c1178631c832?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T18:18:53Z",
+    "author": "",
+    "categories": [
+      "business",
+      "security",
+      "software"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 2.037551016666667,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/32d6f6891691",
+    "title": "My Journey into Cybersecurity (Part 2): Exploring Cyberspace and Network Communication Systems",
+    "link": "https://medium.com/p/32d6f6891691",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@lavanyara20/my-journey-into-cybersecurity-part-2-exploring-cyberspace-and-network-communication-systems-32d6f6891691?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/2600/0*jX_tSBpXwCX234hu\" width=\"7360\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003e\u0026#x1F31F; Introduction\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@lavanyara20/my-journey-into-cybersecurity-part-2-exploring-cyberspace-and-network-communication-systems-32d6f6891691?source=rss------infosec-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T17:29:16Z",
+    "author": "",
+    "categories": [
+      "cybersecurity-journey",
+      "networking",
+      "infosec",
+      "cyberspace",
+      "cyber-security-analyst"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 2.8644954613888887,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/3ef31b18edb3",
+    "title": "Why CCTV Monitoring Is the Future of Business Security in 2025",
+    "link": "https://medium.com/p/3ef31b18edb3",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@visualmonitoringsolutions/why-cctv-monitoring-is-the-future-of-business-security-in-2025-3ef31b18edb3?source=rss------security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1080/1*qKAb7TBsoCHCIjlgSBO4Vg.png\" width=\"1080\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eWhy CCTV Monitoring Is the Future of Business Security in 2025\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@visualmonitoringsolutions/why-cctv-monitoring-is-the-future-of-business-security-in-2025-3ef31b18edb3?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T16:57:13Z",
+    "author": "",
+    "categories": [
+      "virtual-assistant",
+      "surveillance",
+      "security",
+      "united-states",
+      "cctv"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 3.3986621280555553,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "qKAb7TBsoCHCIjlgSBO4Vg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182992-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/346aa7f840fc",
+    "title": "Securing the Model Context Protocol: The Case for a Trusted MCP Gateway",
+    "link": "https://medium.com/p/346aa7f840fc",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@shashvik/securing-the-model-context-protocol-the-case-for-a-trusted-mcp-gateway-346aa7f840fc?source=rss------security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1054/1*u3UleaI8Rab5MDjbtQyiMg.png\" width=\"1054\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eModel Context Protocol (MCP) is quickly becoming the backbone for connecting AI agents to real-world systems. By exposing structured tools\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@shashvik/securing-the-model-context-protocol-the-case-for-a-trusted-mcp-gateway-346aa7f840fc?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T16:33:40Z",
+    "author": "",
+    "categories": [
+      "mcps",
+      "cybersecurity",
+      "security",
+      "llm",
+      "ai"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 3.7911621280555554,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "u3UleaI8Rab5MDjbtQyiMg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.175983-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/242a93d188d6",
+    "title": "What is Wazuh? Why Open-Source Security Analytics Matters",
+    "link": "https://medium.com/p/242a93d188d6",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@mohammedalmaamori4/what-is-wazuh-why-open-source-security-analytics-matters-242a93d188d6?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/720/1*H_uPCvOCsUR9u4QitGBarQ.png\" width=\"720\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eIntroduction | \u0026#x627;\u0026#x644;\u0026#x645;\u0026#x642;\u0026#x62F;\u0026#x645;\u0026#x629;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@mohammedalmaamori4/what-is-wazuh-why-open-source-security-analytics-matters-242a93d188d6?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T15:56:03Z",
+    "author": "",
+    "categories": [
+      "cybersecurity",
+      "information-security",
+      "wazuh",
+      "security-operation-center"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 4.418106572777778,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/e012f3b51e0b",
+    "title": "Vibe Coding Efficiency, Part One: Glyph’s Futzing Fraction",
+    "link": "https://medium.com/p/e012f3b51e0b",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eIf AI really eliminates developers, why does it take 12 retries to get working error handling?\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://danglass.medium.com/vibe-coding-efficiency-part-one-glyphs-futzing-fraction-e012f3b51e0b?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T15:25:36Z",
+    "author": "",
+    "categories": [
+      "security",
+      "vibe-coding",
+      "ai",
+      "technology"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 4.925606572777777,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/bbbf84dce259",
+    "title": " Reportei uma Falha Crítica na OpenAI e Fui Reconhecido pela Equipe deles!",
+    "link": "https://medium.com/p/bbbf84dce259",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@franciscogonsalves068/reportei-uma-falha-cr%C3%ADtica-na-openai-e-fui-reconhecido-pela-equipe-deles-bbbf84dce259?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1047/1*OC6t-K8ovpOnAK2EuXUNXQ.png\" width=\"1047\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003e\u0026#x1F6A8; Reportei uma Falha Cr\u0026#xED;tica na OpenAI e Fui Reconhecido pela Equipe deles!\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@franciscogonsalves068/reportei-uma-falha-cr%C3%ADtica-na-openai-e-fui-reconhecido-pela-equipe-deles-bbbf84dce259?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T13:41:56Z",
+    "author": "",
+    "categories": [
+      "hacking",
+      "artificial-intelligence",
+      "information-security",
+      "hacker",
+      "openai"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 6.653384350555555,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "OC6t-K8ovpOnAK2EuXUNXQ.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.181216-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/473688e10b14",
+    "title": " How the Internet Flows: From Your Screen to a Server and Back",
+    "link": "https://medium.com/p/473688e10b14",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@akhil.boddula1805/how-the-internet-flows-from-your-screen-to-a-server-and-back-473688e10b14?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1536/1*wMEU82HwXVePi6PbYjIIRw.png\" width=\"1536\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eEver wondered what really happens when you type google.com into your browser and hit Enter?\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@akhil.boddula1805/how-the-internet-flows-from-your-screen-to-a-server-and-back-473688e10b14?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T12:31:31Z",
+    "author": "",
+    "categories": [
+      "site-reliability-engineer",
+      "devops",
+      "information-security",
+      "networking",
+      "internet"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 7.826995461944445,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "wMEU82HwXVePi6PbYjIIRw.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178526-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/90d6fca9c510",
+    "title": "OWASP IoT Top 10: Why the Basics Still Matter in Securing Smart Devices",
+    "link": "https://medium.com/p/90d6fca9c510",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@cybernovica/owasp-iot-top-10-why-the-basics-still-matter-in-securing-smart-devices-90d6fca9c510?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1200/1*qhx8nHxEsdmK18_1kHUAfA.png\" width=\"1200\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003e\u0026#x1F6A8; IoT is everywhere\u0026#x200A;\u0026#x2014;\u0026#x200A;from smart cameras and home assistants to medical devices and industrial controllers. With this growing\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@cybernovica/owasp-iot-top-10-why-the-basics-still-matter-in-securing-smart-devices-90d6fca9c510?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T12:21:44Z",
+    "author": "",
+    "categories": [
+      "cybersecurity",
+      "security",
+      "owasp",
+      "information-security",
+      "iot"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 7.9900510175,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/d06b8efe5ac9",
+    "title": " From Logs to Loot: How Debug Files Exposed User Sessions and Led Me to Jackpot ",
+    "link": "https://medium.com/p/d06b8efe5ac9",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://infosecwriteups.com/from-logs-to-loot-how-debug-files-exposed-user-sessions-and-led-me-to-jackpot-d06b8efe5ac9?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1024/1*wGdglRWIUh8Yu8Cs5iHscA.png\" width=\"1024\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eHey there!\u0026#x1F601;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://infosecwriteups.com/from-logs-to-loot-how-debug-files-exposed-user-sessions-and-led-me-to-jackpot-d06b8efe5ac9?source=rss------infosec-5\"\u003eContinue reading on InfoSec Write-ups »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T08:44:29Z",
+    "author": "",
+    "categories": [
+      "money",
+      "bug-bounty",
+      "hacking",
+      "cybersecurity",
+      "infosec"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 11.610884350833333,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "infosecwriteups.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.18034-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "domain",
+        "value": "wGdglRWIUh8Yu8Cs5iHscA.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.180343-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "domain",
+        "value": "infosecwriteups.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.180345-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/8e2b88aef882",
+    "title": "New Win-DoS Zero-Click Vulnerabilities Turns Windows \nServerEndpoint, Domain Controllers Into DDoS…",
+    "link": "https://medium.com/p/8e2b88aef882",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://aws.plainenglish.io/new-win-dos-zero-click-vulnerabilities-turns-windows-serverendpoint-domain-controllers-into-ddos-8e2b88aef882?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1250/0*E0lgC0WB1k6kOHCC\" width=\"1250\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eImagine this: your business grinds to a halt, employees are locked out, and your Windows Domain Controllers the very backbone of your\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://aws.plainenglish.io/new-win-dos-zero-click-vulnerabilities-turns-windows-serverendpoint-domain-controllers-into-ddos-8e2b88aef882?source=rss------infosec-5\"\u003eContinue reading on AWS in Plain English »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T01:05:00Z",
+    "author": "",
+    "categories": [
+      "technews",
+      "ddos",
+      "infosec",
+      "cybersecurity",
+      "windows"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 19.268939906944443,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "affectedSoftware": [
+      "Windows"
+    ],
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "aws.plainenglish.io",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.18078-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "domain",
+        "value": "aws.plainenglish.io",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.180781-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/09751b0f284c",
+    "title": "The Flipper Zero Debate: A Symptom of Automotive Security Failures",
+    "link": "https://medium.com/p/09751b0f284c",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@realsec.io/the-flipper-zero-debate-a-symptom-of-automotive-security-failures-09751b0f284c?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/674/0*suaWfYfa5pfJTMsp\" width=\"674\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eIn recent months, renewed attention has been drawn to the Flipper Zero, a handheld, multi-purpose device designed primarily for security\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@realsec.io/the-flipper-zero-debate-a-symptom-of-automotive-security-failures-09751b0f284c?source=rss------infosec-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-22T23:57:30Z",
+    "author": "",
+    "categories": [
+      "cybercrime",
+      "cybersecurity",
+      "information-security",
+      "infosec",
+      "flipper-zero"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 20.393939906944443,
+    "isNew": true,
+    "isToday": false,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "realsec.io",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178164-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "domain",
+        "value": "realsec.io",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178167-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 53.6,
+    "qualityScore": 43
+  },
+  {
+    "guid": "https://medium.com/p/4f8fd9e18b0d",
+    "title": "️ The Case of the Hidden Endpoint: How Enumeration Unlocked a Tricky Vulnerability",
+    "link": "https://medium.com/p/4f8fd9e18b0d",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://infosecwriteups.com/%EF%B8%8F-the-case-of-the-hidden-endpoint-how-enumeration-unlocked-a-tricky-vulnerability-4f8fd9e18b0d?source=rss------infosec-5\"\u003eContinue reading on InfoSec Write-ups »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T11:52:09Z",
+    "author": "",
+    "categories": [
+      "penetration-testing",
+      "infosec",
+      "hacking",
+      "cybersecurity",
+      "bug-bounty"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 8.48310657388889,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security",
+      "vulnerability"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "infosecwriteups.com",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177225-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 52.2,
+    "qualityScore": 36
+  },
+  {
+    "guid": "https://medium.com/p/8629c927d6d7",
+    "title": "Kuban CTF 2025- OSINT write-ups",
+    "link": "https://medium.com/p/8629c927d6d7",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@tasnemzeidan2005/kuban-ctf-2025-osint-write-ups-8629c927d6d7?source=rss------cybersecurity-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1102/1*aWAP1EYGNHJ0D6-mqmUiAg.png\" width=\"1102\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003e.The first OSINT challenge \u0026#x201C;All Star\u0026#x201D;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@tasnemzeidan2005/kuban-ctf-2025-osint-write-ups-8629c927d6d7?source=rss------cybersecurity-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:47:53Z",
+    "author": "",
+    "categories": [
+      "ctf",
+      "ctf-writeup",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.554217685,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "aWAP1EYGNHJ0D6-mqmUiAg.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178603-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 51.6,
+    "qualityScore": 33
+  },
+  {
+    "guid": "https://medium.com/p/4eed233399ec",
+    "title": "Lure, Mislead, Learn: The Rise of Cyber Deception",
+    "link": "https://medium.com/p/4eed233399ec",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@r.dosumu/lure-mislead-learn-the-rise-of-cyber-deception-4eed233399ec?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1920/1*hmpg2F7BOgZMlgTUBQ8U2A.jpeg\" width=\"1920\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eMonth 3 of this series is all about Advanced Topics, Innovation \u0026amp; Opinion.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@r.dosumu/lure-mislead-learn-the-rise-of-cyber-deception-4eed233399ec?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:07:13Z",
+    "author": "",
+    "categories": [
+      "deception",
+      "cybersecurity",
+      "information-technology",
+      "information-security"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 1.2319954627777778,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "r.dosumu",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.17684-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "domain",
+        "value": "hmpg2F7BOgZMlgTUBQ8U2A.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.176842-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      },
+      {
+        "type": "domain",
+        "value": "r.dosumu",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.176843-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 51.6,
+    "qualityScore": 33
+  },
+  {
+    "guid": "https://medium.com/p/f1c48070a85a",
+    "title": "What Is Block Chain?",
+    "link": "https://medium.com/p/f1c48070a85a",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@virajgawas/what-is-block-chain-f1c48070a85a?source=rss------security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/2600/0*tgz6hNACtqgySeHC\" width=\"5472\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eToday let us learn about Block chain!\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@virajgawas/what-is-block-chain-f1c48070a85a?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T18:43:07Z",
+    "author": "",
+    "categories": [
+      "block-chain-technology",
+      "crytocurrency",
+      "security",
+      "trust",
+      "work"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 1.6336621297222222,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 51.6,
+    "qualityScore": 33
+  },
+  {
+    "guid": "https://medium.com/p/4f9621153ed5",
+    "title": "Get the taste of the in-toto/witness project",
+    "link": "https://medium.com/p/4f9621153ed5",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@rahulxf/get-the-taste-of-the-in-toto-witness-project-4f9621153ed5?source=rss------security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1761/1*Kt3sbsJk-3t_dHHm7RHr_A.png\" width=\"1761\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eGetting started with the in-toto/witness project:\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@rahulxf/get-the-taste-of-the-in-toto-witness-project-4f9621153ed5?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T17:09:22Z",
+    "author": "",
+    "categories": [
+      "in-toto",
+      "software-supply-chain",
+      "attestation",
+      "witness",
+      "security"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 3.196162129722222,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 51.6,
+    "qualityScore": 33
+  },
+  {
+    "guid": "https://medium.com/p/8a15295dea65",
+    "title": "Unlock Your iPhone Using Just Your Voice",
+    "link": "https://medium.com/p/8a15295dea65",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@tsumit849/unlock-your-iphone-using-just-your-voice-8a15295dea65?source=rss------security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/786/1*OnIk1vweDPqsE9DKWivQ8g.jpeg\" width=\"786\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eI\u0026#x2019;ll guide you through the simple setup so you can try it today\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@tsumit849/unlock-your-iphone-using-just-your-voice-8a15295dea65?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T15:59:18Z",
+    "author": "",
+    "categories": [
+      "apple",
+      "security",
+      "iphone",
+      "ios",
+      "technology"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 4.3639399075,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "OnIk1vweDPqsE9DKWivQ8g.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178466-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 51.6,
+    "qualityScore": 33
+  },
+  {
+    "guid": "https://medium.com/p/9fb621a3b05e",
+    "title": "Mini SOC Home Lab V2",
+    "link": "https://medium.com/p/9fb621a3b05e",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://hazemaahmed25.medium.com/mini-soc-home-lab-v2-9fb621a3b05e?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1128/1*Pa_-LeB5U7grD3EKpP8rQw.png\" width=\"1128\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eMore advanced attack techniques and analysis than Mini SOC Home Lab V1\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://hazemaahmed25.medium.com/mini-soc-home-lab-v2-9fb621a3b05e?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T12:51:49Z",
+    "author": "",
+    "categories": [
+      "information-security",
+      "cyber-security-awareness",
+      "red-team",
+      "cybersecurity",
+      "security"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 7.488662130277778,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "LeB5U7grD3EKpP8rQw.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.182618-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 51.6,
+    "qualityScore": 33
+  },
+  {
+    "guid": "https://medium.com/p/837200e19360",
+    "title": "Threat Intel #1: The Cyber Kill Chain Explained",
+    "link": "https://medium.com/p/837200e19360",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@normanks1995/threat-intel-1-the-cyber-kill-chain-explained-837200e19360?source=rss------information_security-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1920/1*rys2eEPRRss0TqT6S25EYQ.png\" width=\"1920\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eLearn how attackers progress through the Cyber Kill Chain and how defenders can detect, disrupt, and respond at each stage.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@normanks1995/threat-intel-1-the-cyber-kill-chain-explained-837200e19360?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T10:25:17Z",
+    "author": "",
+    "categories": [
+      "cybersecurity",
+      "threat-intelligence",
+      "incident-response",
+      "information-security",
+      "cyber-kill-chain"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 9.9308843525,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "rys2eEPRRss0TqT6S25EYQ.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.177257-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 51.6,
+    "qualityScore": 33
+  },
+  {
+    "guid": "https://medium.com/p/c6929b895e03",
+    "title": "Tackling Social Engineering Attacks with AI",
+    "link": "https://medium.com/p/c6929b895e03",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eHello everyone \u0026#x1F44B;,\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@karim.mokhtar.career/tackling-social-engineering-attacks-with-ai-c6929b895e03?source=rss------security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T19:37:55Z",
+    "author": "",
+    "categories": [
+      "nlp",
+      "ai",
+      "security"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 0.7203287972222222,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "phishing",
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "karim.mokhtar.career",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.179613-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 50.2,
+    "qualityScore": 26
+  },
+  {
+    "guid": "https://medium.com/p/af03a53890f0",
+    "title": "DROSERA WEB3 PROJECT",
+    "link": "https://medium.com/p/af03a53890f0",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-snippet\"\u003eReimagining Web3 Security\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@rebalrehan15/drosera-web3-project-af03a53890f0?source=rss------information_security-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-23T14:10:11Z",
+    "author": "",
+    "categories": [
+      "drosera-network",
+      "drosera",
+      "web3",
+      "information-security",
+      "security"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 6.182551019444444,
+    "isNew": true,
+    "isToday": true,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "trendingScore": 49.6,
+    "qualityScore": 23
+  },
+  {
+    "guid": "https://medium.com/p/80d146b3c6cd",
+    "title": "From Lure to Shell: Reproducing APT37’s CHM Exploitation Tactics",
+    "link": "https://medium.com/p/80d146b3c6cd",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@alokkumar0200/from-lure-to-shell-reproducing-apt37s-chm-exploitation-tactics-80d146b3c6cd?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1182/1*HvPAUYBCdz4ruYYM53Ow-A.png\" width=\"1182\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eReproducing the tactics of APT37, this blog shows how CHM files can be weaponized for threat emulation. From lure design to reverse shell.\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@alokkumar0200/from-lure-to-shell-reproducing-apt37s-chm-exploitation-tactics-80d146b3c6cd?source=rss------infosec-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-22T19:14:53Z",
+    "author": "",
+    "categories": [
+      "mitre-attack",
+      "red-team",
+      "apt37",
+      "social-engineering",
+      "infosec"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 25.10421768611111,
+    "isNew": true,
+    "isToday": false,
+    "isThisWeek": true,
+    "securityCategories": [
+      "threat-intel",
+      "vulnerability",
+      "web-security"
+    ],
+    "threatIntelTags": [
+      "apt"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "HvPAUYBCdz4ruYYM53Ow-A.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.179753-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 45.2,
+    "qualityScore": 51
+  },
+  {
+    "guid": "https://medium.com/p/424585c79074",
+    "title": "A Simple Supply Chain Bug — Worth $11,850 — How GitLab Reinforces Trust in Open Source",
+    "link": "https://medium.com/p/424585c79074",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@justas_b1/a-simple-supply-chain-bug-worth-11-850-how-gitlab-reinforces-trust-in-open-source-424585c79074?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1246/1*xrxD8cYJTIvpo64JhQhHAA.png\" width=\"1246\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eMost people think that open source means transparency, collaboration or even better security. But a supply chain vulnerability, recently\u0026#x2026;\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@justas_b1/a-simple-supply-chain-bug-worth-11-850-how-gitlab-reinforces-trust-in-open-source-424585c79074?source=rss------infosec-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-22T16:36:50Z",
+    "author": "",
+    "categories": [
+      "cybersecurity",
+      "infosec",
+      "docker",
+      "devops",
+      "bug-bounty"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 27.738384353055554,
+    "isNew": true,
+    "isToday": false,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security",
+      "vulnerability"
+    ],
+    "threatIntelTags": [
+      "supply-chain"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "xrxD8cYJTIvpo64JhQhHAA.png",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.178942-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 44.6,
+    "qualityScore": 48
+  },
+  {
+    "guid": "https://medium.com/p/44ff275483d2",
+    "title": "CTI Diaries #5: Intelligence Requirements and Collection Management",
+    "link": "https://medium.com/p/44ff275483d2",
+    "description": "\u003cdiv class=\"medium-feed-item\"\u003e\u003cp class=\"medium-feed-image\"\u003e\u003ca href=\"https://medium.com/@d3lt4labs/cti-diaries-5-intelligence-requirements-and-collection-management-44ff275483d2?source=rss------infosec-5\"\u003e\u003cimg src=\"https://cdn-images-1.medium.com/max/1280/1*eHPHgGqQtappgJ-SPsRaaA.jpeg\" width=\"1280\"\u003e\u003c/a\u003e\u003c/p\u003e\u003cp class=\"medium-feed-snippet\"\u003eAsking the right questions and building the discipline to gather the right data\u003c/p\u003e\u003cp class=\"medium-feed-link\"\u003e\u003ca href=\"https://medium.com/@d3lt4labs/cti-diaries-5-intelligence-requirements-and-collection-management-44ff275483d2?source=rss------infosec-5\"\u003eContinue reading on Medium »\u003c/a\u003e\u003c/p\u003e\u003c/div\u003e",
+    "publishedTime": "2025-08-22T19:19:01Z",
+    "author": "",
+    "categories": [
+      "infosec",
+      "cyber-threat-intelligence",
+      "cybersecurity"
+    ],
+    "sourceCategory": "Core Security",
+    "priority": 1,
+    "ageHours": 25.0353287975,
+    "isNew": true,
+    "isToday": false,
+    "isThisWeek": true,
+    "securityCategories": [
+      "web-security"
+    ],
+    "technicalComplexity": "beginner",
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "eHPHgGqQtappgJ-SPsRaaA.jpeg",
+        "confidence": 0.6,
+        "source": "content_extraction",
+        "firstSeen": "2025-08-23T16:21:08.180644-04:00",
+        "lastSeen": "0001-01-01T00:00:00Z"
+      }
+    ],
+    "trendingScore": 43.6,
+    "qualityScore": 43
   }
 ]

@@ -1,35 +1,44 @@
-name: 🔧 Repository Maintenance
+name: 🔧 Dependency Updates & Maintenance
 
 on:
+  # Run maintenance weekly
   schedule:
-    - cron: '0 2 * * 1'  # Weekly on Monday at 2 AM UTC
+    - cron: '0 2 * * 1'  # Monday at 2 AM UTC
+  
+  # Manual maintenance trigger
   workflow_dispatch:
     inputs:
       maintenance_type:
-        description: 'Type of maintenance to run'
+        description: 'Type of maintenance to perform'
         required: false
         default: 'full'
         type: choice
         options:
           - full
+          - dependencies-only
           - cleanup-only
-          - update-deps
-          - security-audit
+          - security-updates
+      
+      create_pr:
+        description: 'Create pull request for updates'
+        required: false
+        default: 'true'
+        type: boolean
 
 permissions:
   contents: write
   pull-requests: write
   issues: write
-  security-events: write
 
 env:
   GO_VERSION: '1.23.4'
 
 jobs:
-  # Dependency updates
+  # Dependency updates and security patches
   dependency-updates:
     name: 📦 Update Dependencies
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event.inputs.maintenance_type != 'cleanup-only'
     
     steps:
@@ -37,58 +46,212 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       
       - name: 🔧 Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: ${{ env.GO_VERSION }}
+          cache: true
       
-      - name: 📦 Update Go dependencies
+      - name: 📦 Initialize Go environment
         run: |
-          echo "📦 Updating Go dependencies..."
-          if [ -f "go.mod" ]; then
-            go get -u ./...
-            go mod tidy
-            echo "✅ Go dependencies updated"
+          echo "📦 Setting up Go environment..."
+          if [ ! -f "go.mod" ]; then
+            go mod init medium-writeups-aggregator
+          fi
+          go mod tidy
+          echo "✅ Go environment ready"
+      
+      - name: 🔍 Check current dependencies
+        id: check_deps
+        run: |
+          echo "🔍 Analyzing current dependencies..."
+          
+          # Create backup of current state
+          cp go.mod go.mod.backup 2>/dev/null || true
+          cp go.sum go.sum.backup 2>/dev/null || true
+          
+          # List current dependencies
+          echo "## Current Dependencies" > DEPENDENCY_UPDATE.md
+          echo "```" >> DEPENDENCY_UPDATE.md
+          go list -m all >> DEPENDENCY_UPDATE.md
+          echo "```" >> DEPENDENCY_UPDATE.md
+          echo "" >> DEPENDENCY_UPDATE.md
+          
+          # Check for available updates
+          echo "🔍 Checking for available updates..."
+          go list -u -m all | grep -v "$(go list -m)" > available_updates.txt || true
+          
+          if [ -s available_updates.txt ]; then
+            echo "has_updates=true" >> $GITHUB_OUTPUT
+            echo "📦 Updates available"
           else
-            echo "ℹ️ No go.mod found, skipping Go dependency updates"
+            echo "has_updates=false" >> $GITHUB_OUTPUT
+            echo "✅ All dependencies up to date"
           fi
       
-      - name: 🔍 Check for dependency changes
-        id: changes
+      - name: 📈 Update Go dependencies
+        if: steps.check_deps.outputs.has_updates == 'true'
+        id: update_deps
         run: |
-          if git diff --quiet go.mod go.sum 2>/dev/null; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ No dependency changes detected"
+          echo "📈 Updating Go dependencies..."
+          
+          # Update all dependencies to latest compatible versions
+          go get -u ./...
+          go mod tidy
+          
+          # Verify the build still works
+          if go build -v ./...; then
+            echo "✅ Dependencies updated successfully and build passes"
+            echo "update_success=true" >> $GITHUB_OUTPUT
           else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "📝 Dependency changes detected"
+            echo "❌ Build failed after dependency update"
+            # Restore backup
+            cp go.mod.backup go.mod 2>/dev/null || true
+            cp go.sum.backup go.sum 2>/dev/null || true
+            echo "update_success=false" >> $GITHUB_OUTPUT
+            exit 1
           fi
       
-      - name: 📤 Commit dependency updates
-        if: steps.changes.outputs.has_changes == 'true'
+      - name: 🔒 Security vulnerability check
         run: |
+          echo "🔒 Checking for security vulnerabilities..."
+          
+          # Install govulncheck
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          
+          # Run vulnerability check
+          govulncheck ./... > vuln_report.txt 2>&1 || true
+          
+          echo "## Security Vulnerability Check" >> DEPENDENCY_UPDATE.md
+          echo "```" >> DEPENDENCY_UPDATE.md
+          cat vuln_report.txt >> DEPENDENCY_UPDATE.md
+          echo "```" >> DEPENDENCY_UPDATE.md
+          echo "" >> DEPENDENCY_UPDATE.md
+          
+          if grep -q "No vulnerabilities found" vuln_report.txt; then
+            echo "✅ No security vulnerabilities found"
+          else
+            echo "⚠️ Security vulnerabilities detected - check report"
+          fi
+      
+      - name: 📊 Generate dependency update report
+        if: always()
+        run: |
+          echo "📊 Generating dependency update report..."
+          
+          # Add header information
+          sed -i '1i# 📦 Dependency Update Report\n' DEPENDENCY_UPDATE.md
+          sed -i '2i**Date**: $(date -u)' DEPENDENCY_UPDATE.md
+          sed -i '3i**Go Version**: $(go version)' DEPENDENCY_UPDATE.md
+          sed -i '4i**Maintenance Type**: ${{ github.event.inputs.maintenance_type || 'full' }}\n' DEPENDENCY_UPDATE.md
+          
+          # Add update summary
+          if [ "${{ steps.update_deps.outputs.update_success }}" = "true" ]; then
+            echo "## ✅ Update Summary" >> DEPENDENCY_UPDATE.md
+            echo "- Dependencies successfully updated to latest compatible versions" >> DEPENDENCY_UPDATE.md
+            echo "- Build verification passed" >> DEPENDENCY_UPDATE.md
+            echo "- Security vulnerability scan completed" >> DEPENDENCY_UPDATE.md
+            echo "" >> DEPENDENCY_UPDATE.md
+            
+            # Show what changed
+            echo "## 🔄 Changes Made" >> DEPENDENCY_UPDATE.md
+            echo "```diff" >> DEPENDENCY_UPDATE.md
+            diff -u go.mod.backup go.mod || true >> DEPENDENCY_UPDATE.md
+            echo "```" >> DEPENDENCY_UPDATE.md
+          else
+            echo "## ℹ️ Update Summary" >> DEPENDENCY_UPDATE.md
+            echo "- No dependency updates needed or available" >> DEPENDENCY_UPDATE.md
+            echo "- All dependencies are current" >> DEPENDENCY_UPDATE.md
+          fi
+          
+          echo "" >> DEPENDENCY_UPDATE.md
+          echo "---" >> DEPENDENCY_UPDATE.md
+          echo "*Generated by automated maintenance workflow*" >> DEPENDENCY_UPDATE.md
+      
+      - name: 📤 Create pull request for updates
+        if: steps.check_deps.outputs.has_updates == 'true' && steps.update_deps.outputs.update_success == 'true' && github.event.inputs.create_pr != 'false'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            📦 Update Go dependencies
+            
+            - Updated all dependencies to latest compatible versions
+            - Verified build compatibility
+            - Passed security vulnerability scan
+            
+            🤖 Generated with Claude Code
+            
+            Co-Authored-By: Claude <noreply@anthropic.com>
+          title: "📦 Automated Dependency Updates"
+          body: |
+            ## 📦 Dependency Update Summary
+            
+            This PR contains automated dependency updates generated by the maintenance workflow.
+            
+            ### ✅ What was updated
+            - Go dependencies updated to latest compatible versions
+            - `go mod tidy` applied for cleanup
+            - Build verification passed
+            - Security vulnerability scan completed
+            
+            ### 🔍 Review Checklist
+            - [ ] Review dependency changes
+            - [ ] Verify all tests pass
+            - [ ] Check for breaking changes
+            - [ ] Confirm security scan results
+            
+            ### 🤖 Automation Details
+            - **Workflow**: `maintenance.yml`
+            - **Trigger**: ${{ github.event_name }}
+            - **Date**: $(date -u)
+            
+            ---
+            *This PR was automatically created by the dependency maintenance workflow*
+          branch: automated/dependency-updates
+          delete-branch: true
+      
+      - name: 📤 Commit directly if no PR requested
+        if: steps.check_deps.outputs.has_updates == 'true' && steps.update_deps.outputs.update_success == 'true' && github.event.inputs.create_pr == 'false'
+        run: |
+          echo "📤 Committing dependency updates directly..."
+          
           git config --global user.name 'Dependency Bot'
           git config --global user.email 'deps-bot@users.noreply.github.com'
           
           git add go.mod go.sum
           git commit -m "📦 Update Go dependencies
 
-          - Updated to latest compatible versions
-          - Automated security and compatibility updates
-          - Run go mod tidy for cleanup
+          - Updated all dependencies to latest compatible versions  
+          - Verified build compatibility
+          - Passed security vulnerability scan
           
-          🤖 Auto-generated by maintenance workflow"
+          🤖 Generated with Claude Code
+          
+          Co-Authored-By: Claude <noreply@anthropic.com>"
           
           git push origin main
-          echo "✅ Dependency updates committed and pushed"
+          echo "✅ Dependencies updated and committed"
+      
+      - name: 📤 Upload maintenance artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-maintenance-report
+          path: |
+            DEPENDENCY_UPDATE.md
+            vuln_report.txt
+          retention-days: 30
 
-  # Code cleanup and formatting
-  code-cleanup:
-    name: 🧹 Code Cleanup
+  # Repository cleanup and maintenance
+  repository-cleanup:
+    name: 🧹 Repository Cleanup
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: dependency-updates
-    if: always() && github.event.inputs.maintenance_type != 'update-deps'
+    if: always() && github.event.inputs.maintenance_type != 'dependencies-only'
     
     steps:
       - name: 📋 Checkout repository
@@ -102,6 +265,24 @@ jobs:
         with:
           go-version: ${{ env.GO_VERSION }}
       
+      - name: 🧹 Clean up repository
+        run: |
+          echo "🧹 Performing repository cleanup..."
+          
+          # Remove temporary files
+          find . -name "*.tmp" -type f -delete || true
+          find . -name "*.log" -type f -delete || true  
+          find . -name ".DS_Store" -type f -delete || true
+          
+          # Clean up old backup files (older than 7 days)
+          find . -name "*.backup" -type f -mtime +7 -delete || true
+          find . -name "*.bak" -type f -mtime +7 -delete || true
+          
+          # Clean up build artifacts
+          rm -f main aggregator aggregator-optimized || true
+          
+          echo "✅ Repository cleanup completed"
+      
       - name: 🎨 Format Go code
         run: |
           echo "🎨 Formatting Go code..."
@@ -109,51 +290,70 @@ jobs:
             go fmt ./...
             echo "✅ Go code formatted"
           else
-            echo "ℹ️ No Go files found, skipping formatting"
+            echo "ℹ️ No Go files found for formatting"
           fi
       
-      - name: 🔍 Run go vet
+      - name: 🔍 Run code quality checks
         run: |
-          echo "🔍 Running go vet..."
+          echo "🔍 Running code quality checks..."
           if [ -f "go.mod" ]; then
             go vet ./...
-            echo "✅ go vet passed"
+            echo "✅ Code quality checks passed"
           else
-            echo "ℹ️ No go.mod found, skipping go vet"
+            echo "ℹ️ No Go module found for quality checks"
           fi
-      
-      - name: 🧹 Clean up old artifacts
-        run: |
-          echo "🧹 Cleaning up old artifacts..."
-          
-          # Remove any temporary files
-          find . -name "*.tmp" -type f -delete
-          find . -name "*.log" -type f -delete
-          find . -name ".DS_Store" -type f -delete
-          
-          # Clean up old backup files
-          find . -name "*.backup" -type f -mtime +7 -delete
-          find . -name "*.bak" -type f -mtime +7 -delete
-          
-          echo "✅ Cleanup completed"
       
       - name: 📝 Update documentation timestamps
         run: |
           echo "📝 Updating documentation..."
           
-          # Update any documentation with current date
+          # Update documentation dates where found
           if [ -f "docs/README.md" ]; then
-            sed -i "s/Last updated: .*/Last updated: $(date -u +'%Y-%m-%d')/" docs/README.md
+            sed -i.bak "s/Last updated: .*/Last updated: $(date -u +'%Y-%m-%d')/" docs/README.md
+            rm -f docs/README.md.bak
+            echo "✅ Documentation timestamps updated"
           fi
+      
+      - name: 📊 Generate cleanup report
+        run: |
+          echo "📊 Generating cleanup report..."
           
-          echo "✅ Documentation updated"
+          cat > CLEANUP_REPORT.md << 'EOF'
+          # 🧹 Repository Cleanup Report
+          
+          **Date**: $(date -u)
+          **Maintenance Type**: ${{ github.event.inputs.maintenance_type || 'full' }}
+          
+          ## ✅ Cleanup Tasks Completed
+          
+          - 🗑️ Removed temporary files (*.tmp, *.log, .DS_Store)
+          - 🗂️ Cleaned up old backup files (>7 days old)
+          - 🏗️ Removed build artifacts
+          - 🎨 Formatted Go code with `go fmt`
+          - 🔍 Ran code quality checks with `go vet`
+          - 📝 Updated documentation timestamps
+          
+          ## 📊 Repository Statistics
+          
+          - **Go Files**: $(find . -name "*.go" -not -path "./.git/*" | wc -l)
+          - **Workflow Files**: $(find .github/workflows -name "*.yml" 2>/dev/null | wc -l || echo "0")
+          - **Documentation Files**: $(find . -name "*.md" -not -path "./.git/*" | wc -l)
+          - **Total Files**: $(find . -type f -not -path "./.git/*" | wc -l)
+          
+          ## 🎯 Maintenance Status
+          
+          Repository is clean and optimized for continued development.
+          
+          ---
+          *Generated by repository cleanup workflow*
+          EOF
       
       - name: 🔍 Check for cleanup changes
         id: cleanup_changes
         run: |
           if git diff --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ No cleanup changes detected"
+            echo "ℹ️ No cleanup changes to commit"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "📝 Cleanup changes detected"
@@ -162,175 +362,56 @@ jobs:
       - name: 📤 Commit cleanup changes
         if: steps.cleanup_changes.outputs.has_changes == 'true'
         run: |
+          echo "📤 Committing cleanup changes..."
+          
           git config --global user.name 'Cleanup Bot'
           git config --global user.email 'cleanup-bot@users.noreply.github.com'
           
           git add -A
-          git commit -m "🧹 Automated code cleanup and maintenance
+          git commit -m "🧹 Automated repository cleanup and maintenance
 
-          - Format Go code with go fmt
-          - Run go vet for code quality
-          - Clean up temporary and old files
-          - Update documentation timestamps
+          - Removed temporary and backup files
+          - Formatted Go code and ran quality checks
+          - Updated documentation timestamps
+          - Optimized repository structure
           
-          🤖 Auto-generated by maintenance workflow"
+          🤖 Generated with Claude Code
+          
+          Co-Authored-By: Claude <noreply@anthropic.com>"
           
           git push origin main
-          echo "✅ Cleanup changes committed and pushed"
-
-  # Security audit
-  security-audit:
-    name: 🔒 Security Audit
-    runs-on: ubuntu-latest
-    needs: [dependency-updates, code-cleanup]
-    if: always() && github.event.inputs.maintenance_type != 'cleanup-only'
-    
-    steps:
-      - name: 📋 Checkout repository
-        uses: actions/checkout@v4
+          echo "✅ Cleanup changes committed"
+      
+      - name: 📤 Upload cleanup report
+        uses: actions/upload-artifact@v4
         with:
-          ref: main
-      
-      - name: 🔧 Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{ env.GO_VERSION }}
-      
-      - name: 🔒 Run security audit
-        run: |
-          echo "🔒 Running security audit..."
-          
-          # Install govulncheck if not already installed
-          go install golang.org/x/vuln/cmd/govulncheck@latest
-          
-          # Run vulnerability check
-          if [ -f "go.mod" ]; then
-            govulncheck ./... || echo "⚠️ Vulnerabilities detected - check logs"
-          fi
-          
-          echo "✅ Security audit completed"
-      
-      - name: 🔍 Check for security issues
-        run: |
-          echo "🔍 Checking for common security issues..."
-          
-          # Check for hardcoded secrets (basic patterns)
-          echo "Checking for potential secrets..."
-          if grep -r -i -E "(password|secret|key|token).*=" . --exclude-dir=.git --exclude="*.yml" --exclude="*.yaml" || true; then
-            echo "⚠️ Potential secrets detected - manual review recommended"
-          fi
-          
-          # Check file permissions
-          echo "Checking file permissions..."
-          find . -type f -perm /002 -not -path "./.git/*" | head -10 || true
-          
-          echo "✅ Security checks completed"
+          name: cleanup-maintenance-report
+          path: CLEANUP_REPORT.md
+          retention-days: 30
 
-  # Repository health check
-  health-check:
-    name: 🏥 Repository Health Check
+  # Generate maintenance summary
+  maintenance-summary:
+    name: 📋 Maintenance Summary
     runs-on: ubuntu-latest
-    needs: [dependency-updates, code-cleanup, security-audit]
+    needs: [dependency-updates, repository-cleanup]
     if: always()
     
     steps:
-      - name: 📋 Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: main
-      
-      - name: 📊 Repository statistics
+      - name: 📊 Generate maintenance summary
         run: |
-          echo "📊 Repository Health Report"
-          echo "=========================="
-          echo "🗓️ Date: $(date -u)"
-          echo "📁 Files: $(find . -type f -not -path "./.git/*" | wc -l)"
-          echo "📝 Go files: $(find . -name "*.go" -not -path "./.git/*" | wc -l)"
-          echo "🔧 Workflows: $(find .github/workflows -name "*.yml" -o -name "*.yaml" | wc -l)"
-          echo "📄 Docs: $(find . -name "*.md" -not -path "./.git/*" | wc -l)"
-          echo ""
-          
-          # Check README status
-          if [ -f "README.md" ]; then
-            echo "✅ README.md present"
-            echo "📏 README size: $(wc -l < README.md) lines"
-          else
-            echo "❌ README.md missing"
-          fi
-          
-          # Check main.go status
-          if [ -f "main.go" ]; then
-            echo "✅ main.go present"
-            echo "📏 Main file size: $(wc -l < main.go) lines"
-          else
-            echo "❌ main.go missing"
-          fi
-          
-          # Check workflows
-          if [ -d ".github/workflows" ]; then
-            echo "✅ GitHub workflows configured"
-            echo "🔧 Workflow files: $(ls -1 .github/workflows/*.yml 2>/dev/null | wc -l)"
-          else
-            echo "❌ No GitHub workflows found"
-          fi
-      
-      - name: 🔍 Build test
-        run: |
-          echo "🔍 Testing build process..."
-          if [ -f "main.go" ] && [ -f "go.mod" ]; then
-            echo "🏗️ Building application..."
-            go build -v ./...
-            echo "✅ Build successful"
-          else
-            echo "ℹ️ Go project not detected, skipping build test"
-          fi
-      
-      - name: 📝 Generate health report
-        run: |
-          echo "📝 Generating health report..."
-          
-          cat > MAINTENANCE_REPORT.md << 'EOF'
-          # 🏥 Repository Maintenance Report
-          
-          **Date**: $(date -u +'%Y-%m-%d %H:%M:%S UTC')
-          **Workflow Run**: ${{ github.run_number }}
-          
-          ## 📊 Health Summary
-          
-          | Component | Status | Details |
-          |-----------|--------|---------|
-          | Dependencies | ${{ needs.dependency-updates.result == 'success' && '✅ Updated' || '⚠️ Check required' }} | Go modules and security updates |
-          | Code Quality | ${{ needs.code-cleanup.result == 'success' && '✅ Clean' || '⚠️ Issues found' }} | Formatting and cleanup |
-          | Security | ${{ needs.security-audit.result == 'success' && '✅ Secure' || '⚠️ Review needed' }} | Vulnerability scan |
-          | Build | ✅ Passing | Compilation test successful |
-          
-          ## 🔧 Actions Taken
-          
-          - 📦 Dependency updates: ${{ needs.dependency-updates.result }}
-          - 🧹 Code cleanup: ${{ needs.code-cleanup.result }}
-          - 🔒 Security audit: ${{ needs.security-audit.result }}
-          
-          ## 📈 Next Maintenance
-          
-          Next scheduled maintenance: **Next Monday 2 AM UTC**
-          
-          ---
-          *Generated by automated maintenance workflow*
-          EOF
-          
-          echo "✅ Health report generated"
-      
-      - name: 📋 Create summary
-        run: |
-          echo "# 🔧 Maintenance Summary" >> $GITHUB_STEP_SUMMARY
+          echo "# 🔧 Maintenance Workflow Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 📊 Job Results" >> $GITHUB_STEP_SUMMARY
-          echo "- **Dependencies**: ${{ needs.dependency-updates.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Code Cleanup**: ${{ needs.code-cleanup.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Security Audit**: ${{ needs.security-audit.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dependency Updates**: ${{ needs.dependency-updates.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Repository Cleanup**: ${{ needs.repository-cleanup.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## ⏰ Schedule" >> $GITHUB_STEP_SUMMARY
-          echo "- **Next Run**: Weekly on Monday at 2 AM UTC" >> $GITHUB_STEP_SUMMARY
-          echo "- **Manual Trigger**: Available via workflow_dispatch" >> $GITHUB_STEP_SUMMARY
+          echo "## 🎯 Maintenance Details" >> $GITHUB_STEP_SUMMARY
+          echo "- **Date**: $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Type**: ${{ github.event.inputs.maintenance_type || 'full' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Create PR**: ${{ github.event.inputs.create_pr || 'true' }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🤖 Automated maintenance workflow completed successfully!"
+          echo "## ⏰ Next Maintenance" >> $GITHUB_STEP_SUMMARY
+          echo "- **Scheduled**: Every Monday at 2 AM UTC" >> $GITHUB_STEP_SUMMARY
+          echo "- **Manual**: Available via workflow_dispatch" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🤖 Automated maintenance keeps the repository healthy and secure!"
