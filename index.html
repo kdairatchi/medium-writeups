@@ -120,7 +120,7 @@
             box-shadow: var(--shadow-xl);
         }
         
-        /* Animations */
+        /* Enhanced Animations */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -131,14 +131,88 @@
             to { opacity: 1; transform: translateX(0); }
         }
         
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
         
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+            40%, 43% { transform: translateY(-10px); }
+            70% { transform: translateY(-5px); }
+            90% { transform: translateY(-2px); }
+        }
+        
+        @keyframes wiggle {
+            0%, 7% { transform: rotateZ(0); }
+            15% { transform: rotateZ(-15deg); }
+            20% { transform: rotateZ(10deg); }
+            25% { transform: rotateZ(-10deg); }
+            30% { transform: rotateZ(6deg); }
+            35% { transform: rotateZ(-4deg); }
+            40%, 100% { transform: rotateZ(0); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+        
         .animate-fade-in-up { animation: fadeInUp 0.6s ease-out; }
         .animate-slide-in-right { animation: slideInRight 0.6s ease-out; }
+        .animate-slide-in-left { animation: slideInLeft 0.6s ease-out; }
+        .animate-scale-in { animation: scaleIn 0.4s ease-out; }
         .animate-pulse-slow { animation: pulse 3s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce 2s infinite; }
+        .animate-wiggle { animation: wiggle 1s ease-in-out; }
+        
+        /* Hover animations */
+        .hover-shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200px 100%;
+            background-repeat: no-repeat;
+            background-position: -200px 0;
+            transition: background-position 0.5s;
+        }
+        
+        .hover-shimmer:hover {
+            animation: shimmer 1s ease-in-out;
+        }
+        
+        /* Loading shimmer effect */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        [data-theme="dark"] .loading-shimmer {
+            background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+            background-size: 200% 100%;
+        }
+        
+        /* Interactive elements */
+        .interactive-scale {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .interactive-scale:hover {
+            transform: scale(1.02);
+        }
+        
+        .interactive-scale:active {
+            transform: scale(0.98);
+        }
         
         /* Typography */
         .text-gradient {
@@ -482,19 +556,45 @@
                     </div>
                 </div>
                 
-                <!-- Recent CVEs -->
+                <!-- Enhanced Recent CVEs -->
                 <div class="glass rounded-lg p-6">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">🚨 Recent CVEs</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                        🚨 Recent CVEs
+                        <span class="text-sm font-normal text-gray-600 dark:text-gray-400 ml-2">
+                            (Click to lookup)
+                        </span>
+                    </h3>
                     <div class="space-y-2 max-h-48 overflow-y-auto">
                         <template x-for="cve in recentCVEs.slice(0, 10)" :key="cve">
-                            <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/20 rounded">
-                                <span class="font-mono text-sm" x-text="cve"></span>
-                                <button @click="searchQuery = cve; filterPosts()" 
-                                        class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300">
-                                    <i class="fas fa-search"></i>
-                                </button>
+                            <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/20 rounded hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors group">
+                                <div class="flex items-center flex-1 cursor-pointer" @click="lookupCVE(cve)">
+                                    <i class="fas fa-shield-virus text-red-600 dark:text-red-400 mr-2 text-sm"></i>
+                                    <span class="font-mono text-sm text-red-800 dark:text-red-200" x-text="cve"></span>
+                                    <i class="fas fa-external-link-alt ml-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity text-red-600 dark:text-red-400"></i>
+                                </div>
+                                <div class="flex gap-1">
+                                    <button @click="lookupCVE(cve)" 
+                                            class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 p-1"
+                                            title="Lookup in CVE databases">
+                                        <i class="fas fa-search text-xs"></i>
+                                    </button>
+                                    <button @click="searchQuery = cve; filterPosts()" 
+                                            class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 p-1"
+                                            title="Search in posts">
+                                        <i class="fas fa-filter text-xs"></i>
+                                    </button>
+                                </div>
                             </div>
                         </template>
+                        <div x-show="recentCVEs.length === 0" class="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
+                            No recent CVEs found
+                        </div>
+                        <div x-show="recentCVEs.length > 10" class="text-center pt-2">
+                            <button @click="showAllRecentCVEs()" 
+                                    class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 text-sm">
+                                View all <span x-text="recentCVEs.length"></span> recent CVEs →
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -515,21 +615,96 @@
                     </p>
                 </div>
                 
-                <button @click="showAnalytics = !showAnalytics" 
-                        class="glass px-4 py-2 rounded-lg hover:scale-105 transition-transform">
-                    <i class="fas fa-chart-bar mr-2"></i>
-                    Analytics
-                </button>
+                <div class="flex gap-2">
+                    <button @click="showAnalytics = !showAnalytics" 
+                            class="glass px-4 py-2 rounded-lg hover:scale-105 transition-transform">
+                        <i class="fas fa-chart-bar mr-2"></i>
+                        Analytics
+                    </button>
+                    
+                    <button @click="exportSearchResults()" 
+                            :disabled="filteredPosts.length === 0"
+                            :class="filteredPosts.length === 0 ? 'opacity-50 cursor-not-allowed' : ''"
+                            class="glass px-4 py-2 rounded-lg hover:scale-105 transition-transform"
+                            :title="`Export ${filteredPosts.length} filtered posts to JSON`">
+                        <i class="fas fa-download mr-2"></i>
+                        Export (<span x-text="filteredPosts.length"></span>)
+                    </button>
+                    
+                    <div class="relative" x-data="{ showQuickActions: false }">
+                        <button @click="showQuickActions = !showQuickActions" 
+                                class="glass px-4 py-2 rounded-lg hover:scale-105 transition-transform">
+                            <i class="fas fa-bolt mr-2"></i>
+                            Quick Actions
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        
+                        <!-- Quick Actions Dropdown -->
+                        <div x-show="showQuickActions" 
+                             x-transition
+                             @click.away="showQuickActions = false"
+                             class="absolute right-0 mt-2 w-48 glass rounded-lg shadow-lg z-50 py-2">
+                            <button @click="window.location.reload(); showQuickActions = false" 
+                                    class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-sync-alt mr-2 text-blue-500"></i>
+                                Force Refresh
+                            </button>
+                            <button @click="clearAllFilters(); showQuickActions = false" 
+                                    class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-filter mr-2 text-green-500"></i>
+                                Clear All Filters
+                            </button>
+                            <button @click="searchQuery = 'CVE-'; filterPosts(); showQuickActions = false" 
+                                    class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-shield-virus mr-2 text-red-500"></i>
+                                Show CVE Posts Only
+                            </button>
+                            <button @click="timeFilter = 'today'; filterPosts(); showQuickActions = false" 
+                                    class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-calendar-day mr-2 text-yellow-500"></i>
+                                Today's Posts Only
+                            </button>
+                            <button @click="priorityFilter = 'high'; filterPosts(); showQuickActions = false" 
+                                    class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-fire mr-2 text-orange-500"></i>
+                                High Priority Only
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Loading State -->
+            <!-- Enhanced Loading State -->
             <div x-show="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <template x-for="i in 6" :key="i">
-                    <div class="glass rounded-lg p-6 animate-pulse">
-                        <div class="skeleton h-4 w-1/4 mb-3 rounded"></div>
-                        <div class="skeleton h-6 w-full mb-2 rounded"></div>
-                        <div class="skeleton h-4 w-3/4 mb-4 rounded"></div>
-                        <div class="skeleton h-3 w-1/2 rounded"></div>
+                    <div class="glass rounded-lg p-6 animate-scale-in hover-lift">
+                        <!-- Category badge skeleton -->
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="loading-shimmer h-5 w-20 rounded-full"></div>
+                            <div class="loading-shimmer h-4 w-12 rounded"></div>
+                        </div>
+                        
+                        <!-- Title skeleton -->
+                        <div class="loading-shimmer h-6 w-full mb-2 rounded"></div>
+                        <div class="loading-shimmer h-6 w-3/4 mb-4 rounded"></div>
+                        
+                        <!-- Description skeleton -->
+                        <div class="loading-shimmer h-4 w-full mb-2 rounded"></div>
+                        <div class="loading-shimmer h-4 w-5/6 mb-2 rounded"></div>
+                        <div class="loading-shimmer h-4 w-2/3 mb-4 rounded"></div>
+                        
+                        <!-- Tags skeleton -->
+                        <div class="flex gap-2 mb-4">
+                            <div class="loading-shimmer h-5 w-16 rounded-full"></div>
+                            <div class="loading-shimmer h-5 w-20 rounded-full"></div>
+                            <div class="loading-shimmer h-5 w-12 rounded-full"></div>
+                        </div>
+                        
+                        <!-- Footer skeleton -->
+                        <div class="flex justify-between items-center">
+                            <div class="loading-shimmer h-4 w-24 rounded"></div>
+                            <div class="loading-shimmer h-8 w-16 rounded"></div>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -571,18 +746,24 @@
                                x-html="highlightSearchTerm(post.description)">
                             </p>
                             
-                            <!-- CVEs -->
+                            <!-- Enhanced CVEs with lookup functionality -->
                             <div x-show="post.cveIds && post.cveIds.length > 0" class="mb-3">
                                 <div class="flex flex-wrap gap-1">
                                     <template x-for="cve in post.cveIds.slice(0, 3)" :key="cve">
-                                        <span class="badge bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs cursor-pointer"
-                                              @click="searchQuery = cve; filterPosts()"
-                                              x-text="cve">
-                                        </span>
+                                        <button class="badge bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs cursor-pointer hover:bg-red-200 dark:hover:bg-red-800 transition-colors group relative"
+                                                @click="lookupCVE(cve)"
+                                                @contextmenu.prevent="searchQuery = cve; filterPosts()"
+                                                :title="`Click to lookup ${cve} in CVE databases. Right-click to search in posts.`">
+                                            <i class="fas fa-shield-virus mr-1 opacity-75"></i>
+                                            <span x-text="cve"></span>
+                                            <i class="fas fa-external-link-alt ml-1 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                        </button>
                                     </template>
                                     <span x-show="post.cveIds.length > 3" 
-                                          class="badge bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs"
-                                          x-text="'+' + (post.cveIds.length - 3) + ' more'">
+                                          class="badge bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                                          @click="showAllCVEs(post.cveIds)"
+                                          :title="`Show all ${post.cveIds.length} CVEs`"
+                                          x-text="'+' + (post.cveIds.length - 3) + ' more CVEs'">
                                     </span>
                                 </div>
                             </div>
@@ -754,7 +935,7 @@
         </section>
     </main>
 
-    <!-- Floating Action Button -->
+    <!-- Enhanced Floating Action Buttons -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
         <!-- Scroll to Top -->
         <button x-show="showScrollTop" 
@@ -762,13 +943,30 @@
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform translate-y-2"
                 x-transition:enter-end="opacity-100 transform translate-y-0"
-                class="glass w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-            <i class="fas fa-arrow-up"></i>
+                class="glass w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform group"
+                title="Scroll to top (GG)">
+            <i class="fas fa-arrow-up group-hover:animate-bounce"></i>
+        </button>
+        
+        <!-- Help & Shortcuts -->
+        <button @click="showKeyboardHelp()"
+                class="glass w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                title="Keyboard shortcuts (?)">
+            <i class="fas fa-question text-blue-500"></i>
+        </button>
+        
+        <!-- Quick CVE Search -->
+        <button @click="searchQuery = 'CVE-'; filterPosts(); showNotification('Showing CVE posts', 'info')"
+                class="glass w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                title="Show CVE posts only">
+            <i class="fas fa-shield-virus text-red-500"></i>
         </button>
         
         <!-- Settings -->
         <button @click="showSettings = !showSettings"
-                class="gradient-primary w-12 h-12 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform animate-pulse-slow">
+                class="gradient-primary w-12 h-12 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform"
+                :class="showSettings ? 'animate-spin' : 'animate-pulse-slow'"
+                title="Settings">
             <i class="fas fa-cog"></i>
         </button>
     </div>
@@ -919,7 +1117,13 @@
                 
                 // Initialize application
                 async init() {
-                    console.log('🚀 Initializing Cybersecurity Dashboard...');
+                    console.log('🚀 Initializing Enhanced Cybersecurity Dashboard...');
+                    
+                    // Initialize mobile optimizations first
+                    this.optimizeForMobile();
+                    
+                    // Initialize keyboard shortcuts
+                    this.initKeyboardShortcuts();
                     
                     // Load data
                     await this.loadData();
@@ -935,7 +1139,14 @@
                         this.setupAutoRefresh();
                     }
                     
-                    console.log('✅ Dashboard initialized successfully');
+                    // Show initial tips for new users
+                    if (!localStorage.getItem('dashboard_tips_seen')) {
+                        setTimeout(() => {
+                            this.showInitialTips();
+                        }, 1000);
+                    }
+                    
+                    console.log('✅ Enhanced Dashboard initialized successfully');
                 },
                 
                 // Load data from Go-generated JSON files
@@ -1284,33 +1495,116 @@
                     }
                 },
                 
-                // Alternative reader functionality
-                openAlternativeReader(mediumUrl, readerType) {
+                // Enhanced alternative reader functionality with better error handling
+                async openAlternativeReader(mediumUrl, readerType) {
                     let alternativeUrl = '';
+                    let serviceName = '';
+                    
+                    // Clean the Medium URL
+                    const cleanUrl = mediumUrl.replace(/^https?:\/\//, '');
                     
                     switch (readerType) {
                         case 'readmedium':
-                            alternativeUrl = `https://readmedium.com/${mediumUrl}`;
+                            alternativeUrl = `https://readmedium.com/${cleanUrl}`;
+                            serviceName = 'ReadMedium';
                             break;
                         case 'archive':
-                            // For archive.ph, we need to create an archive first, then open it
-                            alternativeUrl = `https://archive.ph/${mediumUrl}`;
+                            // For archive.ph, try direct link first, fallback to archive creation
+                            alternativeUrl = `https://archive.ph/${cleanUrl}`;
+                            serviceName = 'Archive.ph';
                             break;
                         case 'freedium':
-                            alternativeUrl = `https://freedium.cfd/${mediumUrl}`;
+                            alternativeUrl = `https://freedium.cfd/${cleanUrl}`;
+                            serviceName = 'Freedium';
                             break;
                         default:
                             alternativeUrl = mediumUrl;
+                            serviceName = 'Medium';
                     }
                     
-                    // Open in new tab with additional safety checks
-                    if (alternativeUrl) {
+                    // Show loading indicator
+                    this.showNotification(`Opening ${serviceName}...`, 'info');
+                    
+                    try {
+                        // Open in new tab with additional safety checks
                         const newWindow = window.open(alternativeUrl, '_blank', 'noopener,noreferrer');
-                        if (!newWindow) {
-                            // Fallback if popup blocked
+                        
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                            // Popup blocked - show fallback options
+                            this.showPopupBlockedDialog(alternativeUrl, serviceName);
+                        } else {
+                            this.showNotification(`Opened in ${serviceName}`, 'success');
+                        }
+                    } catch (error) {
+                        console.error('Error opening alternative reader:', error);
+                        this.showNotification(`Failed to open ${serviceName}`, 'error');
+                        
+                        // Fallback to direct navigation
+                        if (confirm(`Could not open in new tab. Open ${serviceName} in current tab?`)) {
                             window.location.href = alternativeUrl;
                         }
                     }
+                },
+                
+                // Show notification to user
+                showNotification(message, type = 'info') {
+                    // Create notification element if it doesn't exist
+                    let notification = document.getElementById('notification');
+                    if (!notification) {
+                        notification = document.createElement('div');
+                        notification.id = 'notification';
+                        notification.className = 'fixed top-4 right-4 z-50 px-4 py-2 rounded-lg text-white font-medium transition-all duration-300 transform translate-x-full';
+                        document.body.appendChild(notification);
+                    }
+                    
+                    // Set notification style based on type
+                    const typeClasses = {
+                        'info': 'bg-blue-500',
+                        'success': 'bg-green-500',
+                        'error': 'bg-red-500',
+                        'warning': 'bg-yellow-500'
+                    };
+                    
+                    notification.className = `fixed top-4 right-4 z-50 px-4 py-2 rounded-lg text-white font-medium transition-all duration-300 ${typeClasses[type] || typeClasses.info}`;
+                    notification.textContent = message;
+                    
+                    // Show notification
+                    notification.style.transform = 'translateX(0)';
+                    
+                    // Auto hide after 3 seconds
+                    setTimeout(() => {
+                        notification.style.transform = 'translateX(full)';
+                    }, 3000);
+                },
+                
+                // Show popup blocked dialog
+                showPopupBlockedDialog(url, serviceName) {
+                    const dialog = document.createElement('div');
+                    dialog.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+                    dialog.innerHTML = `
+                        <div class="glass rounded-lg p-6 max-w-md mx-4 text-center">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">🚫 Popup Blocked</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                Your browser blocked the popup. Would you like to open ${serviceName} in a new tab manually?
+                            </p>
+                            <div class="flex gap-3 justify-center">
+                                <button onclick="window.open('${url}', '_blank'); this.closest('.fixed').remove();" 
+                                        class="gradient-primary text-white px-4 py-2 rounded-lg hover:scale-105 transition-transform">
+                                    Open ${serviceName}
+                                </button>
+                                <button onclick="navigator.clipboard.writeText('${url}').then(() => alert('URL copied to clipboard!')); this.closest('.fixed').remove();" 
+                                        class="glass px-4 py-2 rounded-lg hover:scale-105 transition-transform">
+                                    Copy URL
+                                </button>
+                                <button onclick="this.closest('.fixed').remove();" 
+                                        class="text-gray-500 hover:text-gray-700 px-4 py-2">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(dialog);
                 },
                 
                 // Bulk open all alternative readers for a post (useful for research)
@@ -1321,6 +1615,546 @@
                             this.openAlternativeReader(mediumUrl, reader);
                         }, index * 1000); // Stagger opens by 1 second to avoid being flagged
                     });
+                },
+                
+                // Enhanced CVE functionality with multiple free databases
+                async lookupCVE(cveId) {
+                    if (!cveId || !cveId.match(/^CVE-\d{4}-\d{4,}$/i)) {
+                        this.showNotification('Invalid CVE format', 'error');
+                        return;
+                    }
+                    
+                    const cveUpper = cveId.toUpperCase();
+                    this.showNotification(`Looking up ${cveUpper}...`, 'info');
+                    
+                    // Multiple CVE databases to try
+                    const cveDatabases = [
+                        {
+                            name: 'CVE Details',
+                            url: `https://www.cvedetails.com/cve/${cveUpper}/`,
+                            description: 'Comprehensive CVE database with CVSS scores and details'
+                        },
+                        {
+                            name: 'MITRE CVE',
+                            url: `https://cve.mitre.org/cgi-bin/cvename.cgi?name=${cveUpper}`,
+                            description: 'Official MITRE CVE database'
+                        },
+                        {
+                            name: 'NVD - NIST',
+                            url: `https://nvd.nist.gov/vuln/detail/${cveUpper}`,
+                            description: 'NIST National Vulnerability Database'
+                        },
+                        {
+                            name: 'CVE Circl.lu',
+                            url: `https://cve.circl.lu/cve/${cveUpper}`,
+                            description: 'Alternative CVE lookup with additional context'
+                        }
+                    ];
+                    
+                    // Show CVE lookup modal
+                    this.showCVELookupModal(cveUpper, cveDatabases);
+                },
+                
+                // Show CVE lookup modal with multiple database options
+                showCVELookupModal(cveId, databases) {
+                    const modal = document.createElement('div');
+                    modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+                    modal.innerHTML = `
+                        <div class="glass rounded-lg p-6 max-w-2xl mx-4 w-full max-h-[80vh] overflow-y-auto">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                                    🔍 CVE Lookup: ${cveId}
+                                </h3>
+                                <button onclick="this.closest('.fixed').remove();" 
+                                        class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                Choose a CVE database to lookup detailed information about this vulnerability:
+                            </p>
+                            
+                            <div class="space-y-3">
+                                ${databases.map((db, index) => `
+                                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                        <div class="flex-1">
+                                            <h4 class="font-medium text-gray-900 dark:text-gray-100">${db.name}</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">${db.description}</p>
+                                        </div>
+                                        <button onclick="window.open('${db.url}', '_blank'); this.closest('.fixed').remove();" 
+                                                class="gradient-primary text-white px-4 py-2 rounded-lg hover:scale-105 transition-transform ml-4">
+                                            Open
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-3">Quick Actions</h4>
+                                <div class="flex gap-3 flex-wrap">
+                                    <button onclick="this.searchForCVE('${cveId}'); this.closest('.fixed').remove();" 
+                                            class="glass px-3 py-2 rounded-lg hover:scale-105 transition-transform text-sm">
+                                        <i class="fas fa-search mr-2"></i>Search in Posts
+                                    </button>
+                                    <button onclick="navigator.clipboard.writeText('${cveId}').then(() => alert('CVE ID copied!')); this.closest('.fixed').remove();" 
+                                            class="glass px-3 py-2 rounded-lg hover:scale-105 transition-transform text-sm">
+                                        <i class="fas fa-copy mr-2"></i>Copy CVE ID
+                                    </button>
+                                    <button onclick="this.openAllCVEDatabases('${cveId}'); this.closest('.fixed').remove();" 
+                                            class="glass px-3 py-2 rounded-lg hover:scale-105 transition-transform text-sm">
+                                        <i class="fas fa-external-link-alt mr-2"></i>Open All
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                },
+                
+                // Search for CVE in current posts
+                searchForCVE(cveId) {
+                    this.searchQuery = cveId;
+                    this.filterPosts();
+                    this.showNotification(`Searching for ${cveId} in posts`, 'info');
+                    
+                    // Scroll to search results
+                    const searchInput = document.querySelector('input[x-model="searchQuery"]');
+                    if (searchInput) {
+                        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        searchInput.focus();
+                    }
+                },
+                
+                // Open all CVE databases for comprehensive research
+                openAllCVEDatabases(cveId) {
+                    const databases = [
+                        `https://www.cvedetails.com/cve/${cveId}/`,
+                        `https://cve.mitre.org/cgi-bin/cvename.cgi?name=${cveId}`,
+                        `https://nvd.nist.gov/vuln/detail/${cveId}`,
+                        `https://cve.circl.lu/cve/${cveId}`
+                    ];
+                    
+                    databases.forEach((url, index) => {
+                        setTimeout(() => {
+                            window.open(url, '_blank', 'noopener,noreferrer');
+                        }, index * 800); // Stagger opens to avoid overwhelming browser
+                    });
+                    
+                    this.showNotification(`Opening ${databases.length} CVE databases`, 'info');
+                },
+                
+                // Enhanced search functionality with better highlighting
+                performAdvancedSearch(query) {
+                    if (!query || query.trim().length < 2) {
+                        return this.allPosts;
+                    }
+                    
+                    const searchTerms = query.toLowerCase().trim().split(/\s+/);
+                    
+                    return this.allPosts.filter(post => {
+                        const searchableText = [
+                            post.title,
+                            post.description,
+                            ...(post.categories || []),
+                            ...(post.cveIds || []),
+                            post.sourceCategory,
+                            post.author || ''
+                        ].join(' ').toLowerCase();
+                        
+                        // All terms must match (AND logic)
+                        return searchTerms.every(term => searchableText.includes(term));
+                    });
+                },
+                
+                // Export functionality for research
+                exportSearchResults() {
+                    if (this.filteredPosts.length === 0) {
+                        this.showNotification('No posts to export', 'warning');
+                        return;
+                    }
+                    
+                    const exportData = {
+                        exportDate: new Date().toISOString(),
+                        query: this.searchQuery,
+                        filters: {
+                            category: this.selectedCategory,
+                            timeFilter: this.timeFilter,
+                            priority: this.priorityFilter
+                        },
+                        totalResults: this.filteredPosts.length,
+                        posts: this.filteredPosts.map(post => ({
+                            title: post.title,
+                            url: post.link || post.guid,
+                            publishedTime: post.publishedTime,
+                            categories: post.categories,
+                            sourceCategory: post.sourceCategory,
+                            cveIds: post.cveIds,
+                            priority: post.priority,
+                            isNew: post.isNew
+                        }))
+                    };
+                    
+                    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `cybersecurity-posts-${new Date().toISOString().slice(0, 10)}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    this.showNotification(`Exported ${this.filteredPosts.length} posts`, 'success');
+                },
+                
+                // Show all CVEs for a post
+                showAllCVEs(cveIds) {
+                    if (!cveIds || cveIds.length === 0) return;
+                    
+                    const modal = document.createElement('div');
+                    modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+                    modal.innerHTML = `
+                        <div class="glass rounded-lg p-6 max-w-lg mx-4 w-full max-h-[80vh] overflow-y-auto">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                                    🔍 All CVEs (${cveIds.length})
+                                </h3>
+                                <button onclick="this.closest('.fixed').remove();" 
+                                        class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="space-y-2 max-h-64 overflow-y-auto">
+                                ${cveIds.map(cve => `
+                                    <div class="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-shield-virus text-red-600 dark:text-red-400 mr-2"></i>
+                                            <span class="font-mono text-sm text-red-800 dark:text-red-200">${cve}</span>
+                                        </div>
+                                        <button onclick="window.dashboardApp().lookupCVE('${cve}'); this.closest('.fixed').remove();" 
+                                                class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 text-sm">
+                                            <i class="fas fa-search"></i> Lookup
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div class="flex gap-2 justify-center">
+                                    <button onclick="this.copyAllCVEs(${JSON.stringify(cveIds)}); this.closest('.fixed').remove();" 
+                                            class="glass px-3 py-2 rounded-lg hover:scale-105 transition-transform text-sm">
+                                        <i class="fas fa-copy mr-1"></i>Copy All
+                                    </button>
+                                    <button onclick="this.openAllCVEsInDatabases(${JSON.stringify(cveIds)}); this.closest('.fixed').remove();" 
+                                            class="glass px-3 py-2 rounded-lg hover:scale-105 transition-transform text-sm">
+                                        <i class="fas fa-external-link-alt mr-1"></i>Lookup All
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                },
+                
+                // Copy all CVEs to clipboard
+                copyAllCVEs(cveIds) {
+                    const cveText = cveIds.join(', ');
+                    navigator.clipboard.writeText(cveText).then(() => {
+                        this.showNotification('All CVEs copied to clipboard', 'success');
+                    }).catch(err => {
+                        this.showNotification('Failed to copy CVEs', 'error');
+                    });
+                },
+                
+                // Open all CVEs in databases (with staggered timing)
+                openAllCVEsInDatabases(cveIds) {
+                    if (cveIds.length > 5) {
+                        if (!confirm(`This will open ${cveIds.length * 4} tabs (${cveIds.length} CVEs × 4 databases). Continue?`)) {
+                            return;
+                        }
+                    }
+                    
+                    cveIds.forEach((cve, index) => {
+                        setTimeout(() => {
+                            this.openAllCVEDatabases(cve);
+                        }, index * 2000); // 2 second delay between each CVE
+                    });
+                    
+                    this.showNotification(`Opening ${cveIds.length} CVEs in databases`, 'info');
+                },
+                
+                // Show all recent CVEs
+                showAllRecentCVEs() {
+                    this.showAllCVEs(this.recentCVEs);
+                },
+                
+                // Initialize keyboard shortcuts
+                initKeyboardShortcuts() {
+                    document.addEventListener('keydown', (e) => {
+                        // Only trigger shortcuts when not typing in inputs
+                        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                            return;
+                        }
+                        
+                        // Ctrl/Cmd + K for search focus
+                        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                            e.preventDefault();
+                            const searchInput = document.querySelector('input[x-model="searchQuery"]');
+                            if (searchInput) {
+                                searchInput.focus();
+                                searchInput.select();
+                            }
+                        }
+                        
+                        // Escape to clear search and filters
+                        if (e.key === 'Escape') {
+                            if (this.searchQuery || this.hasActiveFilters()) {
+                                this.clearAllFilters();
+                                this.showNotification('Cleared all filters', 'info');
+                            }
+                        }
+                        
+                        // '/' for quick search
+                        if (e.key === '/' && !e.shiftKey) {
+                            e.preventDefault();
+                            const searchInput = document.querySelector('input[x-model="searchQuery"]');
+                            if (searchInput) {
+                                searchInput.focus();
+                            }
+                        }
+                        
+                        // 't' for theme toggle
+                        if (e.key === 't' && !e.shiftKey) {
+                            this.toggleTheme();
+                            this.showNotification(`Switched to ${this.darkMode ? 'dark' : 'light'} theme`, 'info');
+                        }
+                        
+                        // 'a' for analytics toggle
+                        if (e.key === 'a' && !e.shiftKey) {
+                            this.showAnalytics = !this.showAnalytics;
+                            this.showNotification(`${this.showAnalytics ? 'Opened' : 'Closed'} analytics`, 'info');
+                        }
+                        
+                        // 'e' for export
+                        if (e.key === 'e' && !e.shiftKey && this.filteredPosts.length > 0) {
+                            this.exportSearchResults();
+                        }
+                        
+                        // Numbers 1-3 for time filters
+                        if (e.key >= '1' && e.key <= '3' && !e.shiftKey) {
+                            const filters = ['', 'today', 'week', 'new'];
+                            this.timeFilter = filters[parseInt(e.key)];
+                            this.filterPosts();
+                            this.showNotification(`Applied ${filters[parseInt(e.key)] || 'no'} time filter`, 'info');
+                        }
+                        
+                        // 'g' then 'g' to go to top (vim-style)
+                        if (e.key === 'g') {
+                            if (this.lastKeyPress === 'g' && Date.now() - this.lastKeyTime < 500) {
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                this.showNotification('Scrolled to top', 'info');
+                            }
+                            this.lastKeyPress = 'g';
+                            this.lastKeyTime = Date.now();
+                        } else {
+                            this.lastKeyPress = null;
+                        }
+                        
+                        // '?' for help
+                        if (e.key === '?' && e.shiftKey) {
+                            this.showKeyboardHelp();
+                        }
+                    });
+                },
+                
+                // Show keyboard shortcuts help
+                showKeyboardHelp() {
+                    const modal = document.createElement('div');
+                    modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+                    modal.innerHTML = `
+                        <div class="glass rounded-lg p-6 max-w-md mx-4 w-full max-h-[80vh] overflow-y-auto">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                                    ⌨️ Keyboard Shortcuts
+                                </h3>
+                                <button onclick="this.closest('.fixed').remove();" 
+                                        class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Search</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">Ctrl+K</kbd>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Quick search</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">/</kbd>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Clear filters</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">Esc</kbd>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Toggle theme</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">T</kbd>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Toggle analytics</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">A</kbd>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Export posts</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">E</kbd>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Scroll to top</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">G G</kbd>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Time filters</span>
+                                    <div class="flex gap-1">
+                                        <kbd class="px-1 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">1</kbd>
+                                        <kbd class="px-1 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">2</kbd>
+                                        <kbd class="px-1 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">3</kbd>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Show this help</span>
+                                    <kbd class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">?</kbd>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 text-center">
+                                Shortcuts work when not typing in search boxes
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                },
+                
+                // Enhanced mobile detection and optimization
+                isMobile() {
+                    return window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                },
+                
+                // Optimize for mobile performance
+                optimizeForMobile() {
+                    if (this.isMobile()) {
+                        // Reduce posts per page on mobile
+                        this.postsPerPage = Math.min(this.postsPerPage, 12);
+                        
+                        // Disable auto-refresh on mobile to save battery
+                        this.autoRefresh = false;
+                        
+                        // Add mobile-specific event listeners
+                        this.addMobileGestures();
+                    }
+                },
+                
+                // Add mobile gesture support
+                addMobileGestures() {
+                    let startY = 0;
+                    let startTime = 0;
+                    
+                    document.addEventListener('touchstart', (e) => {
+                        startY = e.touches[0].clientY;
+                        startTime = Date.now();
+                    }, { passive: true });
+                    
+                    document.addEventListener('touchend', (e) => {
+                        const endY = e.changedTouches[0].clientY;
+                        const endTime = Date.now();
+                        const deltaY = startY - endY;
+                        const deltaTime = endTime - startTime;
+                        
+                        // Pull-to-refresh gesture (only at top of page)
+                        if (window.scrollY === 0 && deltaY < -100 && deltaTime < 500) {
+                            e.preventDefault();
+                            this.showNotification('Refreshing...', 'info');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 500);
+                        }
+                    }, { passive: false });
+                },
+                
+                // Show initial tips for new users
+                showInitialTips() {
+                    const modal = document.createElement('div');
+                    modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+                    modal.innerHTML = `
+                        <div class="glass rounded-lg p-6 max-w-lg mx-4 w-full">
+                            <div class="text-center mb-6">
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    🛡️ Welcome to the Enhanced Cybersecurity Dashboard!
+                                </h3>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Here are some quick tips to get you started:
+                                </p>
+                            </div>
+                            
+                            <div class="space-y-4 text-sm">
+                                <div class="flex items-start gap-3">
+                                    <div class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">CVE Lookup</h4>
+                                        <p class="text-gray-600 dark:text-gray-400">Click on any red CVE badge to lookup vulnerability details in multiple databases</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-3">
+                                    <div class="flex-shrink-0 w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold">2</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Alternative Readers</h4>
+                                        <p class="text-gray-600 dark:text-gray-400">Use ReadMedium, Archive.ph, or Freedium buttons to read paywalled articles for free</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-3">
+                                    <div class="flex-shrink-0 w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">3</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Keyboard Shortcuts</h4>
+                                        <p class="text-gray-600 dark:text-gray-400">Press <kbd class="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded font-mono text-xs">?</kbd> to see all available keyboard shortcuts</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-3">
+                                    <div class="flex-shrink-0 w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-xs font-bold">4</div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Export & Research</h4>
+                                        <p class="text-gray-600 dark:text-gray-400">Export filtered results to JSON for further research and analysis</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 flex gap-3 justify-center">
+                                <button onclick="this.showKeyboardHelp(); this.closest('.fixed').remove();" 
+                                        class="glass px-4 py-2 rounded-lg hover:scale-105 transition-transform">
+                                    <i class="fas fa-keyboard mr-2"></i>View Shortcuts
+                                </button>
+                                <button onclick="localStorage.setItem('dashboard_tips_seen', 'true'); this.closest('.fixed').remove();" 
+                                        class="gradient-primary text-white px-4 py-2 rounded-lg hover:scale-105 transition-transform">
+                                    <i class="fas fa-check mr-2"></i>Got It!
+                                </button>
+                            </div>
+                            
+                            <div class="mt-4 text-center">
+                                <label class="flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <input type="checkbox" onchange="if(this.checked) localStorage.setItem('dashboard_tips_seen', 'true')" class="form-checkbox h-3 w-3">
+                                    Don't show this again
+                                </label>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
                 }
             };
         }
