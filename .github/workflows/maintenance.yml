@@ -95,7 +95,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main  # Get latest changes from dependency updates
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
       
       - name: 🔧 Setup Go
         uses: actions/setup-go@v5
