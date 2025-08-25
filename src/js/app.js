@@ -86,8 +86,8 @@ class CVEService {
     startDate.setDate(startDate.getDate() - days);
 
     const options = {
-      pubStartDate: startDate.toISOString().split('T')[0] + 'T00:00:000',
-      pubEndDate: endDate.toISOString().split('T')[0] + 'T23:59:999',
+      pubStartDate: startDate.toISOString().split('T')[0] + 'T00:00:000Z',
+      pubEndDate: endDate.toISOString().split('T')[0] + 'T23:59:999Z',
       resultsPerPage: 50,
     };
 
@@ -109,8 +109,8 @@ class CVEService {
 
     try {
       const response = await this.searchCVEs({
-        pubStartDate: todayStr + 'T00:00:000',
-        pubEndDate: todayStr + 'T23:59:999',
+        pubStartDate: todayStr + 'T00:00:000Z',
+        pubEndDate: todayStr + 'T23:59:999Z',
         resultsPerPage: 20,
       });
 
@@ -204,21 +204,25 @@ class RateLimiter {
   }
 
   async waitForPermission() {
-    const now = Date.now();
-    this.requests = this.requests.filter(time => now - time < this.windowMs);
+    let isWaiting = true;
+    while (isWaiting) {
+      const now = Date.now();
+      this.requests = this.requests.filter(time => now - time < this.windowMs);
 
-    if (this.requests.length >= this.maxRequests) {
+      if (this.requests.length < this.maxRequests) {
+        this.requests.push(now);
+        isWaiting = false;
+        return;
+      }
+
       const oldestRequest = Math.min(...this.requests);
       const waitTime = this.windowMs - (now - oldestRequest);
             
       if (waitTime > 0) {
         console.log(`Rate limit hit, waiting ${waitTime}ms`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
-        return this.waitForPermission();
       }
     }
-
-    this.requests.push(now);
   }
 }
 
@@ -446,6 +450,7 @@ function dashboardApp() {
 
     // Settings
     autoRefresh: true,
+    autoRefreshInterval: null,
     lastUpdated: 'Loading...',
 
     // Charts
@@ -807,9 +812,7 @@ function dashboardApp() {
     },
 
     generateSummaryFromPosts(posts) {
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const _weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const _now = new Date();
             
       return {
         totalPosts: posts.length,
@@ -1184,8 +1187,12 @@ function dashboardApp() {
 
     // Auto-refresh
     setupAutoRefresh() {
+      if (this.autoRefreshInterval) {
+        clearInterval(this.autoRefreshInterval);
+      }
+      
       if (this.autoRefresh) {
-        setInterval(() => {
+        this.autoRefreshInterval = setInterval(() => {
           this.loadData();
         }, 2 * 60 * 60 * 1000); // 2 hours
       }
@@ -1401,6 +1408,24 @@ function dashboardApp() {
           },
         },
       });
+    },
+
+    // Cleanup method to prevent memory leaks
+    cleanup() {
+      if (this.autoRefreshInterval) {
+        clearInterval(this.autoRefreshInterval);
+        this.autoRefreshInterval = null;
+      }
+      
+      if (this.categoryChart) {
+        this.categoryChart.destroy();
+        this.categoryChart = null;
+      }
+      
+      if (this.timelineChart) {
+        this.timelineChart.destroy();  
+        this.timelineChart = null;
+      }
     },
   };
 }
