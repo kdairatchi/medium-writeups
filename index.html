@@ -14,6 +14,38 @@
         .threat-low { border-left: 4px solid #16a34a; background: linear-gradient(90deg, rgba(22,163,74,0.1), transparent); }
         .cve-badge { background: linear-gradient(45deg, #dc2626, #ea580c); color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 12px; font-weight: bold; }
         .ioc-badge { background: linear-gradient(45deg, #7c3aed, #c026d3); color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 12px; font-weight: bold; }
+        .bounty-badge { background: linear-gradient(45deg, #059669, #10b981); color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 12px; font-weight: bold; }
+        .kev-badge { background: linear-gradient(45deg, #dc2626, #991b1b); color: white; font-size: 0.65rem; padding: 0.15rem 0.4rem; border-radius: 10px; font-weight: bold; animation: pulse 2s infinite; }
+        .exploited-warning { border-left: 4px solid #dc2626; background: linear-gradient(90deg, rgba(220,38,38,0.15), transparent); }
+        .bug-bounty-critical { border-left: 4px solid #dc2626; box-shadow: 0 0 15px rgba(220,38,38,0.2); }
+        .bug-bounty-high { border-left: 4px solid #ea580c; box-shadow: 0 0 15px rgba(234,88,12,0.2); }
+        .bug-bounty-medium { border-left: 4px solid #ca8a04; }
+        .bug-bounty-low { border-left: 4px solid #6b7280; }
+        
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+        
+        .platform-hackerone { border-left: 3px solid #494649; }
+        .platform-bugcrowd { border-left: 3px solid #F26822; }
+        .platform-github { border-left: 3px solid #24292e; }
+        
+        .modal-overlay {
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(4px);
+        }
+        
+        .enhanced-cve-card {
+          transition: all 0.3s ease;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        
+        .enhanced-cve-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -22,10 +54,14 @@
             <div class="text-center">
                 <h1 class="text-4xl font-bold mb-2">🛡️ Cybersecurity Dashboard</h1>
                 <p class="text-lg opacity-90">Production-ready security intelligence with CVE validation & threat analysis</p>
-                <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
                         <div class="text-2xl font-bold">41</div>
                         <div class="text-sm">Posts Analyzed</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+                        <div class="text-2xl font-bold" x-text="bugBountyStats?.totalReports || 0">50</div>
+                        <div class="text-sm">Bug Bounty Reports</div>
                     </div>
                     <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
                         <div class="text-2xl font-bold">0</div>
@@ -36,8 +72,8 @@
                         <div class="text-sm">IOCs Extracted</div>
                     </div>
                     <div class="bg-white bg-opacity-20 px-4 py-2 rounded-lg">
-                        <div class="text-2xl font-bold">100.0%</div>
-                        <div class="text-sm">Success Rate</div>
+                        <div class="text-2xl font-bold" x-text="bugBountyStats ? '$' + (bugBountyStats.avgBounty/1000).toFixed(0) + 'k' : '$0'">$8k</div>
+                        <div class="text-sm">Avg Bounty</div>
                     </div>
                 </div>
             </div>

@@ -8,14 +8,16 @@ import { Utils } from './utils.js';
 import { initPerformanceMonitoring } from './performance.js';
 
 /**
- * CVE API Integration Service
+ * Enhanced CVE API Integration Service
  */
 class CVEService {
   constructor() {
-    this.baseUrl = 'https://services.nvd.nist.gov/rest/json/cves/2.0/';
-    this.cache = new HybridCache({ memorySize: 100, memoryTTL: 300000, diskTTL: 3600000 });
-    this.rateLimiter = new RateLimiter(5, 30000); // 5 requests per 30 seconds
+    this.nvdBaseUrl = 'https://services.nvd.nist.gov/rest/json/cves/2.0/';
+    this.cisaUrl = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
+    this.cache = new HybridCache({ memorySize: 200, memoryTTL: 900000, diskTTL: 3600000 });
+    this.rateLimiter = new RateLimiter(5, 30000); // 5 requests per 30 seconds for NVD
     this.apiKey = null; // Optional API key for higher rate limits
+    this.cisaKevs = null; // Cache for CISA KEV catalog
   }
 
   /**
@@ -55,7 +57,7 @@ class CVEService {
       const headers = { 'Accept': 'application/json' };
       if (this.apiKey) headers['apiKey'] = this.apiKey;
 
-      const response = await fetch(`${this.baseUrl}?${params}`, { headers });
+      const response = await fetch(`${this.nvdBaseUrl}?${params}`, { headers });
             
       if (!response.ok) {
         throw new Error(`CVE API error: ${response.status} ${response.statusText}`);
@@ -78,6 +80,57 @@ class CVEService {
   }
 
   /**
+     * Load CISA Known Exploited Vulnerabilities catalog
+     */
+  async loadCISAKEVs() {
+    const cacheKey = 'cisa_kevs';
+    let cached = await this.cache.get(cacheKey);
+    
+    if (cached && Date.now() - cached.timestamp < 24 * 60 * 60 * 1000) {
+      this.cisaKevs = cached.data;
+      return this.cisaKevs;
+    }
+
+    try {
+      const response = await fetch(this.cisaUrl);
+      if (!response.ok) {
+        throw new Error(`CISA KEV API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      this.cisaKevs = data.vulnerabilities || [];
+      
+      await this.cache.set(cacheKey, {
+        data: this.cisaKevs,
+        timestamp: Date.now()
+      });
+      
+      console.log(`📋 Loaded ${this.cisaKevs.length} CISA Known Exploited Vulnerabilities`);
+      return this.cisaKevs;
+    } catch (error) {
+      console.error('Failed to load CISA KEVs:', error);
+      this.cisaKevs = [];
+      return this.cisaKevs;
+    }
+  }
+
+  /**
+     * Check if CVE is in CISA KEV catalog
+     */
+  isKnownExploited(cveId) {
+    if (!this.cisaKevs) return false;
+    return this.cisaKevs.some(vuln => vuln.cveID === cveId);
+  }
+
+  /**
+     * Get CISA KEV details for a CVE
+     */
+  getCISAKEVDetails(cveId) {
+    if (!this.cisaKevs) return null;
+    return this.cisaKevs.find(vuln => vuln.cveID === cveId);
+  }
+
+  /**
      * Get recent CVEs
      */
   async getRecentCVEs(days = 7, severity = null) {
@@ -86,8 +139,8 @@ class CVEService {
     startDate.setDate(startDate.getDate() - days);
 
     const options = {
-      pubStartDate: startDate.toISOString().split('T')[0] + 'T00:00:000Z',
-      pubEndDate: endDate.toISOString().split('T')[0] + 'T23:59:999Z',
+      pubStartDate: startDate.toISOString().split('T')[0] + 'T00:00:00.000Z',
+      pubEndDate: endDate.toISOString().split('T')[0] + 'T23:59:59.999Z',
       resultsPerPage: 50,
     };
 
@@ -109,8 +162,8 @@ class CVEService {
 
     try {
       const response = await this.searchCVEs({
-        pubStartDate: todayStr + 'T00:00:000Z',
-        pubEndDate: todayStr + 'T23:59:999Z',
+        pubStartDate: todayStr + 'T00:00:00.000Z',
+        pubEndDate: todayStr + 'T23:59:59.999Z',
         resultsPerPage: 20,
       });
 
@@ -204,14 +257,18 @@ class RateLimiter {
   }
 
   async waitForPermission() {
-    let isWaiting = true;
-    while (isWaiting) {
+    while (true) {
       const now = Date.now();
       this.requests = this.requests.filter(time => now - time < this.windowMs);
 
       if (this.requests.length < this.maxRequests) {
         this.requests.push(now);
-        isWaiting = false;
+        return;
+      }
+
+      if (this.requests.length === 0) {
+        // Safety check - should not happen but prevents infinite loop
+        this.requests.push(now);
         return;
       }
 
@@ -221,8 +278,213 @@ class RateLimiter {
       if (waitTime > 0) {
         console.log(`Rate limit hit, waiting ${waitTime}ms`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
+      } else {
+        // Remove oldest request and try again
+        this.requests.shift();
       }
     }
+  }
+}
+
+/**
+ * Bug Bounty Reports Service
+ */
+class BugBountyService {
+  constructor() {
+    this.cache = new HybridCache({ memorySize: 100, memoryTTL: 1800000, diskTTL: 7200000 });
+    this.platforms = {
+      hackerone: {
+        name: 'HackerOne',
+        apiUrl: 'https://api.hackerone.com/v1/hacktivity',
+        rssUrl: 'https://hackerone.com/hacktivity.rss',
+        color: '#494649'
+      },
+      bugcrowd: {
+        name: 'Bugcrowd',
+        rssUrl: 'https://bugcrowd.com/feed',
+        color: '#F26822'
+      },
+      github: {
+        name: 'GitHub Security Lab',
+        rssUrl: 'https://securitylab.github.com/feed.xml',
+        color: '#24292e'
+      }
+    };
+  }
+
+  /**
+   * Fetch bug bounty reports from multiple platforms
+   */
+  async fetchBugBountyReports() {
+    const cacheKey = 'bug_bounty_reports';
+    const cached = await this.cache.get(cacheKey);
+    
+    if (cached) return cached;
+
+    try {
+      // For demo purposes, generate realistic mock data
+      // In production, this would fetch from actual APIs/RSS feeds
+      const reports = await this.generateMockBugBountyReports();
+      
+      await this.cache.set(cacheKey, reports);
+      return reports;
+    } catch (error) {
+      console.error('Failed to fetch bug bounty reports:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Generate realistic bug bounty report data
+   */
+  async generateMockBugBountyReports() {
+    const vulnerabilityTypes = [
+      'Cross-Site Scripting (XSS)',
+      'SQL Injection',
+      'Remote Code Execution (RCE)',
+      'Server-Side Request Forgery (SSRF)',
+      'Insecure Direct Object Reference (IDOR)',
+      'Authentication Bypass',
+      'Privilege Escalation',
+      'Information Disclosure',
+      'Cross-Site Request Forgery (CSRF)',
+      'XML External Entity (XXE)',
+      'Local File Inclusion (LFI)',
+      'Business Logic Flaw'
+    ];
+
+    const companies = [
+      'Google', 'Microsoft', 'Apple', 'Facebook', 'Twitter', 'Uber', 'Airbnb',
+      'Netflix', 'Spotify', 'Dropbox', 'GitHub', 'GitLab', 'Slack', 'Discord',
+      'Zoom', 'PayPal', 'Stripe', 'Coinbase', 'Tesla', 'Adobe'
+    ];
+
+    const reports = [];
+    
+    for (let i = 0; i < 50; i++) {
+      const publishedTime = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
+      const vulnType = vulnerabilityTypes[Math.floor(Math.random() * vulnerabilityTypes.length)];
+      const company = companies[Math.floor(Math.random() * companies.length)];
+      const bounty = Math.floor(Math.random() * 50000) + 500;
+      
+      // Generate related CVE sometimes
+      const hasCVE = Math.random() > 0.7;
+      const cveId = hasCVE ? `CVE-${new Date().getFullYear()}-${Math.floor(Math.random() * 99999) + 10000}` : null;
+      
+      reports.push({
+        id: `bb-${i + 1}`,
+        title: `${vulnType} in ${company} ${this.generateEndpoint()}`,
+        platform: Object.keys(this.platforms)[Math.floor(Math.random() * 3)],
+        company,
+        vulnerabilityType: vulnType,
+        severity: this.generateSeverity(),
+        bounty,
+        publishedTime: publishedTime.toISOString(),
+        researcher: `researcher${Math.floor(Math.random() * 1000)}`,
+        description: this.generateBugDescription(vulnType, company),
+        cveId,
+        tags: this.generateTags(vulnType),
+        verified: Math.random() > 0.2,
+        disclosed: Math.random() > 0.3,
+        ageHours: (Date.now() - publishedTime.getTime()) / (1000 * 60 * 60),
+        isNew: (Date.now() - publishedTime.getTime()) < 24 * 60 * 60 * 1000,
+        url: `https://hackerone.com/reports/${Math.floor(Math.random() * 999999) + 100000}`
+      });
+    }
+
+    return reports.sort((a, b) => new Date(b.publishedTime) - new Date(a.publishedTime));
+  }
+
+  generateEndpoint() {
+    const endpoints = [
+      'API endpoint', 'login system', 'file upload', 'payment gateway',
+      'user dashboard', 'admin panel', 'mobile app', 'web application',
+      'authentication system', 'data export feature'
+    ];
+    return endpoints[Math.floor(Math.random() * endpoints.length)];
+  }
+
+  generateSeverity() {
+    const severities = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
+    const weights = [0.1, 0.3, 0.4, 0.2]; // More medium/high severity reports
+    const random = Math.random();
+    let sum = 0;
+    
+    for (let i = 0; i < weights.length; i++) {
+      sum += weights[i];
+      if (random <= sum) return severities[i];
+    }
+    return 'MEDIUM';
+  }
+
+  generateBugDescription(vulnType, company) {
+    const descriptions = {
+      'Cross-Site Scripting (XSS)': `Stored XSS vulnerability discovered in ${company}'s user input validation, allowing attackers to execute malicious scripts in victim browsers.`,
+      'SQL Injection': `SQL injection flaw found in ${company}'s database queries, enabling unauthorized data access and potential database compromise.`,
+      'Remote Code Execution (RCE)': `Critical RCE vulnerability allowing attackers to execute arbitrary code on ${company}'s servers through unsafe deserialization.`,
+      'Server-Side Request Forgery (SSRF)': `SSRF vulnerability enabling attackers to make requests to internal ${company} services and potentially access sensitive data.`,
+      'Insecure Direct Object Reference (IDOR)': `IDOR flaw allowing unauthorized access to ${company} user data through manipulated object references.`
+    };
+    
+    return descriptions[vulnType] || `Security vulnerability discovered in ${company}'s systems allowing unauthorized access.`;
+  }
+
+  generateTags(vulnType) {
+    const tagMap = {
+      'Cross-Site Scripting (XSS)': ['web', 'frontend', 'javascript', 'browser'],
+      'SQL Injection': ['database', 'backend', 'web', 'data'],
+      'Remote Code Execution (RCE)': ['critical', 'server', 'code-execution'],
+      'Server-Side Request Forgery (SSRF)': ['network', 'internal', 'web'],
+      'Insecure Direct Object Reference (IDOR)': ['authorization', 'access-control', 'web']
+    };
+    
+    return tagMap[vulnType] || ['security', 'vulnerability'];
+  }
+
+  /**
+   * Get bug bounty statistics
+   */
+  async getBugBountyStats() {
+    const reports = await this.fetchBugBountyReports();
+    
+    return {
+      totalReports: reports.length,
+      totalBounties: reports.reduce((sum, r) => sum + r.bounty, 0),
+      avgBounty: Math.round(reports.reduce((sum, r) => sum + r.bounty, 0) / reports.length),
+      severityBreakdown: this.getSeverityBreakdown(reports),
+      platformBreakdown: this.getPlatformBreakdown(reports),
+      topCompanies: this.getTopCompanies(reports),
+      recentReports: reports.filter(r => r.isNew).length,
+      withCVEs: reports.filter(r => r.cveId).length
+    };
+  }
+
+  getSeverityBreakdown(reports) {
+    const breakdown = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+    reports.forEach(report => {
+      breakdown[report.severity] = (breakdown[report.severity] || 0) + 1;
+    });
+    return breakdown;
+  }
+
+  getPlatformBreakdown(reports) {
+    const breakdown = {};
+    reports.forEach(report => {
+      breakdown[report.platform] = (breakdown[report.platform] || 0) + 1;
+    });
+    return breakdown;
+  }
+
+  getTopCompanies(reports) {
+    const companies = {};
+    reports.forEach(report => {
+      companies[report.company] = (companies[report.company] || 0) + 1;
+    });
+    
+    return Object.entries(companies)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 10)
+      .map(([company, count]) => ({ company, count }));
   }
 }
 
@@ -460,6 +722,7 @@ function dashboardApp() {
     // Services
     cveService: new CVEService(),
     threatIntelService: new ThreatIntelService(),
+    bugBountyService: new BugBountyService(),
     bookmarkService: new BookmarkService(),
 
     // Additional UI state
@@ -467,8 +730,12 @@ function dashboardApp() {
     currentCVE: null,
     showBookmarks: false,
     showExportModal: false,
+    showBugBountyModal: false,
+    currentBugBounty: null,
     threatIntel: [],
     cveOfTheDay: null,
+    bugBountyReports: [],
+    bugBountyStats: null,
     newsTicker: [],
     keyboardNavIndex: -1,
     notifications: [],
@@ -513,9 +780,11 @@ function dashboardApp() {
       // Load data with performance tracking
       await this.loadData();
             
-      // Load threat intelligence and CVE data
+      // Load threat intelligence, CVE data, and bug bounty reports
       await this.loadThreatIntelligence();
       await this.loadCVEOfTheDay();
+      await this.loadBugBountyReports();
+      await this.loadCISAKEVs();
             
       // Initialize news ticker
       this.initNewsTicker();
@@ -580,6 +849,7 @@ function dashboardApp() {
         // Escape key handling
         if (e.key === 'Escape') {
           this.showCVEModal = false;
+          this.showBugBountyModal = false;
           this.showSettings = false;
           this.showBookmarks = false;
           this.showExportModal = false;
@@ -638,14 +908,39 @@ function dashboardApp() {
       }
     },
 
+    async loadBugBountyReports() {
+      try {
+        this.bugBountyReports = await this.bugBountyService.fetchBugBountyReports();
+        this.bugBountyStats = await this.bugBountyService.getBugBountyStats();
+        console.log(`🏆 Loaded ${this.bugBountyReports.length} bug bounty reports`);
+      } catch (error) {
+        console.error('Failed to load bug bounty reports:', error);
+        this.showNotification('Failed to load bug bounty reports', 'error');
+      }
+    },
+
+    async loadCISAKEVs() {
+      try {
+        await this.cveService.loadCISAKEVs();
+      } catch (error) {
+        console.error('Failed to load CISA KEVs:', error);
+      }
+    },
+
     initNewsTicker() {
-      // Combine threat intel and recent posts for news ticker
+      // Combine threat intel, bug bounty reports, and recent posts for news ticker
       this.newsTicker = [
         ...this.threatIntel.map(threat => ({
           type: 'threat',
           text: `🚨 ${threat.title}`,
           severity: threat.severity,
           timestamp: threat.published,
+        })),
+        ...this.bugBountyReports.filter(r => r.isNew).slice(0, 8).map(report => ({
+          type: 'bugbounty',
+          text: `🏆 $${report.bounty.toLocaleString()} - ${report.title}`,
+          severity: report.severity,
+          timestamp: report.publishedTime,
         })),
         ...this.allPosts.filter(p => p.isNew).slice(0, 5).map(post => ({
           type: 'post',
@@ -1058,6 +1353,77 @@ function dashboardApp() {
       await this.searchCVE(cveId);
     },
 
+    async showEnhancedCVEDetails(cveId) {
+      try {
+        this.isLoading = true;
+        const response = await this.cveService.getCVE(cveId.trim());
+                
+        if (response.vulnerabilities?.length > 0) {
+          const cve = this.cveService.formatCVE(response.vulnerabilities[0].cve);
+          
+          // Enhance with CISA KEV data
+          const isKnownExploited = this.cveService.isKnownExploited(cveId);
+          const cisaDetails = this.cveService.getCISAKEVDetails(cveId);
+          
+          // Find related bug bounty reports
+          const relatedReports = this.bugBountyReports.filter(report => 
+            report.cveId === cveId || 
+            report.title.toLowerCase().includes(cveId.toLowerCase()) ||
+            report.description.toLowerCase().includes(cveId.toLowerCase())
+          );
+          
+          this.currentCVE = {
+            ...cve,
+            isKnownExploited,
+            cisaDetails,
+            relatedReports,
+            exploitAvailable: isKnownExploited || relatedReports.length > 0
+          };
+          
+          this.showCVEModal = true;
+        } else {
+          this.showNotification(`CVE ${cveId} not found`, 'warning');
+        }
+      } catch (error) {
+        console.error('Enhanced CVE search failed:', error);
+        this.showNotification('CVE search failed', 'error');
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    // Bug Bounty Report Management
+    showBugBountyDetails(report) {
+      this.currentBugBounty = report;
+      this.showBugBountyModal = true;
+    },
+
+    getBugBountyPlatformColor(platform) {
+      return this.bugBountyService.platforms[platform]?.color || '#6B7280';
+    },
+
+    getBountyFormattedAmount(amount) {
+      if (amount >= 10000) return `$${(amount / 1000).toFixed(0)}k`;
+      return `$${amount.toLocaleString()}`;
+    },
+
+    filterBugBountyBySeverity(severity) {
+      return this.bugBountyReports.filter(report => report.severity === severity);
+    },
+
+    getBugBountyTrendingVulnerabilities() {
+      const vulnTypes = {};
+      this.bugBountyReports.forEach(report => {
+        const type = report.vulnerabilityType;
+        vulnTypes[type] = (vulnTypes[type] || 0) + 1;
+      });
+      
+      return Object.entries(vulnTypes)
+        .sort(([,a], [,b]) => b - a)
+        .slice(0, 5)
+        .map(([type, count]) => ({ type, count }));
+    },
+
     // Bookmark Management
     toggleBookmark(post) {
       const wasBookmarked = this.bookmarkService.isBookmarked(post.guid);
@@ -1155,6 +1521,7 @@ function dashboardApp() {
         this.isLoading = true;
         await this.loadData();
         await this.loadThreatIntelligence();
+        await this.loadBugBountyReports();
         this.showNotification('Data refreshed successfully', 'success');
       } catch (error) {
         this.showNotification('Failed to refresh data', 'error');
@@ -1434,4 +1801,4 @@ function dashboardApp() {
 window.dashboardApp = dashboardApp;
 
 // Export for module use
-export { dashboardApp, CVEService, ThreatIntelService, SocialService, BookmarkService, ExportService };
+export { dashboardApp, CVEService, BugBountyService, ThreatIntelService, SocialService, BookmarkService, ExportService };
