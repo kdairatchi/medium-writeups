@@ -1,0 +1,21 @@
+{
+  "checkTime": "2025-08-25T06:53:34.584Z",
+  "nodeVersion": "v24.6.0",
+  "npmVersion": "11.5.1",
+  "summary": {
+    "errors": 0,
+    "warnings": 2,
+    "info": 2
+  },
+  "issues": {
+    "errors": [],
+    "warnings": [
+      "alpine: Apache License 2.",
+      "Multiple versions of entities: 4.5.0, 6.0.1"
+    ],
+    "info": [
+      "Package has 143 locked packages",
+      "4 packages can be updated"
+    ]
+  }
+}
