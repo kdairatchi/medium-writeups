@@ -77,5 +77,5 @@ If you need help or have questions:
 
 ---
 
-*📅 Last updated: $(date)*
+*📅 Last updated: 2025-08-25
 *🔄 This documentation is automatically updated*

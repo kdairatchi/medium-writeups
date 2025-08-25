@@ -31,21 +31,21 @@ const (
 	appVersion     = "v4.0.0"
 	maxTitleLength = 85
 	requestTimeout = 45 * time.Second
-	
+
 	// Enhanced timeout settings
-	connectionTimeout    = 30 * time.Second
-	keepAliveTimeout     = 30 * time.Second
-	tlsHandshakeTimeout  = 10 * time.Second
-	maxIdleConns         = 100
-	maxIdleConnsPerHost  = 10
-	maxConnsPerHost      = 50
-	
+	connectionTimeout   = 30 * time.Second
+	keepAliveTimeout    = 30 * time.Second
+	tlsHandshakeTimeout = 10 * time.Second
+	maxIdleConns        = 100
+	maxIdleConnsPerHost = 10
+	maxConnsPerHost     = 50
+
 	// Retry and backoff settings
-	maxRetries           = 3
-	baseBackoffDelay     = 1 * time.Second
-	maxBackoffDelay      = 30 * time.Second
-	backoffMultiplier    = 2.0
-	jitterFactor         = 0.1
+	maxRetries        = 3
+	baseBackoffDelay  = 1 * time.Second
+	maxBackoffDelay   = 30 * time.Second
+	backoffMultiplier = 2.0
+	jitterFactor      = 0.1
 
 	// Date formats
 	dateFormat        = "Mon, 02 Jan 2006"
@@ -62,11 +62,11 @@ const (
 
 	// Data directory
 	dataDirectory = "data"
-	
+
 	// API endpoints
-	nvdBaseURL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
+	nvdBaseURL  = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 	mitreCVEURL = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
-	
+
 	// Concurrent processing
 	maxConcurrentFeeds = 10
 	maxConcurrentCVEs  = 5
@@ -85,18 +85,18 @@ const (
 
 // Environment variables for configuration
 var (
-	maxFeeds       = getEnvInt("MAX_FEEDS", 0) // 0 means no limit
-	requestDelay   = getEnvDuration("RATE_LIMIT_DELAY", 3) * time.Second
-	debugMode      = getEnvBool("DEBUG_MODE", false)
-	nvdAPIKey      = os.Getenv("NVD_API_KEY")      // Optional API key for higher rate limits
-	vtAPIKey       = os.Getenv("VIRUSTOTAL_API_KEY") // VirusTotal API key
-	hibpAPIKey     = os.Getenv("HIBP_API_KEY")     // Have I Been Pwned API key
+	maxFeeds              = getEnvInt("MAX_FEEDS", 0) // 0 means no limit
+	requestDelay          = getEnvDuration("RATE_LIMIT_DELAY", 3) * time.Second
+	debugMode             = getEnvBool("DEBUG_MODE", false)
+	nvdAPIKey             = os.Getenv("NVD_API_KEY")        // Optional API key for higher rate limits
+	vtAPIKey              = os.Getenv("VIRUSTOTAL_API_KEY") // VirusTotal API key
+	hibpAPIKey            = os.Getenv("HIBP_API_KEY")       // Have I Been Pwned API key
 	enableAPIIntegrations = getEnvBool("ENABLE_API_INTEGRATIONS", true)
 )
 
 // Global HTTP client with connection pooling
 var (
-	httpClient     *http.Client
+	httpClient       *http.Client
 	cveRegexCompiled *regexp.Regexp
 	clientInitOnce   sync.Once
 )
@@ -131,32 +131,32 @@ type Item struct {
 
 // Enhanced FeedEntry with new fields for security intelligence
 type FeedEntry struct {
-	Title              string
-	GUID               string
-	PubDate            string
-	ParsedTime         time.Time
-	Feeds              []string
-	FeedNames          []string
-	Categories         []string
-	IsNew              bool
-	IsToday            bool
-	IsThisWeek         bool
-	Description        string
-	Author             string
-	Priority           int
-	
+	Title       string
+	GUID        string
+	PubDate     string
+	ParsedTime  time.Time
+	Feeds       []string
+	FeedNames   []string
+	Categories  []string
+	IsNew       bool
+	IsToday     bool
+	IsThisWeek  bool
+	Description string
+	Author      string
+	Priority    int
+
 	// New enhanced fields
-	CVEDetails         []CVEDetail   `json:"cveDetails,omitempty"`
-	SecurityCategories []string      `json:"securityCategories,omitempty"`
-	ThreatIntelTags    []string      `json:"threatIntelTags,omitempty"`
-	ReadabilityScore   float64       `json:"readabilityScore,omitempty"`
-	SentimentScore     float64       `json:"sentimentScore,omitempty"`
-	TechnicalComplexity string       `json:"technicalComplexity,omitempty"`
-	AttackTechniques   []AttackTechnique `json:"attackTechniques,omitempty"`
-	AffectedSoftware   []string      `json:"affectedSoftware,omitempty"`
-	IOCs               []IOC         `json:"iocs,omitempty"`
-	TrendingScore      float64       `json:"trendingScore,omitempty"`
-	QualityScore       float64       `json:"qualityScore,omitempty"`
+	CVEDetails          []CVEDetail       `json:"cveDetails,omitempty"`
+	SecurityCategories  []string          `json:"securityCategories,omitempty"`
+	ThreatIntelTags     []string          `json:"threatIntelTags,omitempty"`
+	ReadabilityScore    float64           `json:"readabilityScore,omitempty"`
+	SentimentScore      float64           `json:"sentimentScore,omitempty"`
+	TechnicalComplexity string            `json:"technicalComplexity,omitempty"`
+	AttackTechniques    []AttackTechnique `json:"attackTechniques,omitempty"`
+	AffectedSoftware    []string          `json:"affectedSoftware,omitempty"`
+	IOCs                []IOC             `json:"iocs,omitempty"`
+	TrendingScore       float64           `json:"trendingScore,omitempty"`
+	QualityScore        float64           `json:"qualityScore,omitempty"`
 }
 
 // CVEDetail represents detailed CVE information from NVD
@@ -179,91 +179,91 @@ type CVEDetail struct {
 
 // AttackTechnique represents MITRE ATT&CK techniques
 type AttackTechnique struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Tactic      string `json:"tactic,omitempty"`
-	Platform    string `json:"platform,omitempty"`
-	Confidence  float64 `json:"confidence,omitempty"`
+	ID         string  `json:"id"`
+	Name       string  `json:"name"`
+	Tactic     string  `json:"tactic,omitempty"`
+	Platform   string  `json:"platform,omitempty"`
+	Confidence float64 `json:"confidence,omitempty"`
 }
 
 // IOC represents Indicators of Compromise
 type IOC struct {
-	Type        string    `json:"type"`
-	Value       string    `json:"value"`
-	Confidence  float64   `json:"confidence"`
-	Source      string    `json:"source"`
-	FirstSeen   time.Time `json:"firstSeen,omitempty"`
-	LastSeen    time.Time `json:"lastSeen,omitempty"`
-	ThreatType  string    `json:"threatType,omitempty"`
+	Type       string    `json:"type"`
+	Value      string    `json:"value"`
+	Confidence float64   `json:"confidence"`
+	Source     string    `json:"source"`
+	FirstSeen  time.Time `json:"firstSeen,omitempty"`
+	LastSeen   time.Time `json:"lastSeen,omitempty"`
+	ThreatType string    `json:"threatType,omitempty"`
 }
 
 // Enhanced FeedSource with health monitoring
 type FeedSource struct {
-	URL              string
-	Name             string
-	Category         string
-	Priority         int
-	Active           bool
-	Color            string
-	
+	URL      string
+	Name     string
+	Category string
+	Priority int
+	Active   bool
+	Color    string
+
 	// New monitoring fields
-	LastFetchTime    time.Time     `json:"lastFetchTime,omitempty"`
-	LastSuccess      time.Time     `json:"lastSuccess,omitempty"`
-	LastError        string        `json:"lastError,omitempty"`
-	ConsecutiveErrors int          `json:"consecutiveErrors,omitempty"`
+	LastFetchTime       time.Time     `json:"lastFetchTime,omitempty"`
+	LastSuccess         time.Time     `json:"lastSuccess,omitempty"`
+	LastError           string        `json:"lastError,omitempty"`
+	ConsecutiveErrors   int           `json:"consecutiveErrors,omitempty"`
 	AverageResponseTime time.Duration `json:"averageResponseTime,omitempty"`
-	SuccessRate      float64       `json:"successRate,omitempty"`
-	ItemsCount       int           `json:"itemsCount,omitempty"`
-	RateLimitHits    int           `json:"rateLimitHits,omitempty"`
-	Health           string        `json:"health"` // healthy, degraded, unhealthy
+	SuccessRate         float64       `json:"successRate,omitempty"`
+	ItemsCount          int           `json:"itemsCount,omitempty"`
+	RateLimitHits       int           `json:"rateLimitHits,omitempty"`
+	Health              string        `json:"health"` // healthy, degraded, unhealthy
 }
 
 // Enhanced AggregatorStats with performance metrics
 type AggregatorStats struct {
-	TotalFeeds        int
-	SuccessfulFeeds   int
-	FailedFeeds       int
-	TotalEntries      int
-	NewEntries        int
-	TodayEntries      int
-	WeekEntries       int
-	ProcessingTime    time.Duration
-	StartTime         time.Time
-	RateLimited       int
-	
+	TotalFeeds      int
+	SuccessfulFeeds int
+	FailedFeeds     int
+	TotalEntries    int
+	NewEntries      int
+	TodayEntries    int
+	WeekEntries     int
+	ProcessingTime  time.Duration
+	StartTime       time.Time
+	RateLimited     int
+
 	// New performance metrics
-	CVEsProcessed     int           `json:"cvesProcessed"`
-	APICallsMade      int           `json:"apiCallsMade"`
-	APIErrors         int           `json:"apiErrors"`
+	CVEsProcessed       int           `json:"cvesProcessed"`
+	APICallsMade        int           `json:"apiCallsMade"`
+	APIErrors           int           `json:"apiErrors"`
 	AverageResponseTime time.Duration `json:"averageResponseTime"`
-	ConcurrentProcessed int          `json:"concurrentProcessed"`
-	MemoryUsageMB     int           `json:"memoryUsageMB"`
-	CacheHitRate      float64       `json:"cacheHitRate"`
-	DeduplicationRate float64       `json:"deduplicationRate"`
-	ThreatIntelHits   int           `json:"threatIntelHits"`
+	ConcurrentProcessed int           `json:"concurrentProcessed"`
+	MemoryUsageMB       int           `json:"memoryUsageMB"`
+	CacheHitRate        float64       `json:"cacheHitRate"`
+	DeduplicationRate   float64       `json:"deduplicationRate"`
+	ThreatIntelHits     int           `json:"threatIntelHits"`
 }
 
 // Enhanced CategoryStats
 type CategoryStats struct {
-	Name             string
-	TotalPosts       int
-	NewPosts         int
-	TodayPosts       int
-	Color            string
-	
+	Name       string
+	TotalPosts int
+	NewPosts   int
+	TodayPosts int
+	Color      string
+
 	// New analytics fields
-	TrendDirection   string    `json:"trendDirection"` // up, down, stable
-	AverageCVSSScore float64   `json:"averageCvssScore,omitempty"`
-	HighSeverityCVEs int       `json:"highSeverityCVEs,omitempty"`
-	ThreatLevel      string    `json:"threatLevel"` // low, medium, high, critical
-	PopularityScore  float64   `json:"popularityScore"`
+	TrendDirection   string  `json:"trendDirection"` // up, down, stable
+	AverageCVSSScore float64 `json:"averageCvssScore,omitempty"`
+	HighSeverityCVEs int     `json:"highSeverityCVEs,omitempty"`
+	ThreatLevel      string  `json:"threatLevel"` // low, medium, high, critical
+	PopularityScore  float64 `json:"popularityScore"`
 }
 
 // TrendingTopic with enhanced analytics
 type TrendingTopic struct {
-	Name            string
-	Count           int
-	
+	Name  string
+	Count int
+
 	// New trending fields
 	GrowthRate      float64   `json:"growthRate"`
 	TrendScore      float64   `json:"trendScore"`
@@ -286,15 +286,15 @@ type SecurityTrend struct {
 
 // ThreatIntelligence represents aggregated threat intelligence
 type ThreatIntelligence struct {
-	IOCs            []IOC              `json:"iocs"`
-	TTPs            []AttackTechnique  `json:"ttps"`
-	ThreatActors    []string           `json:"threatActors,omitempty"`
-	Campaigns       []string           `json:"campaigns,omitempty"`
-	Malware         []string           `json:"malware,omitempty"`
-	Vulnerabilities []CVEDetail        `json:"vulnerabilities"`
-	ThreatLevel     string             `json:"threatLevel"`
-	Confidence      float64            `json:"confidence"`
-	LastUpdated     time.Time          `json:"lastUpdated"`
+	IOCs            []IOC             `json:"iocs"`
+	TTPs            []AttackTechnique `json:"ttps"`
+	ThreatActors    []string          `json:"threatActors,omitempty"`
+	Campaigns       []string          `json:"campaigns,omitempty"`
+	Malware         []string          `json:"malware,omitempty"`
+	Vulnerabilities []CVEDetail       `json:"vulnerabilities"`
+	ThreatLevel     string            `json:"threatLevel"`
+	Confidence      float64           `json:"confidence"`
+	LastUpdated     time.Time         `json:"lastUpdated"`
 }
 
 // ================================================================================
@@ -319,7 +319,7 @@ func initializeHTTPClient() {
 			MaxConnsPerHost:     maxConnsPerHost,
 			IdleConnTimeout:     keepAliveTimeout,
 			TLSHandshakeTimeout: tlsHandshakeTimeout,
-			
+
 			// Security: Enable modern TLS settings
 			TLSClientConfig: &tls.Config{
 				MinVersion:         tls.VersionTLS12,
@@ -331,7 +331,7 @@ func initializeHTTPClient() {
 				},
 			},
 		}
-		
+
 		httpClient = &http.Client{
 			Timeout:   requestTimeout,
 			Transport: transport,
@@ -374,12 +374,12 @@ func extractCVEDetails(text string) []CVEDetail {
 		// Fallback to simple extraction if APIs are disabled
 		return extractCVEsSimple(text)
 	}
-	
+
 	cveMatches := cveRegexCompiled.FindAllString(text, -1)
 	if len(cveMatches) == 0 {
 		return nil
 	}
-	
+
 	// Remove duplicates
 	cveSet := make(map[string]bool)
 	uniqueCVEs := make([]string, 0)
@@ -389,26 +389,26 @@ func extractCVEDetails(text string) []CVEDetail {
 			uniqueCVEs = append(uniqueCVEs, cve)
 		}
 	}
-	
+
 	// Process CVEs concurrently
 	results := make([]CVEDetail, len(uniqueCVEs))
 	var wg sync.WaitGroup
 	sem := make(chan struct{}, maxConcurrentCVEs) // Limit concurrent API calls
-	
+
 	for i, cveID := range uniqueCVEs {
 		wg.Add(1)
 		go func(idx int, id string) {
 			defer wg.Done()
-			sem <- struct{}{} // Acquire semaphore
+			sem <- struct{}{}        // Acquire semaphore
 			defer func() { <-sem }() // Release semaphore
-			
+
 			result := validateCVEWithNVD(id)
 			results[idx] = result
 		}(i, cveID)
 	}
-	
+
 	wg.Wait()
-	
+
 	// Filter out invalid CVEs
 	validCVEs := make([]CVEDetail, 0)
 	for _, cve := range results {
@@ -416,7 +416,7 @@ func extractCVEDetails(text string) []CVEDetail {
 			validCVEs = append(validCVEs, cve)
 		}
 	}
-	
+
 	return validCVEs
 }
 
@@ -426,11 +426,11 @@ func extractCVEsSimple(text string) []CVEDetail {
 	if len(cveMatches) == 0 {
 		return nil
 	}
-	
+
 	// Remove duplicates
 	cveSet := make(map[string]bool)
 	results := make([]CVEDetail, 0)
-	
+
 	for _, cve := range cveMatches {
 		if !cveSet[cve] {
 			cveSet[cve] = true
@@ -440,7 +440,7 @@ func extractCVEsSimple(text string) []CVEDetail {
 			})
 		}
 	}
-	
+
 	return results
 }
 
@@ -450,20 +450,20 @@ func validateCVEWithNVD(cveID string) CVEDetail {
 		ID:       cveID,
 		Verified: false,
 	}
-	
+
 	if nvdAPIKey == "" {
 		detail.ValidationError = "NVD API key not configured"
 		return detail
 	}
-	
+
 	url := fmt.Sprintf("%s?cveId=%s", nvdBaseURL, cveID)
-	
+
 	// Retry logic with exponential backoff
 	for attempt := 0; attempt < maxRetries; attempt++ {
 		resp, err := makeHTTPRequestWithRetry(url, map[string]string{
 			"apiKey": nvdAPIKey,
 		})
-		
+
 		if err != nil {
 			detail.ValidationError = fmt.Sprintf("API request failed: %v", err)
 			if attempt == maxRetries-1 {
@@ -472,23 +472,23 @@ func validateCVEWithNVD(cveID string) CVEDetail {
 			time.Sleep(calculateBackoffDelay(attempt))
 			continue
 		}
-		
+
 		var nvdResponse NVDResponse
 		if err := json.Unmarshal(resp, &nvdResponse); err != nil {
 			detail.ValidationError = fmt.Sprintf("Failed to parse NVD response: %v", err)
 			return detail
 		}
-		
+
 		if len(nvdResponse.Vulnerabilities) == 0 {
 			detail.ValidationError = "CVE not found in NVD"
 			return detail
 		}
-		
+
 		// Extract vulnerability details
 		vuln := nvdResponse.Vulnerabilities[0]
 		detail.Verified = true
 		detail.Description = extractDescription(vuln.CVE.Descriptions)
-		
+
 		// Extract CVSS scores
 		if len(vuln.CVE.Metrics.CvssMetricV31) > 0 {
 			cvss31 := vuln.CVE.Metrics.CvssMetricV31[0]
@@ -501,12 +501,12 @@ func validateCVEWithNVD(cveID string) CVEDetail {
 			detail.CVSS3Vector = cvss30.CvssData.VectorString
 			detail.Severity = strings.ToUpper(cvss30.CvssData.BaseSeverity)
 		}
-		
+
 		if len(vuln.CVE.Metrics.CvssMetricV2) > 0 {
 			cvss2 := vuln.CVE.Metrics.CvssMetricV2[0]
 			detail.CVSS2Score = cvss2.CvssData.BaseScore
 		}
-		
+
 		// Extract dates
 		if publishedDate, err := time.Parse("2006-01-02T15:04:05.000", vuln.CVE.Published); err == nil {
 			detail.PublishedDate = publishedDate
@@ -514,25 +514,25 @@ func validateCVEWithNVD(cveID string) CVEDetail {
 		if modifiedDate, err := time.Parse("2006-01-02T15:04:05.000", vuln.CVE.LastModified); err == nil {
 			detail.ModifiedDate = modifiedDate
 		}
-		
+
 		// Extract affected software
 		detail.VendorProject, detail.Product = extractAffectedSoftware(vuln.CVE.Configurations)
-		
+
 		// Extract references
 		for _, ref := range vuln.CVE.References {
 			detail.References = append(detail.References, ref.URL)
 		}
-		
+
 		// Extract CWE IDs
 		for _, weakness := range vuln.CVE.Weaknesses {
 			for _, desc := range weakness.Description {
 				detail.CWEIDs = append(detail.CWEIDs, desc.Value)
 			}
 		}
-		
+
 		break // Success
 	}
-	
+
 	return detail
 }
 
@@ -542,15 +542,15 @@ func calculateBackoffDelay(attempt int) time.Duration {
 	if delay > maxBackoffDelay {
 		delay = maxBackoffDelay
 	}
-	
+
 	// Add jitter to prevent thundering herd (simplified)
 	jitter := time.Duration(float64(delay) * jitterFactor * 0.5) // Simplified jitter
 	delay += jitter
-	
+
 	if delay < 0 {
 		delay = baseBackoffDelay
 	}
-	
+
 	return delay
 }
 
@@ -560,25 +560,25 @@ func calculateBackoffDelay(attempt int) time.Duration {
 
 func makeHTTPRequestWithRetry(url string, headers map[string]string) ([]byte, error) {
 	initializeHTTPClient()
-	
+
 	for attempt := 0; attempt < maxRetries; attempt++ {
 		req, err := http.NewRequest("GET", url, nil)
 		if err != nil {
 			return nil, fmt.Errorf("request creation error: %v", err)
 		}
-		
+
 		// Set headers
 		req.Header.Set("User-Agent", fmt.Sprintf("%s/%s (+https://github.com/cybersecurity-aggregator)", appName, appVersion))
 		req.Header.Set("Accept", "application/json, application/rss+xml, application/xml, text/xml")
-		
+
 		for key, value := range headers {
 			req.Header.Set(key, value)
 		}
-		
+
 		startTime := time.Now()
 		resp, err := httpClient.Do(req)
 		responseTime := time.Since(startTime)
-		
+
 		if err != nil {
 			if attempt == maxRetries-1 {
 				return nil, fmt.Errorf("network error after %d attempts: %v", maxRetries, err)
@@ -587,7 +587,7 @@ func makeHTTPRequestWithRetry(url string, headers map[string]string) ([]byte, er
 			continue
 		}
 		defer resp.Body.Close()
-		
+
 		// Handle rate limiting
 		if resp.StatusCode == 429 {
 			retryAfter := resp.Header.Get("Retry-After")
@@ -600,7 +600,7 @@ func makeHTTPRequestWithRetry(url string, headers map[string]string) ([]byte, er
 			}
 			continue
 		}
-		
+
 		if resp.StatusCode != http.StatusOK {
 			if attempt == maxRetries-1 {
 				return nil, fmt.Errorf("HTTP %d after %d attempts", resp.StatusCode, maxRetries)
@@ -608,7 +608,7 @@ func makeHTTPRequestWithRetry(url string, headers map[string]string) ([]byte, er
 			time.Sleep(calculateBackoffDelay(attempt))
 			continue
 		}
-		
+
 		data, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			if attempt == maxRetries-1 {
@@ -617,14 +617,14 @@ func makeHTTPRequestWithRetry(url string, headers map[string]string) ([]byte, er
 			time.Sleep(calculateBackoffDelay(attempt))
 			continue
 		}
-		
+
 		if debugMode {
 			fmt.Printf("HTTP request to %s completed in %v\n", url, responseTime)
 		}
-		
+
 		return data, nil
 	}
-	
+
 	return nil, fmt.Errorf("max retries exceeded")
 }
 
@@ -633,13 +633,13 @@ func makeHTTPRequestWithRetry(url string, headers map[string]string) ([]byte, er
 // ================================================================================
 
 type NVDResponse struct {
-	ResultsPerPage   int            `json:"resultsPerPage"`
-	StartIndex       int            `json:"startIndex"`
-	TotalResults     int            `json:"totalResults"`
-	Format           string         `json:"format"`
-	Version          string         `json:"version"`
-	Timestamp        string         `json:"timestamp"`
-	Vulnerabilities  []Vulnerability `json:"vulnerabilities"`
+	ResultsPerPage  int             `json:"resultsPerPage"`
+	StartIndex      int             `json:"startIndex"`
+	TotalResults    int             `json:"totalResults"`
+	Format          string          `json:"format"`
+	Version         string          `json:"version"`
+	Timestamp       string          `json:"timestamp"`
+	Vulnerabilities []Vulnerability `json:"vulnerabilities"`
 }
 
 type Vulnerability struct {
@@ -647,16 +647,16 @@ type Vulnerability struct {
 }
 
 type CVE struct {
-	ID              string          `json:"id"`
-	SourceIdentifier string         `json:"sourceIdentifier"`
-	Published       string          `json:"published"`
-	LastModified    string          `json:"lastModified"`
-	VulnStatus      string          `json:"vulnStatus"`
-	Descriptions    []Description   `json:"descriptions"`
-	Metrics         Metrics         `json:"metrics"`
-	Weaknesses      []Weakness      `json:"weaknesses"`
-	Configurations  []Configuration `json:"configurations"`
-	References      []Reference     `json:"references"`
+	ID               string          `json:"id"`
+	SourceIdentifier string          `json:"sourceIdentifier"`
+	Published        string          `json:"published"`
+	LastModified     string          `json:"lastModified"`
+	VulnStatus       string          `json:"vulnStatus"`
+	Descriptions     []Description   `json:"descriptions"`
+	Metrics          Metrics         `json:"metrics"`
+	Weaknesses       []Weakness      `json:"weaknesses"`
+	Configurations   []Configuration `json:"configurations"`
+	References       []Reference     `json:"references"`
 }
 
 type Description struct {
@@ -671,14 +671,14 @@ type Metrics struct {
 }
 
 type CVSSMetricV31 struct {
-	Source   string    `json:"source"`
-	Type     string    `json:"type"`
+	Source   string     `json:"source"`
+	Type     string     `json:"type"`
 	CvssData CVSSDataV3 `json:"cvssData"`
 }
 
 type CVSSMetricV30 struct {
-	Source   string    `json:"source"`
-	Type     string    `json:"type"`
+	Source   string     `json:"source"`
+	Type     string     `json:"type"`
 	CvssData CVSSDataV3 `json:"cvssData"`
 }
 
@@ -698,8 +698,8 @@ type CVSSDataV3 struct {
 }
 
 type CVSSMetricV2 struct {
-	Source   string    `json:"source"`
-	Type     string    `json:"type"`
+	Source   string     `json:"source"`
+	Type     string     `json:"type"`
 	CvssData CVSSDataV2 `json:"cvssData"`
 }
 
@@ -726,8 +726,8 @@ type Configuration struct {
 }
 
 type Node struct {
-	Operator string `json:"operator"`
-	Negate   bool   `json:"negate"`
+	Operator string     `json:"operator"`
+	Negate   bool       `json:"negate"`
 	CpeMatch []CpeMatch `json:"cpeMatch"`
 }
 
@@ -787,31 +787,31 @@ func extractAffectedSoftware(configurations []Configuration) (vendor, product st
 // Analyze content for security categories, readability, and threat intelligence
 func analyzeContent(entry *FeedEntry) {
 	content := entry.Title + " " + entry.Description
-	
+
 	// Extract security categories
 	entry.SecurityCategories = categorizeSecurityContent(content)
-	
+
 	// Calculate readability score (simplified Flesch Reading Ease)
 	entry.ReadabilityScore = calculateReadabilityScore(content)
-	
+
 	// Determine technical complexity
 	entry.TechnicalComplexity = determineTechnicalComplexity(content)
-	
+
 	// Extract threat intelligence tags
 	entry.ThreatIntelTags = extractThreatIntelTags(content)
-	
+
 	// Extract MITRE ATT&CK techniques
 	entry.AttackTechniques = extractAttackTechniques(content)
-	
+
 	// Extract affected software
 	entry.AffectedSoftware = extractSoftwareNames(content)
-	
+
 	// Extract IOCs
 	entry.IOCs = extractIOCs(content)
-	
+
 	// Calculate quality score
 	entry.QualityScore = calculateQualityScore(entry)
-	
+
 	// Calculate trending score
 	entry.TrendingScore = calculateTrendingScore(entry)
 }
@@ -819,22 +819,22 @@ func analyzeContent(entry *FeedEntry) {
 func categorizeSecurityContent(content string) []string {
 	contentLower := strings.ToLower(content)
 	categories := make([]string, 0)
-	
+
 	categoryKeywords := map[string][]string{
 		"vulnerability":     {"vulnerability", "cve", "exploit", "zero-day", "0-day", "security flaw"},
-		"malware":          {"malware", "virus", "trojan", "ransomware", "backdoor", "rootkit"},
-		"phishing":         {"phishing", "social engineering", "spear phishing", "whaling"},
-		"web-security":     {"xss", "sql injection", "csrf", "ssrf", "idor", "rce"},
-		"network-security": {"firewall", "ids", "ips", "network security", "packet analysis"},
-		"cryptography":     {"encryption", "cryptography", "tls", "ssl", "certificate"},
+		"malware":           {"malware", "virus", "trojan", "ransomware", "backdoor", "rootkit"},
+		"phishing":          {"phishing", "social engineering", "spear phishing", "whaling"},
+		"web-security":      {"xss", "sql injection", "csrf", "ssrf", "idor", "rce"},
+		"network-security":  {"firewall", "ids", "ips", "network security", "packet analysis"},
+		"cryptography":      {"encryption", "cryptography", "tls", "ssl", "certificate"},
 		"incident-response": {"incident response", "forensics", "dfir", "threat hunting"},
-		"compliance":       {"compliance", "gdpr", "hipaa", "pci-dss", "sox", "audit"},
-		"cloud-security":   {"aws security", "azure security", "cloud security", "kubernetes"},
-		"iot-security":     {"iot security", "embedded", "firmware", "hardware hacking"},
-		"ai-security":      {"ai security", "ml security", "adversarial", "model poisoning"},
-		"threat-intel":     {"threat intelligence", "apt", "threat actor", "campaign"},
+		"compliance":        {"compliance", "gdpr", "hipaa", "pci-dss", "sox", "audit"},
+		"cloud-security":    {"aws security", "azure security", "cloud security", "kubernetes"},
+		"iot-security":      {"iot security", "embedded", "firmware", "hardware hacking"},
+		"ai-security":       {"ai security", "ml security", "adversarial", "model poisoning"},
+		"threat-intel":      {"threat intelligence", "apt", "threat actor", "campaign"},
 	}
-	
+
 	for category, keywords := range categoryKeywords {
 		for _, keyword := range keywords {
 			if strings.Contains(contentLower, keyword) {
@@ -843,7 +843,7 @@ func categorizeSecurityContent(content string) []string {
 			}
 		}
 	}
-	
+
 	return categories
 }
 
@@ -852,20 +852,20 @@ func calculateReadabilityScore(text string) float64 {
 	sentences := len(strings.Split(text, ".")) + len(strings.Split(text, "!")) + len(strings.Split(text, "?"))
 	words := len(strings.Fields(text))
 	syllables := estimateSyllables(text)
-	
+
 	if sentences == 0 || words == 0 {
 		return 0
 	}
-	
-	score := 206.835 - (1.015 * float64(words)/float64(sentences)) - (84.6 * float64(syllables)/float64(words))
-	
+
+	score := 206.835 - (1.015 * float64(words) / float64(sentences)) - (84.6 * float64(syllables) / float64(words))
+
 	// Normalize to 0-100
 	if score < 0 {
 		score = 0
 	} else if score > 100 {
 		score = 100
 	}
-	
+
 	return score
 }
 
@@ -873,7 +873,7 @@ func estimateSyllables(text string) int {
 	vowels := "aeiouAEIOU"
 	syllableCount := 0
 	prevCharWasVowel := false
-	
+
 	for _, char := range text {
 		isVowel := strings.ContainsRune(vowels, char)
 		if isVowel && !prevCharWasVowel {
@@ -881,46 +881,46 @@ func estimateSyllables(text string) int {
 		}
 		prevCharWasVowel = isVowel
 	}
-	
+
 	// Every word has at least one syllable
 	words := len(strings.Fields(text))
 	if syllableCount < words {
 		syllableCount = words
 	}
-	
+
 	return syllableCount
 }
 
 func determineTechnicalComplexity(content string) string {
 	contentLower := strings.ToLower(content)
-	
+
 	highComplexityTerms := []string{
 		"reverse engineering", "exploit development", "binary analysis", "assembly",
 		"kernel", "firmware", "cryptographic", "zero-day", "advanced persistent threat",
 		"memory corruption", "heap overflow", "rop chain", "shellcode",
 	}
-	
+
 	mediumComplexityTerms := []string{
 		"penetration testing", "vulnerability assessment", "security audit",
 		"malware analysis", "incident response", "threat hunting",
 		"sql injection", "cross-site scripting", "buffer overflow",
 	}
-	
+
 	highCount := 0
 	mediumCount := 0
-	
+
 	for _, term := range highComplexityTerms {
 		if strings.Contains(contentLower, term) {
 			highCount++
 		}
 	}
-	
+
 	for _, term := range mediumComplexityTerms {
 		if strings.Contains(contentLower, term) {
 			mediumCount++
 		}
 	}
-	
+
 	if highCount >= 2 {
 		return "expert"
 	} else if highCount >= 1 || mediumCount >= 3 {
@@ -928,26 +928,26 @@ func determineTechnicalComplexity(content string) string {
 	} else if mediumCount >= 1 {
 		return "intermediate"
 	}
-	
+
 	return "beginner"
 }
 
 func extractThreatIntelTags(content string) []string {
 	contentLower := strings.ToLower(content)
 	tags := make([]string, 0)
-	
+
 	threatTags := map[string][]string{
-		"apt":           {"apt", "advanced persistent threat"},
-		"ransomware":    {"ransomware", "crypto locker", "file encryption"},
-		"botnet":        {"botnet", "command and control", "c2", "c&c"},
-		"phishing":      {"phishing", "spear phishing", "business email compromise"},
-		"supply-chain":  {"supply chain", "third party", "vendor compromise"},
-		"insider":       {"insider threat", "malicious insider", "data exfiltration"},
-		"nation-state":  {"nation state", "state sponsored", "government hacking"},
-		"cybercrime":    {"cybercrime", "financial crime", "fraud"},
-		"hacktivism":    {"hacktivist", "hacktivism", "politically motivated"},
+		"apt":          {"apt", "advanced persistent threat"},
+		"ransomware":   {"ransomware", "crypto locker", "file encryption"},
+		"botnet":       {"botnet", "command and control", "c2", "c&c"},
+		"phishing":     {"phishing", "spear phishing", "business email compromise"},
+		"supply-chain": {"supply chain", "third party", "vendor compromise"},
+		"insider":      {"insider threat", "malicious insider", "data exfiltration"},
+		"nation-state": {"nation state", "state sponsored", "government hacking"},
+		"cybercrime":   {"cybercrime", "financial crime", "fraud"},
+		"hacktivism":   {"hacktivist", "hacktivism", "politically motivated"},
 	}
-	
+
 	for tag, keywords := range threatTags {
 		for _, keyword := range keywords {
 			if strings.Contains(contentLower, keyword) {
@@ -956,34 +956,34 @@ func extractThreatIntelTags(content string) []string {
 			}
 		}
 	}
-	
+
 	return tags
 }
 
 func extractAttackTechniques(content string) []AttackTechnique {
 	contentLower := strings.ToLower(content)
 	techniques := make([]AttackTechnique, 0)
-	
+
 	// Common MITRE ATT&CK techniques
 	attackPatterns := map[string]AttackTechnique{
-		"spear phishing": {ID: "T1566.001", Name: "Spearphishing Attachment", Tactic: "Initial Access"},
-		"powershell": {ID: "T1059.001", Name: "PowerShell", Tactic: "Execution"},
-		"credential dumping": {ID: "T1003", Name: "OS Credential Dumping", Tactic: "Credential Access"},
-		"lateral movement": {ID: "T1021", Name: "Remote Services", Tactic: "Lateral Movement"},
+		"spear phishing":       {ID: "T1566.001", Name: "Spearphishing Attachment", Tactic: "Initial Access"},
+		"powershell":           {ID: "T1059.001", Name: "PowerShell", Tactic: "Execution"},
+		"credential dumping":   {ID: "T1003", Name: "OS Credential Dumping", Tactic: "Credential Access"},
+		"lateral movement":     {ID: "T1021", Name: "Remote Services", Tactic: "Lateral Movement"},
 		"privilege escalation": {ID: "T1068", Name: "Exploitation for Privilege Escalation", Tactic: "Privilege Escalation"},
-		"persistence": {ID: "T1053", Name: "Scheduled Task/Job", Tactic: "Persistence"},
-		"command and control": {ID: "T1071", Name: "Application Layer Protocol", Tactic: "Command and Control"},
-		"data exfiltration": {ID: "T1041", Name: "Exfiltration Over C2 Channel", Tactic: "Exfiltration"},
-		"defense evasion": {ID: "T1027", Name: "Obfuscated Files or Information", Tactic: "Defense Evasion"},
+		"persistence":          {ID: "T1053", Name: "Scheduled Task/Job", Tactic: "Persistence"},
+		"command and control":  {ID: "T1071", Name: "Application Layer Protocol", Tactic: "Command and Control"},
+		"data exfiltration":    {ID: "T1041", Name: "Exfiltration Over C2 Channel", Tactic: "Exfiltration"},
+		"defense evasion":      {ID: "T1027", Name: "Obfuscated Files or Information", Tactic: "Defense Evasion"},
 	}
-	
+
 	for pattern, technique := range attackPatterns {
 		if strings.Contains(contentLower, pattern) {
 			technique.Confidence = calculatePatternConfidence(content, pattern)
 			techniques = append(techniques, technique)
 		}
 	}
-	
+
 	return techniques
 }
 
@@ -991,22 +991,22 @@ func calculatePatternConfidence(content, pattern string) float64 {
 	// Simple confidence calculation based on context
 	contentLower := strings.ToLower(content)
 	occurrences := strings.Count(contentLower, pattern)
-	
+
 	confidence := float64(occurrences) * 0.3
 	if confidence > 1.0 {
 		confidence = 1.0
 	}
-	
+
 	// Boost confidence if found in title
 	titleLower := strings.ToLower(strings.Split(content, ".")[0])
 	if strings.Contains(titleLower, pattern) {
 		confidence += 0.3
 	}
-	
+
 	if confidence > 1.0 {
 		confidence = 1.0
 	}
-	
+
 	return confidence
 }
 
@@ -1021,22 +1021,22 @@ func extractSoftwareNames(content string) []string {
 		"WordPress", "Drupal", "Joomla",
 		"Java", "Python", "Node.js", ".NET",
 	}
-	
+
 	software := make([]string, 0)
 	contentLower := strings.ToLower(content)
-	
+
 	for _, sw := range softwarePatterns {
 		if strings.Contains(contentLower, strings.ToLower(sw)) {
 			software = append(software, sw)
 		}
 	}
-	
+
 	return software
 }
 
 func extractIOCs(content string) []IOC {
 	iocs := make([]IOC, 0)
-	
+
 	// IP addresses
 	ipRegex := regexp.MustCompile(`\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b`)
 	ips := ipRegex.FindAllString(content, -1)
@@ -1049,7 +1049,7 @@ func extractIOCs(content string) []IOC {
 			FirstSeen:  time.Now(),
 		})
 	}
-	
+
 	// Domain names (simplified)
 	domainRegex := regexp.MustCompile(`\b[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}\b`)
 	domains := domainRegex.FindAllString(content, -1)
@@ -1065,14 +1065,14 @@ func extractIOCs(content string) []IOC {
 			})
 		}
 	}
-	
+
 	// File hashes (MD5, SHA1, SHA256)
 	hashRegexes := map[string]*regexp.Regexp{
 		"md5":    regexp.MustCompile(`\b[a-fA-F0-9]{32}\b`),
 		"sha1":   regexp.MustCompile(`\b[a-fA-F0-9]{40}\b`),
 		"sha256": regexp.MustCompile(`\b[a-fA-F0-9]{64}\b`),
 	}
-	
+
 	for hashType, regex := range hashRegexes {
 		hashes := regex.FindAllString(content, -1)
 		for _, hash := range hashes {
@@ -1085,7 +1085,7 @@ func extractIOCs(content string) []IOC {
 			})
 		}
 	}
-	
+
 	return iocs
 }
 
@@ -1094,20 +1094,20 @@ func isLegitimateDomain(domain string) bool {
 		"github.com", "medium.com", "google.com", "microsoft.com",
 		"apple.com", "mozilla.org", "cve.mitre.org", "nvd.nist.gov",
 	}
-	
+
 	domainLower := strings.ToLower(domain)
 	for _, legit := range legitimateDomains {
 		if strings.Contains(domainLower, legit) {
 			return true
 		}
 	}
-	
+
 	return false
 }
 
 func calculateQualityScore(entry *FeedEntry) float64 {
 	score := 0.0
-	
+
 	// Title quality (0-30 points)
 	if len(entry.Title) >= 20 {
 		score += 10
@@ -1118,7 +1118,7 @@ func calculateQualityScore(entry *FeedEntry) float64 {
 	if len(entry.CVEDetails) > 0 {
 		score += 10
 	}
-	
+
 	// Description quality (0-20 points)
 	if len(entry.Description) >= 100 {
 		score += 10
@@ -1126,7 +1126,7 @@ func calculateQualityScore(entry *FeedEntry) float64 {
 	if len(entry.Description) >= 300 {
 		score += 10
 	}
-	
+
 	// Technical content (0-25 points)
 	if entry.TechnicalComplexity == "advanced" {
 		score += 15
@@ -1135,28 +1135,28 @@ func calculateQualityScore(entry *FeedEntry) float64 {
 	} else if entry.TechnicalComplexity == "intermediate" {
 		score += 10
 	}
-	
+
 	// Security relevance (0-15 points)
 	score += float64(len(entry.SecurityCategories)) * 3
 	if score > 75 {
 		score = 75 // Cap at 75 from security categories
 	}
-	
+
 	// Threat intelligence (0-10 points)
 	score += float64(len(entry.ThreatIntelTags)) * 2
 	score += float64(len(entry.AttackTechniques)) * 1
-	
+
 	// Normalize to 0-100
 	if score > 100 {
 		score = 100
 	}
-	
+
 	return score
 }
 
 func calculateTrendingScore(entry *FeedEntry) float64 {
 	score := 0.0
-	
+
 	// Recency bonus
 	age := time.Since(entry.ParsedTime).Hours()
 	if age <= 24 {
@@ -1166,10 +1166,10 @@ func calculateTrendingScore(entry *FeedEntry) float64 {
 	} else if age <= 168 {
 		score += 10
 	}
-	
+
 	// CVE mentions
 	score += float64(len(entry.CVEDetails)) * 15
-	
+
 	// High severity CVEs
 	for _, cve := range entry.CVEDetails {
 		if cve.CVSS3Score >= 9.0 {
@@ -1180,22 +1180,22 @@ func calculateTrendingScore(entry *FeedEntry) float64 {
 			score += 5
 		}
 	}
-	
+
 	// Quality bonus
 	score += entry.QualityScore * 0.2
-	
+
 	// Priority bonus
 	if entry.Priority <= 3 {
 		score += 15
 	} else if entry.Priority <= 6 {
 		score += 10
 	}
-	
+
 	// Normalize to 0-100
 	if score > 100 {
 		score = 100
 	}
-	
+
 	return score
 }
 
@@ -1356,25 +1356,25 @@ func sortEntries(entries map[string]*FeedEntry) []*FeedEntry {
 
 	sort.SliceStable(entryList, func(i, j int) bool {
 		// Priority by trending score first
-		if math.Abs(entryList[i].TrendingScore - entryList[j].TrendingScore) > 0.1 {
+		if math.Abs(entryList[i].TrendingScore-entryList[j].TrendingScore) > 0.1 {
 			return entryList[i].TrendingScore > entryList[j].TrendingScore
 		}
-		
+
 		// Then by priority level
 		if entryList[i].Priority != entryList[j].Priority {
 			return entryList[i].Priority < entryList[j].Priority
 		}
-		
+
 		// Then by new status
 		if entryList[i].IsNew != entryList[j].IsNew {
 			return entryList[i].IsNew
 		}
-		
+
 		// Then by today status
 		if entryList[i].IsToday != entryList[j].IsToday {
 			return entryList[i].IsToday
 		}
-		
+
 		// Finally by publication time
 		return entryList[i].ParsedTime.After(entryList[j].ParsedTime)
 	})
@@ -1400,7 +1400,7 @@ func printProcessingInfo(currentDate string, feedCount int) {
 	fmt.Printf("⏱️  Request delay: %s%v%s (adaptive rate limiting)\n", colorPurple, requestDelay, colorReset)
 	fmt.Printf("🔄 Max retries: %s%d%s with exponential backoff\n", colorGreen, maxRetries, colorReset)
 	fmt.Printf("🚀 Concurrent feeds: %s%d%s (connection pooling enabled)\n", colorBlue, maxConcurrentFeeds, colorReset)
-	
+
 	if enableAPIIntegrations {
 		fmt.Printf("🔌 API Integrations: %sENABLED%s", colorGreen, colorReset)
 		if nvdAPIKey != "" {
@@ -1416,7 +1416,7 @@ func printProcessingInfo(currentDate string, feedCount int) {
 	} else {
 		fmt.Printf("🔌 API Integrations: %sDISABLED%s\n", colorRed, colorReset)
 	}
-	
+
 	if maxFeeds > 0 {
 		fmt.Printf("🔢 Feed limit: %s%d%s (testing mode)\n", colorYellow, maxFeeds, colorReset)
 	}
@@ -1467,13 +1467,13 @@ func printSummary(stats *AggregatorStats) {
 	fmt.Printf("📈 This Week's Entries: %s%d%s (%.1f%%)\n",
 		colorPurple, stats.WeekEntries, colorReset,
 		float64(stats.WeekEntries)/float64(stats.TotalEntries)*100)
-	
+
 	// Enhanced metrics
 	if stats.CVEsProcessed > 0 {
 		fmt.Printf("🔒 CVEs Processed: %s%d%s (with NVD validation)\n",
 			colorCyan, stats.CVEsProcessed, colorReset)
 	}
-	
+
 	if stats.APICallsMade > 0 {
 		fmt.Printf("🌐 API Calls Made: %s%d%s", colorBlue, stats.APICallsMade, colorReset)
 		if stats.APIErrors > 0 {
@@ -1481,12 +1481,12 @@ func printSummary(stats *AggregatorStats) {
 		}
 		fmt.Println()
 	}
-	
+
 	if stats.ThreatIntelHits > 0 {
 		fmt.Printf("🎯 Threat Intel Hits: %s%d%s indicators extracted\n",
 			colorPurple, stats.ThreatIntelHits, colorReset)
 	}
-	
+
 	if stats.AverageResponseTime > 0 {
 		fmt.Printf("⚡ Avg Response Time: %s%v%s\n",
 			colorGreen, stats.AverageResponseTime.Round(time.Millisecond), colorReset)
@@ -1724,7 +1724,7 @@ func main() {
 	startTime := time.Now()
 
 	printHeader()
-	
+
 	// Initialize HTTP client
 	initializeHTTPClient()
 
@@ -1794,7 +1794,7 @@ func processFeeds(sources []FeedSource, readmeContent, currentDate string, stats
 		wg.Add(1)
 		go func(idx int, src FeedSource) {
 			defer wg.Done()
-			sem <- struct{}{} // Acquire semaphore
+			sem <- struct{}{}        // Acquire semaphore
 			defer func() { <-sem }() // Release semaphore
 
 			progress := fmt.Sprintf("[%d/%d]", idx+1, len(sources))
@@ -1939,88 +1939,88 @@ func analyzeEntries(entries map[string]*FeedEntry, stats *AggregatorStats) {
 // ================================================================================
 
 type EnhancedJSONPost struct {
-	GUID                string          `json:"guid"`
-	Title               string          `json:"title"`
-	Link                string          `json:"link"`
-	Description         string          `json:"description"`
-	PublishedTime       string          `json:"publishedTime"`
-	Author              string          `json:"author"`
-	Categories          []string        `json:"categories"`
-	SourceCategory      string          `json:"sourceCategory"`
-	Priority            int             `json:"priority"`
-	AgeHours            float64         `json:"ageHours"`
-	IsNew               bool            `json:"isNew"`
-	IsToday             bool            `json:"isToday"`
-	IsThisWeek          bool            `json:"isThisWeek"`
-	
+	GUID           string   `json:"guid"`
+	Title          string   `json:"title"`
+	Link           string   `json:"link"`
+	Description    string   `json:"description"`
+	PublishedTime  string   `json:"publishedTime"`
+	Author         string   `json:"author"`
+	Categories     []string `json:"categories"`
+	SourceCategory string   `json:"sourceCategory"`
+	Priority       int      `json:"priority"`
+	AgeHours       float64  `json:"ageHours"`
+	IsNew          bool     `json:"isNew"`
+	IsToday        bool     `json:"isToday"`
+	IsThisWeek     bool     `json:"isThisWeek"`
+
 	// Enhanced fields
-	CVEDetails          []CVEDetail     `json:"cveDetails,omitempty"`
-	SecurityCategories  []string        `json:"securityCategories,omitempty"`
-	ThreatIntelTags     []string        `json:"threatIntelTags,omitempty"`
-	ReadabilityScore    float64         `json:"readabilityScore,omitempty"`
-	SentimentScore      float64         `json:"sentimentScore,omitempty"`
-	TechnicalComplexity string          `json:"technicalComplexity,omitempty"`
+	CVEDetails          []CVEDetail       `json:"cveDetails,omitempty"`
+	SecurityCategories  []string          `json:"securityCategories,omitempty"`
+	ThreatIntelTags     []string          `json:"threatIntelTags,omitempty"`
+	ReadabilityScore    float64           `json:"readabilityScore,omitempty"`
+	SentimentScore      float64           `json:"sentimentScore,omitempty"`
+	TechnicalComplexity string            `json:"technicalComplexity,omitempty"`
 	AttackTechniques    []AttackTechnique `json:"attackTechniques,omitempty"`
-	AffectedSoftware    []string        `json:"affectedSoftware,omitempty"`
-	IOCs                []IOC           `json:"iocs,omitempty"`
-	TrendingScore       float64         `json:"trendingScore,omitempty"`
-	QualityScore        float64         `json:"qualityScore,omitempty"`
+	AffectedSoftware    []string          `json:"affectedSoftware,omitempty"`
+	IOCs                []IOC             `json:"iocs,omitempty"`
+	TrendingScore       float64           `json:"trendingScore,omitempty"`
+	QualityScore        float64           `json:"qualityScore,omitempty"`
 }
 
 type EnhancedJSONSummary struct {
-	TotalPosts          int                      `json:"totalPosts"`
-	NewPosts            int                      `json:"newPosts"`
-	TodayPosts          int                      `json:"todayPosts"`
-	ThisWeekPosts       int                      `json:"thisWeekPosts"`
-	Categories          []CategoryStats          `json:"categories"`
-	TrendingTopics      []TrendingTopic          `json:"trendingTopics"`
-	SecurityTrends      []SecurityTrend          `json:"securityTrends"`
-	ThreatIntelligence  ThreatIntelligence       `json:"threatIntelligence"`
-	Stats               map[string]interface{}   `json:"stats"`
-	LastUpdated         string                   `json:"lastUpdated"`
-	
+	TotalPosts         int                    `json:"totalPosts"`
+	NewPosts           int                    `json:"newPosts"`
+	TodayPosts         int                    `json:"todayPosts"`
+	ThisWeekPosts      int                    `json:"thisWeekPosts"`
+	Categories         []CategoryStats        `json:"categories"`
+	TrendingTopics     []TrendingTopic        `json:"trendingTopics"`
+	SecurityTrends     []SecurityTrend        `json:"securityTrends"`
+	ThreatIntelligence ThreatIntelligence     `json:"threatIntelligence"`
+	Stats              map[string]interface{} `json:"stats"`
+	LastUpdated        string                 `json:"lastUpdated"`
+
 	// New enhanced summary fields
-	HighSeverityCVEs    int                      `json:"highSeverityCVEs"`
-	TotalIOCs           int                      `json:"totalIOCs"`
-	AverageQualityScore float64                  `json:"averageQualityScore"`
-	ThreatLevel         string                   `json:"threatLevel"`
-	FeedHealthStats     map[string]int           `json:"feedHealthStats"`
+	HighSeverityCVEs    int            `json:"highSeverityCVEs"`
+	TotalIOCs           int            `json:"totalIOCs"`
+	AverageQualityScore float64        `json:"averageQualityScore"`
+	ThreatLevel         string         `json:"threatLevel"`
+	FeedHealthStats     map[string]int `json:"feedHealthStats"`
 }
 
 // Continue with rest of enhanced implementation...
 func generateJSONOutput(entries []*FeedEntry, stats *AggregatorStats, sources []FeedSource) {
 	printInfo("📊 Generating enhanced JSON data with threat intelligence...")
-	
+
 	// Create data directory if it doesn't exist
 	err := os.MkdirAll(dataDirectory, 0755)
 	if err != nil {
 		printWarning(fmt.Sprintf("Failed to create data directory: %v", err))
 		return
 	}
-	
+
 	// Convert entries to enhanced JSON format
 	jsonPosts := make([]EnhancedJSONPost, len(entries))
 	totalIOCs := 0
 	highSeverityCVEs := 0
 	totalQualityScore := 0.0
-	
+
 	for i, entry := range entries {
 		// Calculate age in hours
 		ageHours := 0.0
 		if !entry.ParsedTime.IsZero() {
 			ageHours = time.Since(entry.ParsedTime).Hours()
 		}
-		
+
 		// Count high severity CVEs
 		for _, cve := range entry.CVEDetails {
 			if cve.CVSS3Score >= 7.0 {
 				highSeverityCVEs++
 			}
 		}
-		
+
 		totalIOCs += len(entry.IOCs)
 		totalQualityScore += entry.QualityScore
-		
+
 		jsonPosts[i] = EnhancedJSONPost{
 			GUID:                entry.GUID,
 			Title:               entry.Title,
@@ -2047,14 +2047,14 @@ func generateJSONOutput(entries []*FeedEntry, stats *AggregatorStats, sources []
 			QualityScore:        entry.QualityScore,
 		}
 	}
-	
+
 	// Generate enhanced analytics
 	categoryStats := generateCategoryStats(entries, sources)
 	trendingTopics := extractTrendingTopics(entries)
 	securityTrends := generateSecurityTrends(entries)
 	threatIntel := aggregateThreatIntelligence(entries)
 	feedHealthStats := calculateFeedHealth(sources)
-	
+
 	// Determine overall threat level
 	threatLevel := "low"
 	if highSeverityCVEs > 10 {
@@ -2064,12 +2064,12 @@ func generateJSONOutput(entries []*FeedEntry, stats *AggregatorStats, sources []
 	} else if highSeverityCVEs > 0 {
 		threatLevel = "medium"
 	}
-	
+
 	avgQuality := 0.0
 	if len(entries) > 0 {
 		avgQuality = totalQualityScore / float64(len(entries))
 	}
-	
+
 	summary := EnhancedJSONSummary{
 		TotalPosts:          len(entries),
 		NewPosts:            countNewEntries(entries),
@@ -2085,40 +2085,40 @@ func generateJSONOutput(entries []*FeedEntry, stats *AggregatorStats, sources []
 		ThreatLevel:         threatLevel,
 		FeedHealthStats:     feedHealthStats,
 		Stats: map[string]interface{}{
-			"totalFeeds":         stats.TotalFeeds,
-			"successfulFeeds":    stats.SuccessfulFeeds,
-			"successRate":        float64(stats.SuccessfulFeeds) / float64(stats.TotalFeeds) * 100,
-			"rateLimited":        stats.RateLimited,
-			"processingTime":     stats.ProcessingTime.String(),
-			"cvesProcessed":      stats.CVEsProcessed,
-			"apiCallsMade":       stats.APICallsMade,
-			"threatIntelHits":    stats.ThreatIntelHits,
+			"totalFeeds":          stats.TotalFeeds,
+			"successfulFeeds":     stats.SuccessfulFeeds,
+			"successRate":         float64(stats.SuccessfulFeeds) / float64(stats.TotalFeeds) * 100,
+			"rateLimited":         stats.RateLimited,
+			"processingTime":      stats.ProcessingTime.String(),
+			"cvesProcessed":       stats.CVEsProcessed,
+			"apiCallsMade":        stats.APICallsMade,
+			"threatIntelHits":     stats.ThreatIntelHits,
 			"averageResponseTime": stats.AverageResponseTime.String(),
 		},
 		LastUpdated: getCurrentDateGMT(),
 	}
-	
+
 	// Write enhanced posts JSON
 	postsJSON, err := json.MarshalIndent(jsonPosts, "", "  ")
 	if err != nil {
 		printWarning(fmt.Sprintf("Failed to marshal posts JSON: %v", err))
 		return
 	}
-	
+
 	err = ioutil.WriteFile(dataDirectory+"/posts.json", postsJSON, 0644)
 	if err != nil {
 		printWarning(fmt.Sprintf("Failed to write posts.json: %v", err))
 	} else {
 		printSuccess(fmt.Sprintf("Generated %s/posts.json (%d posts with enhanced data)", dataDirectory, len(jsonPosts)))
 	}
-	
+
 	// Write enhanced summary JSON
 	summaryJSON, err := json.MarshalIndent(summary, "", "  ")
 	if err != nil {
 		printWarning(fmt.Sprintf("Failed to marshal summary JSON: %v", err))
 		return
 	}
-	
+
 	err = ioutil.WriteFile(dataDirectory+"/summary.json", summaryJSON, 0644)
 	if err != nil {
 		printWarning(fmt.Sprintf("Failed to write summary.json: %v", err))
@@ -2130,7 +2130,7 @@ func generateJSONOutput(entries []*FeedEntry, stats *AggregatorStats, sources []
 // Helper functions for enhanced analytics
 func generateSecurityTrends(entries []*FeedEntry) []SecurityTrend {
 	trendMap := make(map[string]*SecurityTrend)
-	
+
 	for _, entry := range entries {
 		for _, tag := range entry.ThreatIntelTags {
 			if trend, exists := trendMap[tag]; exists {
@@ -2148,7 +2148,7 @@ func generateSecurityTrends(entries []*FeedEntry) []SecurityTrend {
 						severity = "high"
 					}
 				}
-				
+
 				trendMap[tag] = &SecurityTrend{
 					Topic:           tag,
 					Mentions:        1,
@@ -2161,16 +2161,16 @@ func generateSecurityTrends(entries []*FeedEntry) []SecurityTrend {
 			}
 		}
 	}
-	
+
 	trends := make([]SecurityTrend, 0, len(trendMap))
 	for _, trend := range trendMap {
 		trends = append(trends, *trend)
 	}
-	
+
 	sort.Slice(trends, func(i, j int) bool {
 		return trends[i].TrendScore > trends[j].TrendScore
 	})
-	
+
 	return trends
 }
 
@@ -2178,7 +2178,7 @@ func aggregateThreatIntelligence(entries []*FeedEntry) ThreatIntelligence {
 	iocMap := make(map[string]IOC)
 	ttpMap := make(map[string]AttackTechnique)
 	vulnMap := make(map[string]CVEDetail)
-	
+
 	for _, entry := range entries {
 		// Aggregate IOCs
 		for _, ioc := range entry.IOCs {
@@ -2190,7 +2190,7 @@ func aggregateThreatIntelligence(entries []*FeedEntry) ThreatIntelligence {
 				iocMap[ioc.Value] = ioc
 			}
 		}
-		
+
 		// Aggregate TTPs
 		for _, ttp := range entry.AttackTechniques {
 			if existing, exists := ttpMap[ttp.ID]; exists {
@@ -2199,29 +2199,29 @@ func aggregateThreatIntelligence(entries []*FeedEntry) ThreatIntelligence {
 				ttpMap[ttp.ID] = ttp
 			}
 		}
-		
+
 		// Aggregate vulnerabilities
 		for _, cve := range entry.CVEDetails {
 			vulnMap[cve.ID] = cve
 		}
 	}
-	
+
 	// Convert maps to slices
 	iocs := make([]IOC, 0, len(iocMap))
 	for _, ioc := range iocMap {
 		iocs = append(iocs, ioc)
 	}
-	
+
 	ttps := make([]AttackTechnique, 0, len(ttpMap))
 	for _, ttp := range ttpMap {
 		ttps = append(ttps, ttp)
 	}
-	
+
 	vulns := make([]CVEDetail, 0, len(vulnMap))
 	for _, vuln := range vulnMap {
 		vulns = append(vulns, vuln)
 	}
-	
+
 	// Determine threat level
 	threatLevel := "low"
 	highSeverityCount := 0
@@ -2230,7 +2230,7 @@ func aggregateThreatIntelligence(entries []*FeedEntry) ThreatIntelligence {
 			highSeverityCount++
 		}
 	}
-	
+
 	if highSeverityCount > 10 {
 		threatLevel = "critical"
 	} else if highSeverityCount > 5 {
@@ -2238,7 +2238,7 @@ func aggregateThreatIntelligence(entries []*FeedEntry) ThreatIntelligence {
 	} else if highSeverityCount > 0 {
 		threatLevel = "medium"
 	}
-	
+
 	confidence := 0.7 // Base confidence
 	if len(vulns) > 0 {
 		confidence += 0.2
@@ -2246,7 +2246,7 @@ func aggregateThreatIntelligence(entries []*FeedEntry) ThreatIntelligence {
 	if len(iocs) > 0 {
 		confidence += 0.1
 	}
-	
+
 	return ThreatIntelligence{
 		IOCs:            iocs,
 		TTPs:            ttps,
@@ -2264,11 +2264,11 @@ func calculateFeedHealth(sources []FeedSource) map[string]int {
 		"unhealthy": 0,
 		"unknown":   0,
 	}
-	
+
 	for _, source := range sources {
 		healthStats[source.Health]++
 	}
-	
+
 	return healthStats
 }
 
@@ -2355,7 +2355,7 @@ func generateCategoryStats(entries []*FeedEntry, sources []FeedSource) []Categor
 		if entry.IsToday {
 			catStat.TodayPosts++
 		}
-		
+
 		// Enhanced analytics
 		totalCVSSScore := 0.0
 		highSeverityCount := 0
@@ -2369,7 +2369,7 @@ func generateCategoryStats(entries []*FeedEntry, sources []FeedSource) []Categor
 			catStat.AverageCVSSScore = totalCVSSScore / float64(len(entry.CVEDetails))
 		}
 		catStat.HighSeverityCVEs += highSeverityCount
-		
+
 		// Determine threat level
 		if highSeverityCount > 3 {
 			catStat.ThreatLevel = "critical"
@@ -2380,7 +2380,7 @@ func generateCategoryStats(entries []*FeedEntry, sources []FeedSource) []Categor
 		} else {
 			catStat.ThreatLevel = "low"
 		}
-		
+
 		catStat.PopularityScore += entry.TrendingScore
 	}
 
@@ -2454,15 +2454,15 @@ func generateCategoryOptions(sources []FeedSource) string {
 // Enhanced markdown output generation
 func generateMarkdownOutput(entries []*FeedEntry, stats *AggregatorStats, sources []FeedSource) {
 	printInfo("📋 Generating enhanced GitHub Pages compatible markdown...")
-	
+
 	fmt.Printf("# 🛡️ %s\n\n", appName)
-	
+
 	// Enhanced status badges
 	fmt.Printf("[![Status](https://img.shields.io/badge/Status-🟢_Active-success?style=for-the-badge)](#) ")
 	fmt.Printf("[![Posts](https://img.shields.io/badge/Posts-%d-blue?style=for-the-badge)](#) ", len(entries))
 	fmt.Printf("[![CVEs](https://img.shields.io/badge/CVEs-%d-red?style=for-the-badge)](#) ", stats.CVEsProcessed)
 	fmt.Printf("[![Threat_Intel](https://img.shields.io/badge/IOCs-%d-orange?style=for-the-badge)](#)\n\n", stats.ThreatIntelHits)
-	
+
 	// Enhanced quick stats with security metrics
 	fmt.Printf("## 📊 Enhanced Security Intelligence\n\n")
 	fmt.Printf("| Metric | Count | Details |\n")
@@ -2473,14 +2473,14 @@ func generateMarkdownOutput(entries []*FeedEntry, stats *AggregatorStats, source
 	fmt.Printf("| 🌐 **API Calls** | **%d** | Security enrichment |\n", stats.APICallsMade)
 	fmt.Printf("| ⚡ **Avg Response** | **%v** | Processing speed |\n", stats.AverageResponseTime.Round(time.Millisecond))
 	fmt.Printf("| 🔄 **Success Rate** | **%.1f%%** | Feed reliability |\n\n", float64(stats.SuccessfulFeeds)/float64(stats.TotalFeeds)*100)
-	
+
 	printSuccess("Enhanced README.md generated with security intelligence metrics")
 }
 
 // Enhanced HTML output generation
 func generateHTMLOutput(entries []*FeedEntry, stats *AggregatorStats, sources []FeedSource) {
 	printInfo("🌐 Generating enhanced production-ready HTML dashboard...")
-	
+
 	htmlContent := `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2545,7 +2545,7 @@ func generateHTMLOutput(entries []*FeedEntry, stats *AggregatorStats, sources []
 				threatLevel = "medium"
 			}
 		}
-		
+
 		htmlContent += fmt.Sprintf(`
                 <div class="bg-white rounded-lg shadow-md p-6 mb-4 threat-%s">
                     <div class="flex items-start justify-between mb-3">
@@ -2599,13 +2599,23 @@ func generateHTMLOutput(entries []*FeedEntry, stats *AggregatorStats, sources []
 			}(),
 			func() string {
 				if len(entry.CVEDetails) > 0 {
-					return fmt.Sprintf(`<span class="cve-badge">%d CVE%s</span>`, len(entry.CVEDetails), func() string { if len(entry.CVEDetails) != 1 { return "s" }; return "" }())
+					return fmt.Sprintf(`<span class="cve-badge">%d CVE%s</span>`, len(entry.CVEDetails), func() string {
+						if len(entry.CVEDetails) != 1 {
+							return "s"
+						}
+						return ""
+					}())
 				}
 				return ""
 			}(),
 			func() string {
 				if len(entry.IOCs) > 0 {
-					return fmt.Sprintf(`<span class="ioc-badge">%d IOC%s</span>`, len(entry.IOCs), func() string { if len(entry.IOCs) != 1 { return "s" }; return "" }())
+					return fmt.Sprintf(`<span class="ioc-badge">%d IOC%s</span>`, len(entry.IOCs), func() string {
+						if len(entry.IOCs) != 1 {
+							return "s"
+						}
+						return ""
+					}())
 				}
 				return ""
 			}())
@@ -2621,7 +2631,17 @@ func generateHTMLOutput(entries []*FeedEntry, stats *AggregatorStats, sources []
                     <div class="space-y-3">
                         <div class="flex justify-between">
                             <span class="text-gray-600">High Severity CVEs</span>
-                            <span class="font-semibold text-red-600">` + fmt.Sprintf("%d", func() int { count := 0; for _, entry := range entries { for _, cve := range entry.CVEDetails { if cve.CVSS3Score >= 7.0 { count++ } } }; return count }()) + `</span>
+                            <span class="font-semibold text-red-600">` + fmt.Sprintf("%d", func() int {
+		count := 0
+		for _, entry := range entries {
+			for _, cve := range entry.CVEDetails {
+				if cve.CVSS3Score >= 7.0 {
+					count++
+				}
+			}
+		}
+		return count
+	}()) + `</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-600">IOCs Extracted</span>
