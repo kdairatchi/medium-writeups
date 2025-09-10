@@ -20,7 +20,6 @@ Error parsing XML from https://medium.com/feed/tag/bug-bounty-hunter: XML syntax
 Error parsing XML from https://medium.com/feed/tag/bug-bounty-program: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/ethical-hacking: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/application-security: XML syntax error on line 1: expected element name after <
-Error parsing XML from https://medium.com/feed/tag/google-dorking: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/dorking: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/cyber-security-awareness: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/google-dork: XML syntax error on line 1: expected element name after <
@@ -63,12 +62,21 @@ Error parsing XML from https://medium.com/feed/tag/api-key: XML syntax error on 
 Error parsing XML from https://medium.com/feed/tag/cyber-sec: XML syntax error on line 1: expected element name after <
 | Time | Title | Feed | IsNew | IsToday |
 |-----------|-----|-----|-----|-----|
-| Wed, 10 Sep 2025 12:43:06 GMT | [How I Discovered Hidden JSON & GraphQL Requests and Won a Bug Bou...](https://freedium.cfd/https://medium.com/p/dc0d72b4aba4) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 21:14:45 GMT | [Kittens and Code: Google Dorks for Ethical Hackers](https://freedium.cfd/https://medium.com/p/732dcb742d57) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes | Yes |
+| Sat, 16 Aug 2025 17:33:22 GMT | [PDF.JS Viewer Endpoint Dorking](https://freedium.cfd/https://medium.com/p/03e3a68e0acf) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
+| Sat, 16 Aug 2025 08:00:03 GMT | [A Beginner’s Guide to Google Dorking: Unlocking Hidden Web Data](https://freedium.cfd/https://medium.com/p/57ef6e0325ca) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
+| Sun, 03 Aug 2025 09:58:40 GMT | [Competitive intelligence](https://freedium.cfd/https://medium.com/p/63986c6f9aaa) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
+| Mon, 04 Aug 2025 05:56:23 GMT | [Google dorking/Hacking](https://freedium.cfd/https://medium.com/p/b4251a8b7a8f) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
+| Tue, 02 Sep 2025 15:53:08 GMT | [ Google Dorking: The Hidden Side of Search Engines](https://freedium.cfd/https://medium.com/p/75d8d1153d17) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
+| Sun, 17 Aug 2025 16:49:46 GMT | [Mastering Google Dorking: Search Operators for Deep Recon & Bug B...](https://freedium.cfd/https://medium.com/p/d399963db955) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
+| Wed, 13 Aug 2025 13:14:30 GMT | [How to Find Any Information Using Google Dorking in 2025](https://freedium.cfd/https://medium.com/p/3e98faaa49f2) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
+| Mon, 04 Aug 2025 02:17:48 GMT | [The Public Exposure Of Your AI Conversations: Some Facts](https://freedium.cfd/https://medium.com/p/03ca20c1ba53) | [google-dorking](https://medium.com/feed/tag/google-dorking) | Yes |  |
 | Wed, 10 Sep 2025 21:14:39 GMT | [Cross-Site Scripting (XSS) remains one of the most common and dan...](https://freedium.cfd/https://medium.com/p/9b325b9b2c39) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 19:44:17 GMT | [GraphQL Explained Simply: Why It’s a Game-Changer for API Endpo...](https://freedium.cfd/https://medium.com/p/9d0d8a529804) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 18:37:56 GMT | [Subdomain Discovery and Enumeration: From Noise to Valuable Targe...](https://freedium.cfd/https://medium.com/p/bbc42b644b74) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
 | Wed, 10 Sep 2025 17:22:55 GMT | [Impactful Google Dorking on your Target](https://freedium.cfd/https://medium.com/p/ce2f68862ae8) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 16:52:53 GMT | [They Said XSS Was Dead… Then I Got Paid  (My First Bounty in 20...](https://freedium.cfd/https://medium.com/p/6eb8d27c6c1a) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 13:10:51 GMT | [I Found My First Critical Bug Using SQL Injection Recon](https://freedium.cfd/https://medium.com/p/6a3e2f9d89f5) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 12:43:06 GMT | [How I Discovered Hidden JSON & GraphQL Requests and Won a Bug Bou...](https://freedium.cfd/https://medium.com/p/dc0d72b4aba4) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
 | Wed, 10 Sep 2025 21:43:01 GMT | [Race Conditions Are Not Just for Bypassing Plan Limits!!](https://freedium.cfd/https://medium.com/p/1cd63aa0d6f7) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
 | Wed, 10 Sep 2025 20:54:18 GMT | [ Next.js Middleware SSRF via Header Injection](https://freedium.cfd/https://medium.com/p/6cf03b58a90d) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 18:37:56 GMT | [Subdomain Discovery and Enumeration: From Noise to Valuable Targe...](https://freedium.cfd/https://medium.com/p/bbc42b644b74) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 16:52:53 GMT | [They Said XSS Was Dead… Then I Got Paid  (My First Bounty in 20...](https://freedium.cfd/https://medium.com/p/6eb8d27c6c1a) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 19:44:17 GMT | [GraphQL Explained Simply: Why It’s a Game-Changer for API Endpo...](https://freedium.cfd/https://medium.com/p/9d0d8a529804) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 13:10:51 GMT | [I Found My First Critical Bug Using SQL Injection Recon](https://freedium.cfd/https://medium.com/p/6a3e2f9d89f5) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
