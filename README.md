@@ -1,7 +1,7 @@
 Error parsing XML from https://medium.com/feed/tag/bug-bounty: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/security: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/vulnerability: XML syntax error on line 1: expected element name after <
-Error parsing XML from https://medium.com/feed/tag/cybersecurity: XML syntax error on line 1: expected element name after <
+Error parsing XML from https://medium.com/feed/tag/penetration-testing: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/hacking: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/information-technology: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/infosec: XML syntax error on line 1: expected element name after <
@@ -9,9 +9,9 @@ Error parsing XML from https://medium.com/feed/tag/web-security: XML syntax erro
 Error parsing XML from https://medium.com/feed/tag/bug-bounty-tips: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bugs: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/pentesting: XML syntax error on line 1: expected element name after <
+Error parsing XML from https://medium.com/feed/tag/xss-attack: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/information-security: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/cross-site-scripting: XML syntax error on line 1: expected element name after <
-Error parsing XML from https://medium.com/feed/tag/hackerone: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bugcrowd: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bugbounty-writeup: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bug-bounty-writeup: XML syntax error on line 1: expected element name after <
@@ -62,23 +62,22 @@ Error parsing XML from https://medium.com/feed/tag/api-key: XML syntax error on 
 Error parsing XML from https://medium.com/feed/tag/cyber-sec: XML syntax error on line 1: expected element name after <
 | Time | Title | Feed | IsNew | IsToday |
 |-----------|-----|-----|-----|-----|
-| Wed, 10 Sep 2025 07:34:39 GMT | [Day 88: Privilege Escalation Fundamentals](https://freedium.cfd/https://medium.com/p/2173f84d48d2) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) | Yes | Yes |
-| Wed, 10 Sep 2025 00:22:09 GMT | [Daily Pentest Labs — Day 01 — Basic Pentesting 1 �...](https://freedium.cfd/https://medium.com/p/2f012f978529) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) | Yes | Yes |
-| Wed, 10 Sep 2025 07:47:41 GMT | [Injection Attacks: The Old but Deadly Threat That Still Haunts th...](https://freedium.cfd/https://medium.com/p/df49370ff407) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) | Yes | Yes |
-| Wed, 10 Sep 2025 12:55:05 GMT | [PG Practice — BullyBox (Linux)](https://freedium.cfd/https://medium.com/p/ccf059e0b3ac) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) | Yes | Yes |
-| Wed, 10 Sep 2025 09:22:45 GMT | [Why Every Business Needs a Trusted PT Services Provider](https://freedium.cfd/https://medium.com/p/3b152b90b46d) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) | Yes | Yes |
-| Wed, 10 Sep 2025 06:01:49 GMT | [IDOR: How I Could Delete Any Product Image on an E-Commerce Platf...](https://freedium.cfd/https://medium.com/p/8998453a50ea) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) | Yes | Yes |
-| Wed, 10 Sep 2025 00:02:18 GMT | [Discover how attackers abuse clipboard paste handling to trigger ...](https://freedium.cfd/https://medium.com/p/65251336bb2e) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) | Yes | Yes |
-| Thu, 04 Sep 2025 10:07:22 GMT | [⚡ XSS (Cross-Site Scripting) Vulnerabilities and Exploit Techni...](https://freedium.cfd/https://medium.com/p/76bb111925ca) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Wed, 03 Sep 2025 12:13:35 GMT | [Reflected XSS in canonical link tag](https://freedium.cfd/https://medium.com/p/5460e56f660e) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Mon, 08 Sep 2025 14:08:58 GMT | [ Blind XSS and HTML Injection Attacks in Public Swagger UIs](https://freedium.cfd/https://medium.com/p/86c9d79c5442) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Mon, 08 Sep 2025 11:05:14 GMT | [A Step-by-Step Plan to Secure Web Backends with XAMPP (Part 2/3)](https://freedium.cfd/https://medium.com/p/c8800b6dbeb3) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Thu, 04 Sep 2025 16:49:18 GMT | [Breaking Out of the String: Solving Reflected XSS in JavaScript](https://freedium.cfd/https://medium.com/p/4db3b69c9cae) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Tue, 02 Sep 2025 08:33:25 GMT | [SQL Injection & Cross-Site Scripting (XSS): How to Protect Your W...](https://freedium.cfd/https://medium.com/p/7229b38d7e4f) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Mon, 01 Sep 2025 13:27:27 GMT | [From Zero to My First Critical XSS Finding](https://freedium.cfd/https://medium.com/p/52dc1afa2655) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Tue, 09 Sep 2025 05:42:59 GMT | [Reflected XSS Vulnerability Bypassing Amazon CloudFront via Safar...](https://freedium.cfd/https://medium.com/p/5416b5b64be2) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Mon, 08 Sep 2025 13:47:07 GMT | [ Blind SQL Injection Attacks](https://freedium.cfd/https://medium.com/p/46d140ac61f6) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Sat, 06 Sep 2025 17:08:22 GMT | [ GXSS and KXSS: Peeking Into the Hidden Corners of the Web](https://freedium.cfd/https://medium.com/p/69650dd441b7) | [xss-attack](https://medium.com/feed/tag/xss-attack) | Yes |  |
-| Wed, 10 Sep 2025 08:23:57 GMT | [Advanced Paid Resources for Experienced Bug Bounty Hunters](https://freedium.cfd/https://medium.com/p/3c900060bf8e) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) |  | Yes |
-| Wed, 10 Sep 2025 12:43:06 GMT | [How I Discovered Hidden JSON & GraphQL Requests and Won a Bug Bou...](https://freedium.cfd/https://medium.com/p/dc0d72b4aba4) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) |  | Yes |
-| Wed, 10 Sep 2025 09:33:58 GMT | [Exploiting Business Logic Flaws: How I Bought Products for $1 (Et...](https://freedium.cfd/https://medium.com/p/6f21f883cd7a) | [penetration-testing](https://medium.com/feed/tag/penetration-testing) |  | Yes |
+| Wed, 10 Sep 2025 15:07:59 GMT | [“Beyond the Obvious: How a Dead-End XXE Led to a Critical SQLi ...](https://freedium.cfd/https://medium.com/p/46e8d4055668) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 14:55:15 GMT | [Security-by-5D: A New Holistic Secure Model Approach](https://freedium.cfd/https://medium.com/p/bdb677708892) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 15:14:29 GMT | [Decision Intelligence Pro: The AI Brain Behind Your Mastercard](https://freedium.cfd/https://medium.com/p/9f18bb7a5247) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 15:11:47 GMT | [iOS and macOS users — make sure your WhatsApp is updated](https://freedium.cfd/https://medium.com/p/49788c0cae0d) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 15:03:11 GMT | [Unity is Strength: An Ethical Hacker’s Perspective on Cybersecu...](https://freedium.cfd/https://medium.com/p/b7c0beec69f7) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 14:48:58 GMT | [The "almost" npm disaster](https://freedium.cfd/https://medium.com/p/cc8213c5390c) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 15:15:04 GMT | [GZR Observer Daily — Sep 10, 2025](https://freedium.cfd/https://medium.com/p/5c581a31e4cc) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 14:32:23 GMT | [What Makes Phishing Simulation Services Essential for Business](https://freedium.cfd/https://medium.com/p/f88fce2fc7d9) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 14:53:39 GMT | [0 2 33H](https://freedium.cfd/https://medium.com/p/d6af44e0e2c0) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 10 Sep 2025 15:07:03 GMT | [Why Risk Management Needs to Be “Risk by Design” in 2025–26](https://freedium.cfd/https://medium.com/p/bc937a318d2c) | [cybersecurity](https://medium.com/feed/tag/cybersecurity) | Yes | Yes |
+| Wed, 27 Aug 2025 15:17:21 GMT | [So… Could I Login to Anyone Else Account by Accident?](https://freedium.cfd/https://medium.com/p/2d1345406577) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Fri, 05 Sep 2025 05:10:06 GMT | [Why Big Tech Pays Millions for Bugs (And How You Can Too)](https://freedium.cfd/https://medium.com/p/84d30d4b6aed) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Sat, 30 Aug 2025 16:00:09 GMT | [SSRF](https://freedium.cfd/https://medium.com/p/7c3f196e8d45) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Wed, 27 Aug 2025 14:30:36 GMT | [XXE](https://freedium.cfd/https://medium.com/p/72ec2726fc2c) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Sat, 06 Sep 2025 07:16:23 GMT | [So You Want to Be a Hacker? Forget the RGB.](https://freedium.cfd/https://medium.com/p/e861ea4a29d4) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Wed, 03 Sep 2025 13:06:48 GMT | [The Overlooked Side of Bug Bounties: Hidden Vulnerabilities Begin...](https://freedium.cfd/https://medium.com/p/71b0aacbc6c8) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Fri, 29 Aug 2025 18:38:27 GMT | [Hacking My Way: Fun, Engaging, and Totally My Style](https://freedium.cfd/https://medium.com/p/1eb0d1fe888a) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Fri, 05 Sep 2025 14:55:29 GMT | [Hacking WordPress](https://freedium.cfd/https://medium.com/p/6f25147fd3a9) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
+| Sun, 31 Aug 2025 14:59:30 GMT | [The Cookie Bomb: My First $10K in Bug Bounties](https://freedium.cfd/https://medium.com/p/f86cb22c37fa) | [hackerone](https://medium.com/feed/tag/hackerone) | Yes |  |
