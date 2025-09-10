@@ -8,11 +8,11 @@ Error parsing XML from https://medium.com/feed/tag/information-technology: XML s
 Error parsing XML from https://medium.com/feed/tag/infosec: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/web-security: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bug-bounty-tips: XML syntax error on line 1: expected element name after <
-Error parsing XML from https://medium.com/feed/tag/bugs: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/pentesting: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/xss-attack: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/information-security: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/cross-site-scripting: XML syntax error on line 1: expected element name after <
+Error parsing XML from https://medium.com/feed/tag/hackerone: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bugcrowd: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bugbounty-writeup: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bug-bounty-writeup: XML syntax error on line 1: expected element name after <
@@ -63,12 +63,10 @@ Error parsing XML from https://medium.com/feed/tag/api-key: XML syntax error on 
 Error parsing XML from https://medium.com/feed/tag/cyber-sec: XML syntax error on line 1: expected element name after <
 | Time | Title | Feed | IsNew | IsToday |
 |-----------|-----|-----|-----|-----|
-| Sat, 30 Aug 2025 16:00:09 GMT | [SSRF](https://freedium.cfd/https://medium.com/p/7c3f196e8d45) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Wed, 27 Aug 2025 15:17:21 GMT | [So… Could I Login to Anyone Else Account by Accident?](https://freedium.cfd/https://medium.com/p/2d1345406577) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Wed, 27 Aug 2025 14:30:36 GMT | [XXE](https://freedium.cfd/https://medium.com/p/72ec2726fc2c) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Sat, 06 Sep 2025 07:16:23 GMT | [So You Want to Be a Hacker? Forget the RGB.](https://freedium.cfd/https://medium.com/p/e861ea4a29d4) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Fri, 05 Sep 2025 14:55:29 GMT | [Hacking WordPress](https://freedium.cfd/https://medium.com/p/6f25147fd3a9) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Wed, 03 Sep 2025 13:06:48 GMT | [The Overlooked Side of Bug Bounties: Hidden Vulnerabilities Begin...](https://freedium.cfd/https://medium.com/p/71b0aacbc6c8) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Fri, 05 Sep 2025 05:10:06 GMT | [Why Big Tech Pays Millions for Bugs (And How You Can Too)](https://freedium.cfd/https://medium.com/p/84d30d4b6aed) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Sun, 31 Aug 2025 14:59:30 GMT | [The Cookie Bomb: My First $10K in Bug Bounties](https://freedium.cfd/https://medium.com/p/f86cb22c37fa) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
-| Fri, 29 Aug 2025 18:38:27 GMT | [Hacking My Way: Fun, Engaging, and Totally My Style](https://freedium.cfd/https://medium.com/p/1eb0d1fe888a) | [hackerone](https://medium.com/feed/tag/hackerone) |  |  |
+| Tue, 09 Sep 2025 10:42:28 GMT | [Finding the Culprit with git bisect](https://freedium.cfd/https://medium.com/p/a1b896a8fd0c) | [bugs](https://medium.com/feed/tag/bugs) | Yes |  |
+| Tue, 09 Sep 2025 10:30:45 GMT | [What if your elephant thinks it is bug?](https://freedium.cfd/https://medium.com/p/3364e074532c) | [bugs](https://medium.com/feed/tag/bugs) | Yes |  |
+| Mon, 08 Sep 2025 12:15:24 GMT | [Not so Scary: Aotearoa’s Littlest Locals](https://freedium.cfd/https://medium.com/p/5dde968171c7) | [bugs](https://medium.com/feed/tag/bugs) | Yes |  |
+| Mon, 08 Sep 2025 08:45:49 GMT | [Why I Made a 30 Minute poc video for Mercedes Benz](https://freedium.cfd/https://medium.com/p/fc27195a1717) | [bugs](https://medium.com/feed/tag/bugs) | Yes |  |
+| Sun, 07 Sep 2025 21:44:15 GMT | [Hunting Bugs, Learning Fast](https://freedium.cfd/https://medium.com/p/484feb15d4d3) | [bugs](https://medium.com/feed/tag/bugs) | Yes |  |
+| Tue, 09 Sep 2025 19:33:31 GMT | [Feliz Dia do Bug: Como a arte de “quebrar coisas” pode mudar ...](https://freedium.cfd/https://medium.com/p/a9af4beeff21) | [bugs](https://medium.com/feed/tag/bugs) | Yes |  |
+| Tue, 09 Sep 2025 18:16:01 GMT | [Debugging Nightmares: How I Solved My First Real Bug](https://freedium.cfd/https://medium.com/p/8b751abe9191) | [bugs](https://medium.com/feed/tag/bugs) | Yes |  |
