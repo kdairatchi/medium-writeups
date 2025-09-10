@@ -14,6 +14,7 @@ Error parsing XML from https://medium.com/feed/tag/xss-attack: XML syntax error 
 Error parsing XML from https://medium.com/feed/tag/information-security: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/cross-site-scripting: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/hackerone: XML syntax error on line 1: expected element name after <
+Error parsing XML from https://medium.com/feed/tag/bugcrowd: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bugbounty-writeup: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bug-bounty-writeup: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/bug-bounty-hunter: XML syntax error on line 1: expected element name after <
@@ -63,13 +64,3 @@ Error parsing XML from https://medium.com/feed/tag/api-key: XML syntax error on 
 Error parsing XML from https://medium.com/feed/tag/cyber-sec: XML syntax error on line 1: expected element name after <
 | Time | Title | Feed | IsNew | IsToday |
 |-----------|-----|-----|-----|-----|
-| Fri, 25 Jul 2025 00:36:13 GMT | [These 10 Burp Extensions Changed the Way I Do Bug Bounties](https://freedium.cfd/https://medium.com/p/54daf5b08b15) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Wed, 03 Sep 2025 13:06:48 GMT | [The Overlooked Side of Bug Bounties: Hidden Vulnerabilities Begin...](https://freedium.cfd/https://medium.com/p/71b0aacbc6c8) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Fri, 22 Aug 2025 07:15:42 GMT | [What have I been doing lately?](https://freedium.cfd/https://medium.com/p/713fd81b1018) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Mon, 04 Aug 2025 14:37:56 GMT | [Hi Researcher!](https://freedium.cfd/https://medium.com/p/d57ddfa29ddd) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Wed, 30 Jul 2025 19:19:16 GMT | [Embarking on the Bug Bounty Journey: A Deep Dive into the Top Bug...](https://freedium.cfd/https://medium.com/p/8d62a14cd2a6) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Wed, 30 Jul 2025 12:27:54 GMT | [From Path Guessing to Dashboard Takeover: Full Access to Governme...](https://freedium.cfd/https://medium.com/p/a4c048fc05bb) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Sun, 31 Aug 2025 14:59:30 GMT | [The Cookie Bomb: My First $10K in Bug Bounties](https://freedium.cfd/https://medium.com/p/f86cb22c37fa) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Thu, 14 Aug 2025 10:42:04 GMT | [How I Found a Sensitive Data Exposure And PII in NASA’s EarthDa...](https://freedium.cfd/https://medium.com/p/6980492dcd75) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Mon, 11 Aug 2025 07:01:28 GMT | [Bugcrowd’s Blackhat USA CTF — Writeup](https://freedium.cfd/https://medium.com/p/fc28adef7ea9) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
-| Fri, 08 Aug 2025 16:02:23 GMT | [Cracking Pensive: A Deep Dive into Bugcrowd’s BlackHat USA CTF ...](https://freedium.cfd/https://medium.com/p/b23457359562) | [bugcrowd](https://medium.com/feed/tag/bugcrowd) |  |  |
