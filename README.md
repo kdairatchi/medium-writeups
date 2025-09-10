@@ -1,3 +1,4 @@
+Error parsing XML from https://medium.com/feed/tag/security: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/vulnerability: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/cybersecurity: XML syntax error on line 1: expected element name after <
 Error parsing XML from https://medium.com/feed/tag/penetration-testing: XML syntax error on line 1: expected element name after <
@@ -62,21 +63,12 @@ Error parsing XML from https://medium.com/feed/tag/api-key: XML syntax error on 
 Error parsing XML from https://medium.com/feed/tag/cyber-sec: XML syntax error on line 1: expected element name after <
 | Time | Title | Feed | IsNew | IsToday |
 |-----------|-----|-----|-----|-----|
-| Wed, 10 Sep 2025 20:54:18 GMT | [ Next.js Middleware SSRF via Header Injection](https://freedium.cfd/https://medium.com/p/6cf03b58a90d) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 19:44:17 GMT | [GraphQL Explained Simply: Why It’s a Game-Changer for API Endpo...](https://freedium.cfd/https://medium.com/p/9d0d8a529804) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 17:43:03 GMT | [Why Installing Security Cameras Is a Smart Move for Any Property](https://freedium.cfd/https://medium.com/p/1554979e7fb8) | [security](https://medium.com/feed/tag/security) |  | Yes |
+| Wed, 10 Sep 2025 12:43:06 GMT | [How I Discovered Hidden JSON & GraphQL Requests and Won a Bug Bou...](https://freedium.cfd/https://medium.com/p/dc0d72b4aba4) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
 | Wed, 10 Sep 2025 21:14:39 GMT | [Cross-Site Scripting (XSS) remains one of the most common and dan...](https://freedium.cfd/https://medium.com/p/9b325b9b2c39) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 19:44:17 GMT | [GraphQL Explained Simply: Why It’s a Game-Changer for API Endpo...](https://freedium.cfd/https://medium.com/p/9d0d8a529804) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 18:37:56 GMT | [Subdomain Discovery and Enumeration: From Noise to Valuable Targe...](https://freedium.cfd/https://medium.com/p/bbc42b644b74) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 17:22:55 GMT | [Impactful Google Dorking on your Target](https://freedium.cfd/https://medium.com/p/ce2f68862ae8) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
+| Wed, 10 Sep 2025 16:52:53 GMT | [They Said XSS Was Dead… Then I Got Paid  (My First Bounty in 20...](https://freedium.cfd/https://medium.com/p/6eb8d27c6c1a) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
 | Wed, 10 Sep 2025 13:10:51 GMT | [I Found My First Critical Bug Using SQL Injection Recon](https://freedium.cfd/https://medium.com/p/6a3e2f9d89f5) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
 | Wed, 10 Sep 2025 21:43:01 GMT | [Race Conditions Are Not Just for Bypassing Plan Limits!!](https://freedium.cfd/https://medium.com/p/1cd63aa0d6f7) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 17:22:55 GMT | [Impactful Google Dorking on your Target](https://freedium.cfd/https://medium.com/p/ce2f68862ae8) | [bug-bounty](https://medium.com/feed/tag/bug-bounty), [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 16:52:53 GMT | [They Said XSS Was Dead… Then I Got Paid  (My First Bounty in 20...](https://freedium.cfd/https://medium.com/p/6eb8d27c6c1a) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 12:43:06 GMT | [How I Discovered Hidden JSON & GraphQL Requests and Won a Bug Bou...](https://freedium.cfd/https://medium.com/p/dc0d72b4aba4) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 21:42:40 GMT | [How to Prevent Data Leaks in Node.js Applications](https://freedium.cfd/https://medium.com/p/c27662632a28) | [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 20:11:29 GMT | [Contra Doctrine Manual 1 (CDM-1) — Field Manual of Origin](https://freedium.cfd/https://medium.com/p/92ef9685c430) | [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 19:26:55 GMT | [Linux Container Security](https://freedium.cfd/https://medium.com/p/1b5203f92af3) | [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 17:00:31 GMT | [Essential Tips to Defend Against Man-in-the-Middle Attacks](https://freedium.cfd/https://medium.com/p/52bc8177ab92) | [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 18:37:56 GMT | [Subdomain Discovery and Enumeration: From Noise to Valuable Targe...](https://freedium.cfd/https://medium.com/p/bbc42b644b74) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
-| Wed, 10 Sep 2025 19:22:01 GMT | [Web API Authentication and Authorization: A Friendly Guide with R...](https://freedium.cfd/https://medium.com/p/8505f40fd2c2) | [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 18:52:00 GMT | [Key Management: Securely Managing Encryption Keys](https://freedium.cfd/https://medium.com/p/267583300c1c) | [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 18:38:37 GMT | [Authentication](https://freedium.cfd/https://medium.com/p/186570c30570) | [security](https://medium.com/feed/tag/security) |  | Yes |
-| Wed, 10 Sep 2025 19:26:39 GMT | [Migrating Connected Apps to External Client Apps from an ISV / Ex...](https://freedium.cfd/https://medium.com/p/e155875a0974) | [security](https://medium.com/feed/tag/security) |  | Yes |
+| Wed, 10 Sep 2025 20:54:18 GMT | [ Next.js Middleware SSRF via Header Injection](https://freedium.cfd/https://medium.com/p/6cf03b58a90d) | [bug-bounty](https://medium.com/feed/tag/bug-bounty) |  | Yes |
