@@ -8,7 +8,7 @@ Writeups are separated from disclosed reports: Medium feed intelligence, methodo
 
 ## Sources
 
-- [medium-feed](medium-feed.md) - Generated Medium RSS feed preserved from the original repo (1 file, 124.8 KB)
+- [medium-feed](medium-feed.md) - Generated Medium RSS feed preserved from the original repo (1 file, 124.2 KB)
 - [methodology](methodology/) - Methodology notes and wordlists (4 files, 69.3 KB)
 - [awesome](awesome/) - Curated bug bounty writeup list (1 file, 77.9 KB)
 - [daily](daily/) - Daily writeup notes (1 file, 2.6 KB)
